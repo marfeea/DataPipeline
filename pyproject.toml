@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools<82.0.0", "wheel", "toml"]
+build-backend = "setuptools.build_meta"
+
 # Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
 # All rights reserved.
 #
@@ -102,7 +106,7 @@ docstring-code-format = true
 
 [tool.pyright]
 
-include = ["source", "scripts"]
+include = ["DataPipe", "scripts", "tests", "configs"]
 exclude = [
     "**/__pycache__",
     "**/_isaac_sim",
@@ -136,6 +140,9 @@ ignore-words-list = "haa,slq,collapsable,buss,reacher,thirdparty"
 
 
 [tool.pytest.ini_options]
+
+pythonpath = ["."]
+testpaths = ["tests"]
 
 markers = [
     "isaacsim_ci: mark test to run in isaacsim ci",

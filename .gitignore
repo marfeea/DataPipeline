@@ -64,8 +64,10 @@ _build
 # Teleop Recorded Dataset
 /datasets/
 
-# Tests
-tests/
+# Dataset outputs
+/data/
+*.h5
+*.hdf5
 
 # Docker history
 .isaac-lab-docker-history
@@ -73,3 +75,7 @@ tests/
 # TacSL sensor
 **/tactile_record/*
 **/gelsight_r15_data/*
+
+# Test scratch outputs
+.pytest_tmp*/
+tests/.tmp/
