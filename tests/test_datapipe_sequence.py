@@ -388,3 +388,36 @@ def test_align_place_direction_compares_tcp_and_target_in_world_frame() -> None:
     )
 
     assert command.stage is SequenceStage.PLACE_FINAL_Z
+
+@pytest.mark.parametrize("base_yaw", [0.0, pi / 2])
+def test_grasp_aligns_before_docking(base_yaw):
+    sequence = DatasetSequence(
+        preposition_b=(0.0, 0.0, 0.0), grasp_tcp_position_b=(0.1, 0.0, 0.0),
+        grasp_tcp_direction_w=(cos(base_yaw), sin(base_yaw), 0.0),
+        tcp_heading_axis=(1.0, 0.0, 0.0),
+        config=SequenceConfig(normal_dwell_steps=2), grasp_enabled=True,
+        initial_state=SequenceState(stage=SequenceStage.ALIGN_NORMAL),
+    )
+    def step(yaw, position=(0.0, 0.0, 0.0)):
+        return sequence.command(
+            _observation(position, (cos(yaw / 2), 0.0, 0.0, sin(yaw / 2)),
+                         base_quaternion=(cos(base_yaw / 2), 0.0, 0.0, sin(base_yaw / 2))),
+            active_waypoint_b=(0.0, 0.0, 0.0), active_waypoint_label="target_settle",
+            path_complete=True, closed_gripper_position=(0.0, 0.0),
+        )
+    for _ in range(4):
+        command = step(pi / 2)
+        assert command.stage is SequenceStage.ALIGN_NORMAL
+        assert command.target_position_b == (0.0, 0.0, 0.0)
+        assert command.arm_action[:3] == (0.0, 0.0, 0.0)
+        assert command.tcp_heading_target_rad == pytest.approx(pi / 2 - sequence.config.heading_step_rad)
+        assert command.flange_downward_enabled
+    assert step(0.0).stage is SequenceStage.ALIGN_NORMAL
+    assert step(pi / 2).stage is SequenceStage.ALIGN_NORMAL
+    assert step(0.0, (0.0, 0.0, 0.1)).stage is SequenceStage.ALIGN_NORMAL
+    assert step(0.0).stage is SequenceStage.ALIGN_NORMAL
+    command = step(0.0)
+    assert command.stage is SequenceStage.ADVANCE_NORMAL
+    assert command.target_position_b == (0.1, 0.0, 0.0)
+    assert command.tcp_heading_target_rad == pytest.approx(0.0)
+    assert step(0.2).tcp_heading_target_rad == pytest.approx(0.0)

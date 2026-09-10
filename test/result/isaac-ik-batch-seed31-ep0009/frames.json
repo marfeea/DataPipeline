@@ -1,0 +1,2925 @@
+{
+  "episode": "isaac-ik-batch-seed31-ep0009",
+  "executed_control_steps": 287,
+  "termination_reason": "success",
+  "frame_interval_control_steps": 12,
+  "control_frequency_hz": 12.0,
+  "depth_unit": "m",
+  "cameras": [
+    {
+      "name": "HandCamera",
+      "prim_path": "{ENV_REGEX_NS}/AUBObot/AUBO_E5/ClawTool_C/ClawTool_C/M_ClawTool_C1/HandCamera",
+      "source_reference": "D:\\Project\\S2R\\Asset\\AUBO_E5\\AUBO_E5_Withclaw.usd:/Root/AUBO_E5/ClawTool_C/ClawTool_C/M_ClawTool_C1/HandCamera; pose relative to /Root/AUBO_E5/ClawTool_C/ClawTool_C/M_ClawTool_C1"
+    },
+    {
+      "name": "CameraSensor_2",
+      "prim_path": "{ENV_REGEX_NS}/CameraSensor_2",
+      "source_reference": "configs.vision_diagnostics: Test current camera_cfg_2"
+    },
+    {
+      "name": "CameraSensor_3",
+      "prim_path": "{ENV_REGEX_NS}/CameraSensor_3",
+      "source_reference": "configs.vision_diagnostics: P0 external top-down diagnostic view"
+    }
+  ],
+  "frames": [
+    {
+      "camera": "HandCamera",
+      "control_step": 12,
+      "time_since_reset_s": 1.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0012_rgb.png",
+      "depth": "HandCamera_control_step_0012_depth.npy",
+      "camera_position_w": [
+        1.0642167329788208,
+        0.08892259001731873,
+        1.460797905921936
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4118533432483673,
+        0.6824232935905457,
+        0.5109716653823853,
+        -0.32184353470802307
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.6824232935905457,
+        0.4118533432483673,
+        0.32184353470802307,
+        0.5109716653823853
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 12,
+      "time_since_reset_s": 1.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0012_rgb.png",
+      "depth": "CameraSensor_2_control_step_0012_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 12,
+      "time_since_reset_s": 1.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0012_rgb.png",
+      "depth": "CameraSensor_3_control_step_0012_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 24,
+      "time_since_reset_s": 2.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0024_rgb.png",
+      "depth": "HandCamera_control_step_0024_depth.npy",
+      "camera_position_w": [
+        1.0451996326446533,
+        0.08813988417387009,
+        1.457448959350586
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4404398798942566,
+        0.7530477046966553,
+        0.41708433628082275,
+        -0.2548970580101013
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.7530477046966553,
+        0.4404398798942566,
+        0.2548970580101013,
+        0.41708433628082275
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 24,
+      "time_since_reset_s": 2.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0024_rgb.png",
+      "depth": "CameraSensor_2_control_step_0024_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 24,
+      "time_since_reset_s": 2.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0024_rgb.png",
+      "depth": "CameraSensor_3_control_step_0024_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 36,
+      "time_since_reset_s": 3.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0036_rgb.png",
+      "depth": "HandCamera_control_step_0036_depth.npy",
+      "camera_position_w": [
+        1.028135895729065,
+        0.08310138434171677,
+        1.4554835557937622
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4656161367893219,
+        0.8069006204605103,
+        0.31467387080192566,
+        -0.18191583454608917
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8069006204605103,
+        0.4656161367893219,
+        0.18191583454608917,
+        0.31467387080192566
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 36,
+      "time_since_reset_s": 3.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0036_rgb.png",
+      "depth": "CameraSensor_2_control_step_0036_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 36,
+      "time_since_reset_s": 3.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0036_rgb.png",
+      "depth": "CameraSensor_3_control_step_0036_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 48,
+      "time_since_reset_s": 4.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0048_rgb.png",
+      "depth": "HandCamera_control_step_0048_depth.npy",
+      "camera_position_w": [
+        1.014634609222412,
+        0.0737171322107315,
+        1.455709457397461
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4863027036190033,
+        0.8430916666984558,
+        0.2033953070640564,
+        -0.10647307336330414
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8430916666984558,
+        0.4863027036190033,
+        0.10647307336330414,
+        0.2033953070640564
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 48,
+      "time_since_reset_s": 4.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0048_rgb.png",
+      "depth": "CameraSensor_2_control_step_0048_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 48,
+      "time_since_reset_s": 4.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0048_rgb.png",
+      "depth": "CameraSensor_3_control_step_0048_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 60,
+      "time_since_reset_s": 5.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0060_rgb.png",
+      "depth": "HandCamera_control_step_0060_depth.npy",
+      "camera_position_w": [
+        1.0099854469299316,
+        0.05658691003918648,
+        1.4595355987548828
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4993015229701996,
+        0.8607485890388489,
+        0.0912284255027771,
+        -0.03856489062309265
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8607485890388489,
+        0.4993015229701996,
+        0.03856489062309265,
+        0.0912284255027771
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 60,
+      "time_since_reset_s": 5.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0060_rgb.png",
+      "depth": "CameraSensor_2_control_step_0060_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 60,
+      "time_since_reset_s": 5.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0060_rgb.png",
+      "depth": "CameraSensor_3_control_step_0060_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 72,
+      "time_since_reset_s": 6.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0072_rgb.png",
+      "depth": "HandCamera_control_step_0072_depth.npy",
+      "camera_position_w": [
+        1.0146538019180298,
+        0.07385050505399704,
+        1.4682804346084595
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.500726580619812,
+        0.8655411601066589,
+        0.010387158021330833,
+        -0.0018794010393321514
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8655411601066589,
+        0.5007265210151672,
+        0.0018794008065015078,
+        0.010387157090008259
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 72,
+      "time_since_reset_s": 6.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0072_rgb.png",
+      "depth": "CameraSensor_2_control_step_0072_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 72,
+      "time_since_reset_s": 6.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0072_rgb.png",
+      "depth": "CameraSensor_3_control_step_0072_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 84,
+      "time_since_reset_s": 7.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0084_rgb.png",
+      "depth": "HandCamera_control_step_0084_depth.npy",
+      "camera_position_w": [
+        1.0145986080169678,
+        0.13401253521442413,
+        1.4682979583740234
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.5000525712966919,
+        0.8659518361091614,
+        0.008611181750893593,
+        -0.0008509610779583454
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8659518361091614,
+        0.5000525712966919,
+        0.0008509611943736672,
+        0.008611181750893593
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 84,
+      "time_since_reset_s": 7.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0084_rgb.png",
+      "depth": "CameraSensor_2_control_step_0084_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 84,
+      "time_since_reset_s": 7.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0084_rgb.png",
+      "depth": "CameraSensor_3_control_step_0084_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 96,
+      "time_since_reset_s": 8.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0096_rgb.png",
+      "depth": "HandCamera_control_step_0096_depth.npy",
+      "camera_position_w": [
+        1.0142850875854492,
+        0.19444839656352997,
+        1.467854380607605
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4993290901184082,
+        0.8663675785064697,
+        0.008798407390713692,
+        -0.0005836454220116138
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8663675785064697,
+        0.49932900071144104,
+        0.0005836454220116138,
+        0.008798406459391117
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 96,
+      "time_since_reset_s": 8.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0096_rgb.png",
+      "depth": "CameraSensor_2_control_step_0096_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 96,
+      "time_since_reset_s": 8.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0096_rgb.png",
+      "depth": "CameraSensor_3_control_step_0096_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 108,
+      "time_since_reset_s": 9.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0108_rgb.png",
+      "depth": "HandCamera_control_step_0108_depth.npy",
+      "camera_position_w": [
+        1.072798490524292,
+        0.20191481709480286,
+        1.4680062532424927
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49899765849113464,
+        0.8665589690208435,
+        0.00873557385057211,
+        -0.000748520833440125
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8665589690208435,
+        0.49899765849113464,
+        0.000748520833440125,
+        0.00873557385057211
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 108,
+      "time_since_reset_s": 9.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0108_rgb.png",
+      "depth": "CameraSensor_2_control_step_0108_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 108,
+      "time_since_reset_s": 9.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0108_rgb.png",
+      "depth": "CameraSensor_3_control_step_0108_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 120,
+      "time_since_reset_s": 10.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0120_rgb.png",
+      "depth": "HandCamera_control_step_0120_depth.npy",
+      "camera_position_w": [
+        1.1316397190093994,
+        0.20186850428581238,
+        1.4684966802597046
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49895429611206055,
+        0.8665872812271118,
+        0.008332525379955769,
+        -0.0012957266299054027
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8665872812271118,
+        0.49895429611206055,
+        0.0012957267463207245,
+        0.008332525379955769
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 120,
+      "time_since_reset_s": 10.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0120_rgb.png",
+      "depth": "CameraSensor_2_control_step_0120_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 120,
+      "time_since_reset_s": 10.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0120_rgb.png",
+      "depth": "CameraSensor_3_control_step_0120_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 132,
+      "time_since_reset_s": 11.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0132_rgb.png",
+      "depth": "HandCamera_control_step_0132_depth.npy",
+      "camera_position_w": [
+        1.1966854333877563,
+        0.20163843035697937,
+        1.4689379930496216
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4989243149757385,
+        0.8666079640388489,
+        0.007841506041586399,
+        -0.0019305417081341147
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8666079640388489,
+        0.4989243149757385,
+        0.0019305419409647584,
+        0.007841506041586399
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 132,
+      "time_since_reset_s": 11.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0132_rgb.png",
+      "depth": "CameraSensor_2_control_step_0132_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 132,
+      "time_since_reset_s": 11.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0132_rgb.png",
+      "depth": "CameraSensor_3_control_step_0132_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 144,
+      "time_since_reset_s": 12.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0144_rgb.png",
+      "depth": "HandCamera_control_step_0144_depth.npy",
+      "camera_position_w": [
+        1.2618718147277832,
+        0.2014348804950714,
+        1.4690543413162231
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4986540675163269,
+        0.8667643666267395,
+        0.007618395611643791,
+        -0.002363652689382434
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8667644262313843,
+        0.4986540377140045,
+        0.0023636524565517902,
+        0.007618394680321217
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 144,
+      "time_since_reset_s": 12.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0144_rgb.png",
+      "depth": "CameraSensor_2_control_step_0144_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 144,
+      "time_since_reset_s": 12.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0144_rgb.png",
+      "depth": "CameraSensor_3_control_step_0144_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 156,
+      "time_since_reset_s": 13.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0156_rgb.png",
+      "depth": "HandCamera_control_step_0156_depth.npy",
+      "camera_position_w": [
+        1.3252971172332764,
+        0.16687320172786713,
+        1.4692301750183105
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4986341595649719,
+        0.8667764663696289,
+        0.007353158667683601,
+        -0.0029006993863731623
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8667764663696289,
+        0.4986342489719391,
+        0.0029007000848650932,
+        0.007353159133344889
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 156,
+      "time_since_reset_s": 13.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0156_rgb.png",
+      "depth": "CameraSensor_2_control_step_0156_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 156,
+      "time_since_reset_s": 13.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0156_rgb.png",
+      "depth": "CameraSensor_3_control_step_0156_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 168,
+      "time_since_reset_s": 14.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0168_rgb.png",
+      "depth": "HandCamera_control_step_0168_depth.npy",
+      "camera_position_w": [
+        1.3747996091842651,
+        0.13139751553535461,
+        1.4690392017364502
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.498391717672348,
+        0.8669177889823914,
+        0.007018375676125288,
+        -0.003164812456816435
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8669177889823914,
+        0.49839165806770325,
+        0.003164812223985791,
+        0.007018374279141426
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 168,
+      "time_since_reset_s": 14.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0168_rgb.png",
+      "depth": "CameraSensor_2_control_step_0168_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 168,
+      "time_since_reset_s": 14.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0168_rgb.png",
+      "depth": "CameraSensor_3_control_step_0168_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 180,
+      "time_since_reset_s": 15.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0180_rgb.png",
+      "depth": "HandCamera_control_step_0180_depth.npy",
+      "camera_position_w": [
+        1.4086954593658447,
+        0.10827028751373291,
+        1.4687702655792236
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49796921014785767,
+        0.867161750793457,
+        0.006630095653235912,
+        -0.003638180671259761
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.867161750793457,
+        0.49796921014785767,
+        0.003638180671259761,
+        0.006630095653235912
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 180,
+      "time_since_reset_s": 15.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0180_rgb.png",
+      "depth": "CameraSensor_2_control_step_0180_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 180,
+      "time_since_reset_s": 15.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0180_rgb.png",
+      "depth": "CameraSensor_3_control_step_0180_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 192,
+      "time_since_reset_s": 16.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0192_rgb.png",
+      "depth": "HandCamera_control_step_0192_depth.npy",
+      "camera_position_w": [
+        1.4413799047470093,
+        0.08580008149147034,
+        1.4686614274978638
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4978007376194,
+        0.8672584295272827,
+        0.006231300067156553,
+        -0.004293595906347036
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8672584295272827,
+        0.4978007376194,
+        0.004293595906347036,
+        0.006231300067156553
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 192,
+      "time_since_reset_s": 16.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0192_rgb.png",
+      "depth": "CameraSensor_2_control_step_0192_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 192,
+      "time_since_reset_s": 16.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0192_rgb.png",
+      "depth": "CameraSensor_3_control_step_0192_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 204,
+      "time_since_reset_s": 17.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0204_rgb.png",
+      "depth": "HandCamera_control_step_0204_depth.npy",
+      "camera_position_w": [
+        1.4798846244812012,
+        0.05942549183964729,
+        1.4685771465301514
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49790850281715393,
+        0.8671953082084656,
+        0.0057801855728030205,
+        -0.005101104732602835
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8671953082084656,
+        0.49790850281715393,
+        0.005101104732602835,
+        0.0057801855728030205
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 204,
+      "time_since_reset_s": 17.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0204_rgb.png",
+      "depth": "CameraSensor_2_control_step_0204_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 204,
+      "time_since_reset_s": 17.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0204_rgb.png",
+      "depth": "CameraSensor_3_control_step_0204_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 216,
+      "time_since_reset_s": 18.0,
+      "semantic_stage_id": 0,
+      "rgb": "HandCamera_control_step_0216_rgb.png",
+      "depth": "HandCamera_control_step_0216_depth.npy",
+      "camera_position_w": [
+        1.5293282270431519,
+        0.025148039683699608,
+        1.4685405492782593
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49840986728668213,
+        0.8669047951698303,
+        0.0054476321674883366,
+        -0.005830292124301195
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8669047951698303,
+        0.49840986728668213,
+        0.005830292124301195,
+        0.0054476321674883366
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 216,
+      "time_since_reset_s": 18.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_2_control_step_0216_rgb.png",
+      "depth": "CameraSensor_2_control_step_0216_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 216,
+      "time_since_reset_s": 18.0,
+      "semantic_stage_id": 0,
+      "rgb": "CameraSensor_3_control_step_0216_rgb.png",
+      "depth": "CameraSensor_3_control_step_0216_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 228,
+      "time_since_reset_s": 19.0,
+      "semantic_stage_id": 1,
+      "rgb": "HandCamera_control_step_0228_rgb.png",
+      "depth": "HandCamera_control_step_0228_depth.npy",
+      "camera_position_w": [
+        1.5386624336242676,
+        0.01851862482726574,
+        1.3993817567825317
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49869483709335327,
+        0.8667395114898682,
+        0.005427964963018894,
+        -0.006055410485714674
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8667395114898682,
+        0.4986947774887085,
+        0.006055409554392099,
+        0.00542796403169632
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 228,
+      "time_since_reset_s": 19.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_2_control_step_0228_rgb.png",
+      "depth": "CameraSensor_2_control_step_0228_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 228,
+      "time_since_reset_s": 19.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_3_control_step_0228_rgb.png",
+      "depth": "CameraSensor_3_control_step_0228_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 240,
+      "time_since_reset_s": 20.0,
+      "semantic_stage_id": 1,
+      "rgb": "HandCamera_control_step_0240_rgb.png",
+      "depth": "HandCamera_control_step_0240_depth.npy",
+      "camera_position_w": [
+        1.5382053852081299,
+        0.018182655796408653,
+        1.3190405368804932
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4988155961036682,
+        0.8666703104972839,
+        0.005569595377892256,
+        -0.005881049204617739
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8666703104972839,
+        0.49881553649902344,
+        0.005881048273295164,
+        0.0055695949122309685
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 240,
+      "time_since_reset_s": 20.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_2_control_step_0240_rgb.png",
+      "depth": "CameraSensor_2_control_step_0240_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 240,
+      "time_since_reset_s": 20.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_3_control_step_0240_rgb.png",
+      "depth": "CameraSensor_3_control_step_0240_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 252,
+      "time_since_reset_s": 21.0,
+      "semantic_stage_id": 1,
+      "rgb": "HandCamera_control_step_0252_rgb.png",
+      "depth": "HandCamera_control_step_0252_depth.npy",
+      "camera_position_w": [
+        1.537793755531311,
+        0.017963873222470284,
+        1.2418725490570068
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49887582659721375,
+        0.866635799407959,
+        0.005641979165375233,
+        -0.005780898965895176
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.866635799407959,
+        0.49887579679489136,
+        0.005780898034572601,
+        0.005641978234052658
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 252,
+      "time_since_reset_s": 21.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_2_control_step_0252_rgb.png",
+      "depth": "CameraSensor_2_control_step_0252_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 252,
+      "time_since_reset_s": 21.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_3_control_step_0252_rgb.png",
+      "depth": "CameraSensor_3_control_step_0252_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 264,
+      "time_since_reset_s": 22.0,
+      "semantic_stage_id": 1,
+      "rgb": "HandCamera_control_step_0264_rgb.png",
+      "depth": "HandCamera_control_step_0264_depth.npy",
+      "camera_position_w": [
+        1.5374009609222412,
+        0.01774825155735016,
+        1.1633882522583008
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.49890995025634766,
+        0.866616427898407,
+        0.005670864135026932,
+        -0.0057167778722941875
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.866616427898407,
+        0.49890995025634766,
+        0.0057167778722941875,
+        0.005670864135026932
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 264,
+      "time_since_reset_s": 22.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_2_control_step_0264_rgb.png",
+      "depth": "CameraSensor_2_control_step_0264_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 264,
+      "time_since_reset_s": 22.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_3_control_step_0264_rgb.png",
+      "depth": "CameraSensor_3_control_step_0264_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "HandCamera",
+      "control_step": 276,
+      "time_since_reset_s": 23.0,
+      "semantic_stage_id": 1,
+      "rgb": "HandCamera_control_step_0276_rgb.png",
+      "depth": "HandCamera_control_step_0276_depth.npy",
+      "camera_position_w": [
+        1.5370237827301025,
+        0.017534278333187103,
+        1.0875086784362793
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4988911747932434,
+        0.8666273951530457,
+        0.005627812352031469,
+        -0.005733151454478502
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8666273951530457,
+        0.4988911747932434,
+        0.005733151454478502,
+        0.005627812352031469
+      ],
+      "intrinsic_matrix": [
+        [
+          138.56405639648438,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          138.56405639648438,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_2",
+      "control_step": 276,
+      "time_since_reset_s": 23.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_2_control_step_0276_rgb.png",
+      "depth": "CameraSensor_2_control_step_0276_depth.npy",
+      "camera_position_w": [
+        1.2999999523162842,
+        -0.800000011920929,
+        2.0
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        -0.4999921917915344,
+        0.8660299181938171,
+        1.2855601916328396e-08,
+        -2.883490957117374e-08
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.8660299181938171,
+        0.49999213218688965,
+        2.88349077948169e-08,
+        1.2855600139971557e-08
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "camera": "CameraSensor_3",
+      "control_step": 276,
+      "time_since_reset_s": 23.0,
+      "semantic_stage_id": 1,
+      "rgb": "CameraSensor_3_control_step_0276_rgb.png",
+      "depth": "CameraSensor_3_control_step_0276_depth.npy",
+      "camera_position_w": [
+        2.700000047683716,
+        0.0,
+        1.2999999523162842
+      ],
+      "camera_quaternion_w_ros_wxyz": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "camera_quaternion_w_opengl_wxyz": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "intrinsic_matrix": [
+        [
+          183.24981689453125,
+          0.0,
+          80.0
+        ],
+        [
+          0.0,
+          183.24981689453125,
+          60.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ]
+}

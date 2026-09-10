@@ -1,7 +1,7 @@
 """使用正式 AUBO IK ManagerBased 环境采集一小批真实 Isaac episode。
 
-该入口只在 Isaac Lab Python 中运行。它通过临时场景配置挂载项目既有的前视、侧视
-和俯视三路 CameraSensor；动作、奖励、终止和 IK 诊断均消费正式环境对象。
+该入口只在 Isaac Lab Python 中运行。采集 HandCamera、CameraSensor_2 和 CameraSensor_3，
+并每 12 个控制步导出三路 RGB、深度和相机位姿到 test/result。
 """
 
 from __future__ import annotations
@@ -95,7 +95,7 @@ parser.add_argument(
     "--normal-angle-tolerance-deg",
     type=float,
     default=5.0,
-    help="pick-place 平面 heading 到位容差；抓取前 ALIGN_NORMAL 不使用，单位度",
+    help="抓取和放置的 XOY 平面 heading 到位容差，单位度",
 )
 parser.add_argument("--normal-dwell-steps", type=int, default=3)
 parser.add_argument("--gripper-dwell-steps", type=int, default=3)
@@ -199,6 +199,20 @@ from DataPipe.hdf5_writer import HDF5TrajectoryWriter  # noqa: E402
 from DataPipe.isaac_gripper import DatasetGripperController  # noqa: E402
 from DataPipe.isaac_scene import make_dataset_ik_env_cfg  # noqa: E402
 from DataPipe.trajectory import advance_reached_waypoints, make_plan  # noqa: E402
+from DataPipe.collection_cameras import (  # noqa: E402
+    add_camera_world_poses,
+    configure_collection_cameras,
+    export_episode_frames,
+)
+
+
+class CameraExportingTrajectoryWriter(HDF5TrajectoryWriter):
+    """Write the full dataset and sparse three-camera inspection images."""
+
+    def write(self, episode: Any, *, metadata: Any = None) -> str:
+        result = super().write(episode, metadata=metadata)
+        export_episode_frames(episode, self.config.cameras, self.config.control_frequency_hz)
+        return result
 
 # ------------------------------ 写入的奖励分量 ------------------------------
 # 这些名字与正式 runtime reward 对齐；每一步同时保存总 reward 和分量，便于重播验收、
@@ -244,7 +258,7 @@ def _make_env_cfg(
     逻辑都由 ``make_dataset_ik_env_cfg`` 统一提供，本函数只做入口层转发。
     """
 
-    return make_dataset_ik_env_cfg(
+    cfg, camera_specs = make_dataset_ik_env_cfg(
         width,
         height,
         control_hz=control_hz,
@@ -254,6 +268,7 @@ def _make_env_cfg(
         isolate_collection_sequence=isolate_collection_sequence,
         episode_length_s=episode_length_s,
     )
+    return configure_collection_cameras(cfg, camera_specs)
 
 
 def _first_env(value: Any) -> Any:
@@ -500,8 +515,6 @@ def _snapshot(
         "desired_approach_axis_b": np.asarray(desired_approach_axis_b, dtype=np.float32),
         "advance_target_position_b": np.asarray(advance_target_position_b, dtype=np.float32),
     }
-    # 将 Isaac 场景中的相机实体名转换为数据集更易读的视图名。
-    camera_field_names = {"camera_cfg": "front", "camera_cfg_2": "side", "camera_cfg_3": "top"}
     # 将 Isaac data_type 名称转换为数据集字段名；未列出的类型不写盘。
     camera_key_names = {
         "rgb": "image",
@@ -511,15 +524,14 @@ def _snapshot(
     }
     # ``camera_name`` 是场景实体名，``values`` 是该相机当前步的全部输出。
     for camera_name, values in camera_payload.items():
-        # ``view_name`` 是 front/side/top 等数据集视图名。
-        view_name = camera_field_names.get(camera_name, camera_name)
         # ``data_type`` 是 CameraSensor 输出类型，``data`` 是单环境原始张量。
         for data_type, data in values.items():
             # ``field_name`` 是最终写入的 image/depth/mask 字段；None 表示忽略。
             field_name = camera_key_names.get(data_type)
             if field_name is not None:
-                # 字段命名形如 image_front、depth_side、foreground_mask_top。
-                value[f"{field_name}_{view_name}"] = _numpy(data)
+                # 字段保留相机来源名，例如 image_HandCamera、depth_CameraSensor_2。
+                value[f"{field_name}_{camera_name}"] = _numpy(data)
+    add_camera_world_poses(value, unwrapped, camera_payload)
     return value
 
 
@@ -835,7 +847,7 @@ def main() -> int:
     # ``camera_adapter`` 检查三路相机是否与同一仿真步同步。
     camera_adapter = CameraCaptureAdapter(camera_specs)
     # ``writer`` 负责将完整 Episode 序列化为 HDF5 manifest/shard，并保存批次元数据。
-    writer = HDF5TrajectoryWriter(
+    writer = CameraExportingTrajectoryWriter(
         args_cli.output_dir,
         DatasetConfig(
             episodes_per_shard=2,
@@ -1037,6 +1049,7 @@ def main() -> int:
             sequence = DatasetSequence(
                 preposition_b=active_target_position_b,
                 grasp_tcp_position_b=active_grasp_tcp_position_b,
+                grasp_tcp_direction_w=_target_tcp_direction_w(args_cli.target_state_index),
                 lift_position_b=lift_position_b,
                 place_high_position_b=place_high_position_b,
                 place_position_b=place_position_b,
@@ -1121,7 +1134,7 @@ def main() -> int:
                     "Flange-down mode zeros incremental rotation and resolves orientation from tcp_heading_target"
                 ),
                 "tcp_heading_semantics": (
-                    "normalized XOY heading terminal value; ALIGN_PLACE_DIRECTION uses bounded heading steps; "
+                    "normalized XOY heading terminal value; ALIGN_NORMAL and ALIGN_PLACE_DIRECTION use bounded heading steps; "
                     "Flange normal remains downward in every sequence stage"
                 ),
                 "tcp_heading_step_rad": sequence_config.heading_step_rad,
@@ -1135,6 +1148,7 @@ def main() -> int:
                 "object_rotation_wxyz": TARGET_STATES[args_cli.target_state_index].rotation_wxyz,
                 "desired_approach_axis_b": tuple(float(value) for value in active_desired_axis_b),
                 "advance_target_position_b": tuple(float(value) for value in active_advance_target_position_b),
+                "grasp_tcp_direction_w": tuple(float(value) for value in sequence.grasp_tcp_direction_w),
                 "grasp_tcp_position_e": TARGET_STATES[args_cli.target_state_index].grasp_tcp_position_e,
                 "grasp_tcp_position_b": tuple(float(value) for value in active_grasp_tcp_position_b),
                 "place_tcp_position_e": place_tcp_position_e,

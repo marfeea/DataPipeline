@@ -60,8 +60,9 @@ DIAGNOSTIC_CAMERA_POSES: Final = (
     DiagnosticCameraPoseCfg(
         scene_name="camera_cfg",
         prim_name="CameraSensor",
-        workstation_offset_e=(1.4, 0.0, 1.3),
-        rotation_wxyz=(0.5, 0.5, 0.5, 0.5),
+        
+        workstation_offset_e=(0.0, 0.0, 2.6),
+        rotation_wxyz=(1.0, 0.0, 0.0, 0.0),
         pose_convention="opengl",
         source_reference="Test current camera_cfg",
     ),
@@ -76,8 +77,8 @@ DIAGNOSTIC_CAMERA_POSES: Final = (
     DiagnosticCameraPoseCfg(
         scene_name="camera_cfg_3",
         prim_name="CameraSensor_3",
-        workstation_offset_e=(0.0, 0.0, 2.8),
-        rotation_wxyz=(1.0, 0.0, 0.0, 0.0),
+        workstation_offset_e=(1.4, 0.0, 1.3),
+        rotation_wxyz=(0.5, 0.5, 0.5, 0.5),
         pose_convention="opengl",
         source_reference="P0 external top-down diagnostic view",
     ),

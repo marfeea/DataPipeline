@@ -49,7 +49,7 @@ $isaac = "D:\Anaconda\envs\isaaclab\python.exe"
 
 ## 多阶段采集状态
 
-采集器默认 `position-only`，兼容原有高位 XOY 接近与 Z 下降。`grasp` 模式在此后按 `ALIGN_NORMAL -> ADVANCE_NORMAL -> CLOSE_GRIPPER -> HOLD_COMPLETE` 执行；`pick-place` 则在闭爪后继续 `LIFT_OBJECT -> PLACE_HIGH_XY -> ALIGN_PLACE_DIRECTION -> PLACE_FINAL_Z -> PLACE_FINAL_XY -> RELEASE_GRIPPER -> PLACE_COMPLETE`。全程由同一 Flange-down 约束保持 Flange 法向朝下；`ALIGN_NORMAL` 在抓取前只做位置 dwell，`ADVANCE_NORMAL` 复用固定 TCP 姿态完成位移，TCP 的 XOY 平面朝向另作为第 7 个动作分量记录。高位搬运沿最短角度分支同步过渡到源/目标 heading 的中点，到达目标上方后再完成剩余转向；这避开“源上方转完整角度”的 q6 限位分支和“全程保持源 heading”的局部 IK 死点。阶段只由实测位置、TCP 平面朝向、夹爪位置和 dwell 门控。正式 RL 任务配置不变，只有采集环境副本隔离旧停车成功与“目标移动”终止。
+采集器默认 `position-only`，兼容原有高位 XOY 接近与 Z 下降。`grasp` 模式在此后按 `ALIGN_NORMAL -> ADVANCE_NORMAL -> CLOSE_GRIPPER -> HOLD_COMPLETE` 执行；`pick-place` 则在闭爪后继续 `LIFT_OBJECT -> PLACE_HIGH_XY -> ALIGN_PLACE_DIRECTION -> PLACE_FINAL_Z -> PLACE_FINAL_XY -> RELEASE_GRIPPER -> PLACE_COMPLETE`。全程由同一 Flange-down 约束保持 Flange 法向朝下；`ALIGN_NORMAL` 在预停靠位置按最短角度分支限步长对齐抓取目标的 TCP XOY 朝向，位置与朝向同时满足 dwell 后才前进，`ADVANCE_NORMAL` 复用固定 TCP 姿态完成位移，TCP 的 XOY 平面朝向另作为第 7 个动作分量记录。高位搬运沿最短角度分支同步过渡到源/目标 heading 的中点，到达目标上方后再完成剩余转向；这避开“源上方转完整角度”的 q6 限位分支和“全程保持源 heading”的局部 IK 死点。阶段只由实测位置、TCP 平面朝向、夹爪位置和 dwell 门控。正式 RL 任务配置不变，只有采集环境副本隔离旧停车成功与“目标移动”终止。
 
 GUI replay 启动后会读取 `configs.render.TEST_RENDER_CFG`，将 viewport camera 设置为项目视角：eye `(-0.5, 0.2, 1.25)`，target `(0.5, 0.2, 1.25)`；这与 CameraSensor 三路观测相机是两套独立配置。
 
@@ -110,7 +110,7 @@ $episode = ((Get-Content "<OUTPUT_DIR>\manifest.json" -Raw | ConvertFrom-Json).e
 | `--normal-advance-distance-m` | `0.075` | `task.py` 中配置的 preposition 到闭爪抓取 TCP 点的距离，单位 m；显式传入时必须保持为该值。 |
 | `--place-state-index` | `None` | `pick-place` 必填的目标 state 索引；放置 TCP 位置取该 state 的 `grasp_tcp_position_e`，索引范围 `0..3`。 |
 | `--lift-clearance-m` | `None` | `pick-place` 必填的正抬升间隙，单位 m。 |
-| `--normal-angle-tolerance-deg` | `5.0` | `pick-place` 的 TCP 平面 heading 到位容差；抓取前 `ALIGN_NORMAL` 不使用，单位度。 |
+| `--normal-angle-tolerance-deg` | `5.0` | 抓取与放置的 TCP 平面 heading 到位容差，单位度。 |
 | `--normal-dwell-steps` / `--gripper-dwell-steps` | `3` / `3` | 姿态/位置与夹爪到位所需连续步数。 |
 | `--gripper-position-tolerance` | `0.008` | 两夹爪关节到位容差。 |
 | `--gripper-open-position` | `0.0115 -0.0115` | `UpperFinger DownFinger` 张开目标。 |
@@ -121,7 +121,7 @@ $episode = ((Get-Content "<OUTPUT_DIR>\manifest.json" -Raw | ConvertFrom-Json).e
 
 入口强制启用 CameraSensor；其他 Isaac Lab 公共启动参数由 `AppLauncher` 提供。
 
-所有阶段使用 `flange_down_6d`；进入 `ADVANCE_NORMAL` 前完成 Z/位置对齐，随后沿抓取 TCP 终点位移并保持 TCP 朝向。第 7 维 `tcp_heading_target` 是 XOY 平面朝向的归一化终端值；`PLACE_HIGH_XY` 在搬运时过渡到源/目标 heading 的角度中点，`ALIGN_PLACE_DIRECTION` 到达目标上方后完成剩余转向，两阶段沿角度 wrap 后的最短分支每步最多改变 5°，并通过考虑 TCP 偏置的迭代几何求解转换为 Flange-down yaw。前六维仍提交给原 action adapter，但该 adapter 在 Flange-down 模式下会把旋转增量置零，姿态由 heading 目标生成；IK 数学求解器本身未修改。夹爪命令由独立 adapter 映射到两个关节目标，不能进入六关节 IK。HDF5 记录 8 维归一化动作、`semantic_stage_id`、独立 `waypoint_index`、两夹爪关节状态，以及 `tcp_heading_target/actual/first_five/sixth_axis/error` 诊断。新旧 schema 必须使用不同输出目录，writer 会拒绝混写；validator 仍接受迁移期间已生成的旧 v3 阶段顺序。
+所有阶段使用 `flange_down_6d`；进入 `ADVANCE_NORMAL` 前完成 Z/位置及抓取 TCP XOY 朝向对齐，随后沿抓取 TCP 终点位移并保持 TCP 朝向。第 7 维 `tcp_heading_target` 是 XOY 平面朝向的归一化终端值；`PLACE_HIGH_XY` 在搬运时过渡到源/目标 heading 的角度中点，`ALIGN_PLACE_DIRECTION` 到达目标上方后完成剩余转向，两阶段沿角度 wrap 后的最短分支每步最多改变 5°，并通过考虑 TCP 偏置的迭代几何求解转换为 Flange-down yaw。前六维仍提交给原 action adapter，但该 adapter 在 Flange-down 模式下会把旋转增量置零，姿态由 heading 目标生成；IK 数学求解器本身未修改。夹爪命令由独立 adapter 映射到两个关节目标，不能进入六关节 IK。HDF5 记录 8 维归一化动作、`semantic_stage_id`、独立 `waypoint_index`、两夹爪关节状态，以及 `tcp_heading_target/actual/first_five/sixth_axis/error` 诊断。新旧 schema 必须使用不同输出目录，writer 会拒绝混写；validator 仍接受迁移期间已生成的旧 v3 阶段顺序。
 
 action replay 从 episode 元数据恢复 `ik_constraint_mode` 和 yaw；没有这些字段的旧数据继续使用原 runtime curriculum IK，不会被静默切换到 Flange-down。
 

@@ -82,8 +82,7 @@ PLACE_TRANSFER_HEADING_FRACTION = 0.5
 @dataclass(frozen=True, slots=True)
 class SequenceConfig:
     position_tolerance_m: float = 0.01
-    # 字段名沿用旧 CLI；当前仅作为 pick-place 平面 heading 的到位门限，
-    # 抓取前的 ALIGN_NORMAL 不再执行 TCP 法向旋转。
+    # 字段名沿用旧 CLI；用于抓取和放置的 XOY 平面 heading 到位门限。
     normal_angle_tolerance_rad: float = 5.0 * pi / 180.0
     normal_dwell_steps: int = 3
     advance_distance_m: float = 0.0
@@ -318,6 +317,7 @@ class DatasetSequence:
         preposition_b: Sequence[float],
         target_b: Sequence[float] | None = None,
         grasp_tcp_position_b: Sequence[float] | None = None,
+        grasp_tcp_direction_w: Sequence[float] | None = None,
         lift_position_b: Sequence[float] | None = None,
         place_high_position_b: Sequence[float] | None = None,
         place_position_b: Sequence[float] | None = None,
@@ -355,6 +355,11 @@ class DatasetSequence:
             )
             if legacy_target
             else direction_target_b
+        )
+        self.grasp_tcp_direction_w = (
+            normalize(grasp_tcp_direction_w, name="grasp_tcp_direction_w")
+            if grasp_tcp_direction_w is not None
+            else None
         )
         self.advance_target_b = self.grasp_tcp_position_b
         if not legacy_target and config.advance_distance_m > 0.0:
@@ -490,7 +495,23 @@ class DatasetSequence:
             source_heading + PLACE_TRANSFER_HEADING_FRACTION * wrap_angle_rad(place_heading_rad - source_heading)
         )
 
+    def _grasp_heading_rad(self, observation: SequenceObservation) -> float:
+        if self.grasp_tcp_direction_w is not None:
+            return planar_heading_from_vector(
+                world_to_base_direction(self.grasp_tcp_direction_w, observation.base_quaternion_wxyz)
+            )
+        # 兼容未提供抓取方向的旧调用方。
+        if self.initial_tcp_heading_rad is not None:
+            return self.initial_tcp_heading_rad
+        return planar_heading_from_quaternion(observation.tcp_quaternion_b_wxyz, self.tcp_heading_axis)
+
     def _heading_target(self, observation: SequenceObservation, stage: SequenceStage) -> float:
+        if stage is SequenceStage.ALIGN_NORMAL:
+            return stepped_heading_target(
+                planar_heading_from_quaternion(observation.tcp_quaternion_b_wxyz, self.tcp_heading_axis),
+                self._grasp_heading_rad(observation),
+                self.config.heading_step_rad,
+            )
         if stage in {SequenceStage.PLACE_HIGH_XY, SequenceStage.ALIGN_PLACE_DIRECTION}:
             current_heading = planar_heading_from_quaternion(
                 observation.tcp_quaternion_b_wxyz,
@@ -590,9 +611,12 @@ class DatasetSequence:
                 _norm(tuple(a - b for a, b in zip(observation.tcp_position_b, self.preposition_b, strict=True)))
                 <= self.config.position_tolerance_m
             )
-            # Flange-down 是全程硬约束，因此这里不能等待一个会要求改变 TCP
-            # 姿态的“法向对齐”条件；该阶段只负责 preposition 的位置 dwell。
-            dwell = self._qualified(position_ok)
+            # 保持预停靠位置和 Flange-down，仅调整 TCP 的 XOY 朝向。
+            heading_error = abs(wrap_angle_rad(
+                self._grasp_heading_rad(observation)
+                - planar_heading_from_quaternion(observation.tcp_quaternion_b_wxyz, self.tcp_heading_axis)
+            ))
+            dwell = self._qualified(position_ok and heading_error <= self.config.normal_angle_tolerance_rad)
             if dwell >= self.config.normal_dwell_steps:
                 self.state = SequenceState(
                     SequenceStage.ADVANCE_NORMAL,
