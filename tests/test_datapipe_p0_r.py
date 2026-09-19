@@ -25,7 +25,7 @@ from DataPipe import (  # noqa: E402
     tcp_delta_to_normalized_action,
 )
 from DataPipe.config import DATASET_SCHEMA_VERSION  # noqa: E402
-from DataPipe.hdf5_schema import validate_episode_group, wxyz_to_xyzw, xyzw_to_wxyz  # noqa: E402
+from DataPipe.hdf5_schema import _as_array, validate_episode_group, wxyz_to_xyzw, xyzw_to_wxyz  # noqa: E402
 from DataPipe.mamba_sequence_buffer import window_count  # noqa: E402
 from DataPipe.validator import validate_hdf5_dataset  # noqa: E402
 
@@ -81,6 +81,23 @@ def test_p0_r4_action_scales_round_trip() -> None:
 def test_p0_r6_quaternion_disk_order_round_trip() -> None:
     internal = (1.0, 2.0, 3.0, 0.7, 0.1, 0.2, 0.3)
     assert xyzw_to_wxyz(wxyz_to_xyzw(internal)) == internal
+
+
+def test_depth_observation_preserves_positive_infinity_for_ray_misses() -> None:
+    depth = np.asarray([0.25, np.inf], dtype=np.float32)
+
+    np.testing.assert_array_equal(_as_array(depth, name="depth_HandCamera"), depth)
+
+
+@pytest.mark.parametrize("invalid", [np.nan, -np.inf])
+def test_depth_observation_rejects_other_nonfinite_values(invalid: float) -> None:
+    with pytest.raises(ValueError, match="NaN or negative Inf"):
+        _as_array(np.asarray([0.25, invalid], dtype=np.float32), name="depth_HandCamera")
+
+
+def test_non_depth_observation_still_rejects_positive_infinity() -> None:
+    with pytest.raises(ValueError, match="contains NaN or Inf"):
+        _as_array(np.asarray([0.25, np.inf], dtype=np.float32), name="q")
 
 
 def test_sequence_v3_rejects_missing_required_observation_fields(tmp_path: Path) -> None:

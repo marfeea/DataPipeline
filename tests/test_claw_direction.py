@@ -26,7 +26,8 @@ from DataPipe.sequence import (
 
 
 @pytest.mark.parametrize("stage,next_stage", [
-    (SequenceStage.ALIGN_PLACE_DIRECTION, SequenceStage.PLACE_FINAL_Z),
+    (SequenceStage.ALIGN_PLACE_DIRECTION, SequenceStage.PLACE_HIGH_XY),
+    (SequenceStage.PLACE_HIGH_XY, SequenceStage.PLACE_FINAL_Z),
     (SequenceStage.PLACE_FINAL_Z, SequenceStage.PLACE_FINAL_XY),
     (SequenceStage.PLACE_FINAL_XY, SequenceStage.RELEASE_GRIPPER),
 ])
@@ -47,12 +48,16 @@ def test_wrong_physical_axis_cannot_descend_or_release(stage, next_stage):
     # Old TCP +Y is aligned, but the requested child +Y is 90 degrees away.
     wrong = (0, 0, 0, 1)
     correct = (sqrt(.5), 0, 0, sqrt(.5))
-    for q in (wrong, wrong, correct, wrong, correct):
-        result = command(q)
+    for _ in range(2):
+        result = command(wrong)
         assert result.stage is stage
         assert result.gripper_command == -1
         assert result.flange_downward_enabled
-    assert command(correct).stage is next_stage
+    for _ in range(2):
+        result = command(correct)
+        assert result.gripper_command == -1
+        assert result.flange_downward_enabled
+    assert result.stage is next_stage
 
 
 @pytest.mark.parametrize("index", range(len(TARGET_STATES)))

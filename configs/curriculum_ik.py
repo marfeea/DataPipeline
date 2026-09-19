@@ -59,7 +59,7 @@ IK_CURRICULUM_CFG: Final = CurriculumCfg(
     observation_schema_version=IK_OBSERVATION_SCHEMA_VERSION,
     levels=(
         CurriculumLevelCfg(
-            target_state_probabilities=(1.0, 0.0, 0.0, 0.0),
+            target_state_probabilities=(1.0, 0.0, 0.0, 0.0, 0.0),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 0.0, 0.0, 0.0),
             collision_profile_id="C1",
@@ -68,7 +68,7 @@ IK_CURRICULUM_CFG: Final = CurriculumCfg(
             stage_success=StageSuccessCfg(0.08, None, 3),
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(1.0, 0.0, 0.0, 0.0),
+            target_state_probabilities=(1.0, 0.0, 0.0, 0.0, 0.0),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C1",
@@ -78,7 +78,7 @@ IK_CURRICULUM_CFG: Final = CurriculumCfg(
             previous_level_sampling_probability=0.25,
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(0.25, 0.25, 0.25, 0.25),
+            target_state_probabilities=(0.2, 0.2, 0.2, 0.2, 0.2),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C2",
@@ -88,7 +88,7 @@ IK_CURRICULUM_CFG: Final = CurriculumCfg(
             previous_level_sampling_probability=0.25,
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(0.25, 0.25, 0.25, 0.25),
+            target_state_probabilities=(0.2, 0.2, 0.2, 0.2, 0.2),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C3",
@@ -98,7 +98,7 @@ IK_CURRICULUM_CFG: Final = CurriculumCfg(
             previous_level_sampling_probability=0.25,
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(0.25, 0.25, 0.25, 0.25),
+            target_state_probabilities=(0.2, 0.2, 0.2, 0.2, 0.2),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C3",

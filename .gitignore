@@ -79,3 +79,13 @@ _build
 # Test scratch outputs
 .pytest_tmp*/
 tests/.tmp/
+
+# Test directories and generated test artifacts
+**/test/
+**/tests/
+/test/
+/tests/
+
+# Data directories 
+**/data/
+/data/

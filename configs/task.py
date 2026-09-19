@@ -73,6 +73,13 @@ TARGET_STATES: Final = (
         (1.03235, -0.18557, 0.99091 + TCP_DOCKING_Z_OFFSET_E),
         (0.95735, -0.18557, 0.99091 + TCP_DOCKING_Z_OFFSET_E),
     ),
+    TargetState(
+        "sample_bottle_state_05",
+        (0.90264, -0.50461, 1.0915),
+        (1.0, 0.0, 0.0, 0.0),
+        (0.90264, -0.38461, 1.0915 + TCP_DOCKING_Z_OFFSET_E),
+        (0.90264, -0.45961, 1.0915 + TCP_DOCKING_Z_OFFSET_E),
+    ),
 )
 
 PARKING_ENTER_DISTANCE_M: Final = 0.04

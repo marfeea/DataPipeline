@@ -58,7 +58,7 @@ class CollisionProfileCfg:
 class CurriculumLevelCfg:
     """一个等级可控制的训练分布和辅助奖励，不含任务真值。"""
 
-    target_state_probabilities: tuple[float, float, float, float]
+    target_state_probabilities: tuple[float, ...]
     path_mode_probabilities: tuple[float, float, float]
     action_mask: tuple[float, float, float, float, float, float]
     collision_profile_id: str
@@ -192,7 +192,7 @@ CURRICULUM_CFG: Final = CurriculumCfg(
     observation_schema_version=CURRICULUM_V4_SCHEMA_VERSION,
     levels=(
         CurriculumLevelCfg(
-            target_state_probabilities=(1.0, 0.0, 0.0, 0.0),
+            target_state_probabilities=(1.0, 0.0, 0.0, 0.0, 0.0),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C1",
@@ -203,7 +203,7 @@ CURRICULUM_CFG: Final = CurriculumCfg(
             stage_success=StageSuccessCfg(0.08, None, 3),
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(1.0, 0.0, 0.0, 0.0),
+            target_state_probabilities=(1.0, 0.0, 0.0, 0.0, 0.0),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C1",
@@ -213,7 +213,7 @@ CURRICULUM_CFG: Final = CurriculumCfg(
             previous_level_sampling_probability=0.25,
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(0.25, 0.25, 0.25, 0.25),
+            target_state_probabilities=(0.2, 0.2, 0.2, 0.2, 0.2),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C2",
@@ -223,7 +223,7 @@ CURRICULUM_CFG: Final = CurriculumCfg(
             previous_level_sampling_probability=0.25,
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(0.25, 0.25, 0.25, 0.25),
+            target_state_probabilities=(0.2, 0.2, 0.2, 0.2, 0.2),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C3",
@@ -234,7 +234,7 @@ CURRICULUM_CFG: Final = CurriculumCfg(
             previous_level_sampling_probability=0.25,
         ),
         CurriculumLevelCfg(
-            target_state_probabilities=(0.25, 0.25, 0.25, 0.25),
+            target_state_probabilities=(0.2, 0.2, 0.2, 0.2, 0.2),
             path_mode_probabilities=DIRECT_ONLY_PATH_MODE_PROBABILITIES,
             action_mask=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
             collision_profile_id="C3",

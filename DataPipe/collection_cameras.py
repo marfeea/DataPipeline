@@ -13,6 +13,8 @@ from typing import Any
 
 import numpy as np
 
+from DataPipe.hdf5_writer import HDF5TrajectoryWriter
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 RESULT_ROOT = PROJECT_ROOT / "test" / "result"
 FRAME_INTERVAL = 12
@@ -105,29 +107,44 @@ def _as_rgb(frame: np.ndarray) -> np.ndarray:
     return value
 
 
-def export_episode_frames(episode: Any, camera_specs: Any, control_hz: float) -> int:
+def export_episode_frames(
+    episode: Any, camera_specs: Any, control_hz: float, *, hdf5_path: str | Path
+) -> int:
     """Export post-step observations 12, 24, ... for all three cameras."""
 
     from PIL import Image
 
-    output_dir = RESULT_ROOT / episode.episode_id
+    hdf5_path = Path(hdf5_path).resolve()
+    output_dir = RESULT_ROOT / hdf5_path.parent.name / hdf5_path.stem / episode.episode_id
     output_dir.mkdir(parents=True, exist_ok=False)
+    camera_dirs = {"HandCamera": "handCamera", "CameraSensor_2": "camera2", "CameraSensor_3": "camera3"}
+    for spec in camera_specs:
+        (output_dir / camera_dirs.get(spec.name, spec.name)).mkdir()
+    controls = []
     frames = []
     for control_step in range(FRAME_INTERVAL, len(episode.observations), FRAME_INTERVAL):
         observation = episode.observations[control_step].value
+        # o_k is the result of a_(k-1), matching HDF5 obs[k] and actions[k-1].
+        step = episode.steps[control_step - 1]
+        controls.append({
+            "control_step": control_step,
+            "observation_index": control_step,
+            "action_index": control_step - 1,
+            "time_since_reset_s": control_step / control_hz,
+            "control": step.action.as_dict(),
+            "reward": step.reward,
+            "reward_components": dict(step.reward_components),
+        })
         for spec in camera_specs:
             stem = f"{spec.name}_control_step_{control_step:04d}"
-            rgb_path = output_dir / f"{stem}_rgb.png"
-            depth_path = output_dir / f"{stem}_depth.npy"
+            rgb_path = output_dir / camera_dirs.get(spec.name, spec.name) / f"{stem}_rgb.png"
             Image.fromarray(_as_rgb(observation[f"image_{spec.name}"])).save(rgb_path)
-            np.save(depth_path, np.asarray(observation[f"depth_{spec.name}"], dtype=np.float32))
             frames.append({
                 "camera": spec.name,
                 "control_step": control_step,
                 "time_since_reset_s": control_step / control_hz,
                 "semantic_stage_id": int(observation["semantic_stage_id"]),
-                "rgb": rgb_path.name,
-                "depth": depth_path.name,
+                "rgb": rgb_path.relative_to(output_dir).as_posix(),
                 "camera_position_w": observation[f"{spec.name}_position_w"].tolist(),
                 "camera_quaternion_w_ros_wxyz": observation[f"{spec.name}_quat_w_ros"].tolist(),
                 "camera_quaternion_w_opengl_wxyz": observation[f"{spec.name}_quat_w_opengl"].tolist(),
@@ -139,10 +156,25 @@ def export_episode_frames(episode: Any, camera_specs: Any, control_hz: float) ->
         "termination_reason": episode.termination_reason.value,
         "frame_interval_control_steps": FRAME_INTERVAL,
         "control_frequency_hz": control_hz,
-        "depth_unit": "m",
+        "hdf5_path": str(hdf5_path),
+        "hdf5_group": f"/data/demo_{episode.episode_id}",
+        "control_alignment": "obs[k] is the post-step image for actions[k-1]",
+        "controls": controls,
         "cameras": [{"name": spec.name, "prim_path": spec.prim_path,
                      "source_reference": spec.source_reference} for spec in camera_specs],
         "frames": frames,
     }
     (output_dir / "frames.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     return len(frames)
+
+
+class CameraExportingTrajectoryWriter(HDF5TrajectoryWriter):
+    """Persist every step to HDF5, then export sparse inspection data."""
+
+    def write(self, episode: Any, *, metadata: Any = None) -> str:
+        shard_path = super().write(episode, metadata=metadata)
+        export_episode_frames(
+            episode, self.config.cameras, self.config.control_frequency_hz,
+            hdf5_path=self.output_dir / shard_path,
+        )
+        return shard_path

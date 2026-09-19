@@ -98,15 +98,25 @@ def xyzw_to_wxyz(value: Sequence[float]) -> tuple[float, ...]:
 
 
 def _as_array(value: Any, *, name: str) -> np.ndarray:
-    """Convert a field to a finite ndarray without silently object-encoding it."""
+    """Convert a field to a numeric ndarray with field-specific non-finite rules.
+
+    Isaac uses positive infinity in depth images to represent a ray that did not
+    hit renderable geometry. Preserve that sensor meaning for ``depth_*`` fields,
+    while continuing to reject NaN, negative infinity, and every non-finite value
+    in physical state and control observations.
+    """
 
     if isinstance(value, str | bytes | bytearray) or value is None:
         raise TypeError(f"observation field {name!r} must be numeric")
     array = np.asarray(value)
     if array.dtype.kind not in "biuf":
         raise TypeError(f"observation field {name!r} must be numeric")
-    if array.dtype.kind in "uf" and not np.isfinite(array).all():
-        raise ValueError(f"observation field {name!r} contains NaN or Inf")
+    if array.dtype.kind in "uf":
+        if name.startswith("depth_"):
+            if np.isnan(array).any() or np.isneginf(array).any():
+                raise ValueError(f"depth observation field {name!r} contains NaN or negative Inf")
+        elif not np.isfinite(array).all():
+            raise ValueError(f"observation field {name!r} contains NaN or Inf")
     return array
 
 
@@ -176,6 +186,55 @@ def _write_dataset(group: Any, name: str, values: np.ndarray, *, compress: bool 
     group.create_dataset(name, data=values, **kwargs)
 
 
+_CAMERA_CALIBRATION_FIELDS = (
+    ("intrinsic_matrix", "intrinsic_matrix"),
+    ("position_w", "extrinsic_position_w"),
+    ("quat_w_ros", "extrinsic_quaternion_w_ros_wxyz"),
+    ("quat_w_opengl", "extrinsic_quaternion_w_opengl_wxyz"),
+)
+
+
+def _camera_calibration_field_map(keys: Sequence[str]) -> dict[str, dict[str, str]]:
+    """Find complete per-camera calibration fields in an observation key list."""
+
+    fields_by_camera: dict[str, dict[str, str]] = {}
+    for key in keys:
+        for suffix, disk_name in _CAMERA_CALIBRATION_FIELDS:
+            marker = f"_{suffix}"
+            if key.endswith(marker) and key[: -len(marker)]:
+                camera_name = key[: -len(marker)]
+                fields_by_camera.setdefault(camera_name, {})[disk_name] = key
+                break
+    expected = {disk_name for _, disk_name in _CAMERA_CALIBRATION_FIELDS}
+    incomplete = {
+        camera_name: sorted(expected.difference(fields))
+        for camera_name, fields in fields_by_camera.items()
+        if set(fields) != expected
+    }
+    if incomplete:
+        details = ", ".join(f"{name}: missing {missing}" for name, missing in sorted(incomplete.items()))
+        raise KeyError(f"incomplete camera calibration observations: {details}")
+    return fields_by_camera
+
+
+def _write_camera_calibration_links(group: Any, observation_group: Any, keys: Sequence[str]) -> None:
+    """Expose calibration under a semantic HDF5 path without copying datasets."""
+
+    fields_by_camera = _camera_calibration_field_map(keys)
+    if not fields_by_camera:
+        return
+    calibration_group = group.create_group("camera_calibration")
+    calibration_group.attrs["intrinsic_convention"] = "pixel-space pinhole K matrix"
+    calibration_group.attrs["extrinsic_convention"] = "camera pose in world; position plus camera-to-world quaternion"
+    calibration_group.attrs["axis"] = "T+1"
+    for camera_name, fields in sorted(fields_by_camera.items()):
+        camera_group = calibration_group.create_group(camera_name)
+        for disk_name, observation_key in fields.items():
+            # HDF5 hard links keep the canonical calibration path and obs path
+            # backed by one dataset, so calibration is not stored twice.
+            camera_group[disk_name] = observation_group[observation_key]
+
+
 def write_episode_group(group: Any, episode: Episode, *, metadata: Mapping[str, Any] | None = None) -> None:
     """Write one validated episode into an open ``data/demo_*`` group."""
 
@@ -183,10 +242,12 @@ def write_episode_group(group: Any, episode: Episode, *, metadata: Mapping[str, 
     if episode.length <= 0:
         raise ValueError("an HDF5 demo must contain at least one transition")
     observation_group = group.create_group(OBSERVATION_GROUP)
+    observation_field_keys = observation_keys(episode)
     for spec in field_specs(episode):
-        source_key = spec.name + "_wxyz" if spec.name + "_wxyz" in observation_keys(episode) else spec.name
+        source_key = spec.name + "_wxyz" if spec.name + "_wxyz" in observation_field_keys else spec.name
         compress = spec.name.startswith(("image_", "depth_", "foreground_mask"))
         _write_dataset(observation_group, spec.name, _stack_observation(episode, source_key), compress=compress)
+    _write_camera_calibration_links(group, observation_group, observation_field_keys)
 
     actions = np.asarray([step.action.action for step in episode.steps], dtype=np.float32)
     diagnostics = group.create_group("diagnostics")

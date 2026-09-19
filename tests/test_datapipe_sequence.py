@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from math import cos, pi, sin, sqrt
+from math import atan2, cos, pi, sin, sqrt
 
 import pytest
 
@@ -222,7 +222,7 @@ def test_grasp_mode_requires_an_explicit_grasp_tcp_position() -> None:
         )
 
 
-def test_pick_place_sequence_lifts_moves_xy_then_aligns_z_direction_and_releases() -> None:
+def test_pick_place_sequence_aligns_then_corrects_xy_then_descends_and_releases() -> None:
     sequence = DatasetSequence(
         tcp_heading_axis=(0.0, 1.0, 0.0),  # Explicit synthetic/legacy frame for these stage tests.
         preposition_b=(0.0, 0.0, 0.0),
@@ -273,7 +273,6 @@ def test_pick_place_sequence_lifts_moves_xy_then_aligns_z_direction_and_releases
     assert command.gripper_command == -1.0
 
     target_axis_quaternion = horizontal
-    place_approach_quaternion = (sqrt(0.5), 0.0, 0.0, sqrt(0.5))
     command = sequence.command(
         _observation((0.1, 0.0, 1.0), horizontal, (0.0, 0.0)),
         active_waypoint_b=(0.0, 0.0, 0.0),
@@ -284,34 +283,7 @@ def test_pick_place_sequence_lifts_moves_xy_then_aligns_z_direction_and_releases
     )
     assert command.stage is SequenceStage.PLACE_HIGH_XY
     assert command.target_position_b == pytest.approx((1.0, 0.0, 1.0))
-    source_heading = planar_heading_from_quaternion(horizontal, (0.0, 1.0, 0.0))
-    assert command.tcp_heading_target_rad == pytest.approx(source_heading)
     assert command.arm_action[3:] == pytest.approx((0.0, 0.0, 0.0))
-
-    command = sequence.command(
-        _observation((1.0, 0.0, 1.0), horizontal, (0.0, 0.0)),
-        active_waypoint_b=(0.0, 0.0, 0.0),
-        active_waypoint_label="target_settle",
-        path_complete=True,
-        closed_gripper_position=(0.0, 0.0),
-        open_gripper_position=(0.01, -0.01),
-    )
-    assert command.stage is SequenceStage.ALIGN_PLACE_DIRECTION
-    assert command.target_position_b == pytest.approx((1.0, 0.0, 1.0))
-
-    command = sequence.command(
-        _observation((1.0, 0.0, 1.0), place_approach_quaternion, (0.0, 0.0)),
-        active_waypoint_b=(0.0, 0.0, 0.0),
-        active_waypoint_label="target_settle",
-        path_complete=True,
-        closed_gripper_position=(0.0, 0.0),
-        open_gripper_position=(0.01, -0.01),
-    )
-    assert command.stage is SequenceStage.ALIGN_PLACE_DIRECTION
-    # Flange-down 姿态仅由独立 heading 控制；六维 IK 的旋转增量保持为零。
-    assert command.arm_action[3:] == pytest.approx((0.0, 0.0, 0.0))
-    current_heading = planar_heading_from_quaternion(place_approach_quaternion, (0.0, 1.0, 0.0))
-    assert abs(wrap_angle_rad(command.tcp_heading_target_rad - current_heading)) <= 5.0 * pi / 180.0 + 1.0e-9
 
     command = sequence.command(
         _observation((1.0, 0.0, 1.0), target_axis_quaternion, (0.0, 0.0)),
@@ -323,6 +295,7 @@ def test_pick_place_sequence_lifts_moves_xy_then_aligns_z_direction_and_releases
     )
     assert command.stage is SequenceStage.PLACE_FINAL_Z
     assert command.target_position_b == pytest.approx((1.0, 0.0, 0.2))
+    assert command.arm_action[:2] == pytest.approx((0.0, 0.0))
 
     command = sequence.command(
         _observation((1.0, 0.0, 0.2), target_axis_quaternion, (0.0, 0.0)),
@@ -345,10 +318,9 @@ def test_pick_place_sequence_lifts_moves_xy_then_aligns_z_direction_and_releases
     )
     assert command.stage is SequenceStage.RELEASE_GRIPPER
     assert command.gripper_command == 1.0
-    assert command.arm_action == (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
     command = sequence.command(
-        _observation((1.0, 0.0, 0.2), horizontal, (0.01, -0.01)),
+        _observation((1.0, 0.0, 0.2), target_axis_quaternion, (0.01, -0.01)),
         active_waypoint_b=(0.0, 0.0, 0.0),
         active_waypoint_label="target_settle",
         path_complete=True,
@@ -358,6 +330,47 @@ def test_pick_place_sequence_lifts_moves_xy_then_aligns_z_direction_and_releases
     assert command.stage is SequenceStage.PLACE_COMPLETE
     assert command.complete
     assert command.gripper_command == 1.0
+
+
+def test_place_direction_alignment_follows_fixed_radius_base_xoy_arc() -> None:
+    sequence = DatasetSequence(
+        preposition_b=(0.0, 0.0, 0.0),
+        grasp_tcp_position_b=(0.0, 0.0, 0.0),
+        lift_position_b=(1.0, 0.0, 1.0),
+        place_high_position_b=(0.0, 1.0, 1.0),
+        place_position_b=(0.0, 1.0, 0.2),
+        place_tcp_direction_w=(-1.0, 0.0, 0.0),
+        config=SequenceConfig(normal_dwell_steps=1, gripper_dwell_steps=1),
+        grasp_enabled=True,
+        place_enabled=True,
+        initial_state=SequenceState(stage=SequenceStage.ALIGN_PLACE_DIRECTION),
+    )
+
+    command = sequence.command(
+        _observation((1.0, 0.0, 1.0), (1.0, 0.0, 0.0, 0.0), (0.0, 0.0)),
+        active_waypoint_b=(0.0, 0.0, 0.0),
+        active_waypoint_label="target_settle",
+        path_complete=True,
+        closed_gripper_position=(0.0, 0.0),
+        open_gripper_position=(0.01, -0.01),
+    )
+    assert command.stage is SequenceStage.ALIGN_PLACE_DIRECTION
+    assert (command.target_position_b[0] ** 2 + command.target_position_b[1] ** 2) ** 0.5 == pytest.approx(1.0)
+    assert command.target_position_b[2] == pytest.approx(1.0)
+    assert command.arm_action[2] == pytest.approx(0.0)
+    assert command.target_position_b[1] > 0.0
+
+    command = sequence.command(
+        _observation((0.0, 1.0, 1.0), (1.0, 0.0, 0.0, 0.0), (0.0, 0.0)),
+        active_waypoint_b=(0.0, 0.0, 0.0),
+        active_waypoint_label="target_settle",
+        path_complete=True,
+        closed_gripper_position=(0.0, 0.0),
+        open_gripper_position=(0.01, -0.01),
+    )
+    assert command.stage is SequenceStage.PLACE_HIGH_XY
+    assert command.target_position_b == pytest.approx((0.0, 1.0, 1.0))
+    assert command.arm_action == (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
 
 def test_align_place_direction_compares_tcp_and_target_in_world_frame() -> None:
@@ -387,7 +400,7 @@ def test_align_place_direction_compares_tcp_and_target_in_world_frame() -> None:
         open_gripper_position=(0.01, -0.01),
     )
 
-    assert command.stage is SequenceStage.PLACE_FINAL_Z
+    assert command.stage is SequenceStage.PLACE_HIGH_XY
 
 @pytest.mark.parametrize("base_yaw", [0.0, pi / 2])
 def test_grasp_aligns_before_docking(base_yaw):
@@ -421,3 +434,41 @@ def test_grasp_aligns_before_docking(base_yaw):
     assert command.target_position_b == (0.1, 0.0, 0.0)
     assert command.tcp_heading_target_rad == pytest.approx(0.0)
     assert step(0.2).tcp_heading_target_rad == pytest.approx(0.0)
+
+
+@pytest.mark.parametrize("index", [None, 0, 1, 2, 3, 4])
+def test_place_detour_index_arrival_and_reset(index):
+    initial = SequenceState(stage=SequenceStage.LIFT_OBJECT, tcp_heading_ref_rad=0.0)
+    sequence = DatasetSequence(
+        preposition_b=(0, 0, 0), grasp_tcp_position_b=(0, 0, 0),
+        lift_position_b=(-0.2, -0.3, 0.6), place_high_position_b=(-0.1, 0.3, 0.6),
+        place_position_b=(-0.1, 0.3, 0.1), place_tcp_direction_w=(1, 0, 0),
+        tcp_heading_axis=(1, 0, 0), config=SequenceConfig(normal_dwell_steps=2),
+        grasp_enabled=True, place_enabled=True, place_state_index=index, initial_state=initial,
+    )
+
+    def step(position):
+        return sequence.command(
+            _observation(position, (1, 0, 0, 0), (0, 0)),
+            active_waypoint_b=(0, 0, 0), active_waypoint_label="target_settle",
+            path_complete=True, closed_gripper_position=(0, 0), open_gripper_position=(0.01, -0.01),
+        )
+
+    lift, high = (-0.2, -0.3, 0.6), (-0.1, 0.3, 0.6)
+    target_angle = atan2(high[1], high[0])
+    radius = sqrt(lift[0] ** 2 + lift[1] ** 2)
+    arc_end = (radius * cos(target_angle), radius * sin(target_angle), lift[2])
+    step(lift)
+    command = step(lift)
+    assert command.stage is SequenceStage.ALIGN_PLACE_DIRECTION
+    assert (command.target_position_b[0] ** 2 + command.target_position_b[1] ** 2) ** 0.5 == pytest.approx(radius)
+    assert command.target_position_b[2] == pytest.approx(lift[2])
+    assert step(arc_end).stage is SequenceStage.ALIGN_PLACE_DIRECTION
+    command = step(arc_end)
+    assert command.stage is SequenceStage.PLACE_HIGH_XY
+    expected_high_target = sequence.place_high_waypoints[0]
+    assert command.target_position_b == pytest.approx(expected_high_target)
+    sequence.reset()
+    assert sequence.state == initial
+    step(lift)
+    assert step(lift).stage is SequenceStage.ALIGN_PLACE_DIRECTION

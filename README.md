@@ -95,7 +95,7 @@ $episode = ((Get-Content "<OUTPUT_DIR>\manifest.json" -Raw | ConvertFrom-Json).e
 | `--max-steps` | `960` | 单 episode 的采集上限；抓取序列的采集专用环境时限随该值设置，12 Hz 下为 80 秒；不修改正式 RL 环境配置。 |
 | `--waypoint-position-tolerance-m` | `0.01` | 实际 TCP 到达当前 waypoint 的推进容差，单位 m。 |
 | `--seed` | `7` | 仿真与确定性轨迹种子。 |
-| `--target-state-index` | `0` | `TARGET_STATES` 中的目标索引，范围 `0..3`。 |
+| `--target-state-index` | `0` | `TARGET_STATES` 中的目标索引，范围 `0..4`。 |
 | `--run-tag` | `isaac-ik-batch` | episode ID 的运行标签前缀。 |
 | `--planning-hz` | `4.0` | 粗规划频率。 |
 | `--control-hz` | `12.0` | 轨迹控制频率，必须映射为整数物理步。 |
@@ -108,7 +108,7 @@ $episode = ((Get-Content "<OUTPUT_DIR>\manifest.json" -Raw | ConvertFrom-Json).e
 | `--downward-yaw-offset-deg` | `0.0` | Flange 向下姿态的附加 yaw，单位度。 |
 | `--sequence-mode` | `position-only` | `position-only` 保持旧流程；`grasp` 抓取后保持；`pick-place` 追加抬升、放置和松爪。 |
 | `--normal-advance-distance-m` | `0.075` | `task.py` 中配置的 preposition 到闭爪抓取 TCP 点的距离，单位 m；显式传入时必须保持为该值。 |
-| `--place-state-index` | `None` | `pick-place` 必填的目标 state 索引；放置 TCP 位置取该 state 的 `grasp_tcp_position_e`，索引范围 `0..3`。 |
+| `--place-state-index` | `None` | `pick-place` 必填的目标 state 索引；放置 TCP 位置取该 state 的 `grasp_tcp_position_e`，索引范围 `0..4`。 |
 | `--lift-clearance-m` | `None` | `pick-place` 必填的正抬升间隙，单位 m。 |
 | `--normal-angle-tolerance-deg` | `5.0` | 抓取与放置的 TCP 平面 heading 到位容差，单位度。 |
 | `--normal-dwell-steps` / `--gripper-dwell-steps` | `3` / `3` | 姿态/位置与夹爪到位所需连续步数。 |

@@ -39,6 +39,7 @@ STATIC_IK_SCENE_BASELINE = SceneBaseline(
         "sample_bottle_state_02",
         "sample_bottle_state_03",
         "sample_bottle_state_04",
+        "sample_bottle_state_05",
     ),
 )
 STATIC_IK_SCENE_BASELINE.validate()
