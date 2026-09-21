@@ -14,9 +14,9 @@ from typing import Any
 
 import numpy as np
 
-from .config import ACTION_DIMENSION, TCP_HEADING_SCALE_RAD
+from .config import ACTION_DIMENSION, ALIGNED_SCHEMA_VERSION, TCP_HEADING_SCALE_RAD
 from .records import Episode
-from .sequence import LEGACY_SEQUENCE_STAGE_ORDER_V3, SEQUENCE_STAGE_ORDER, SequenceStage
+from .sequence import SEQUENCE_STAGE_ORDER, SequenceStage
 from .state import validate_explicit_observation
 
 OBSERVATION_GROUP = "obs"
@@ -173,8 +173,13 @@ def field_specs(episode: Episode) -> tuple[HDF5FieldSpec, ...]:
             unit, frame = "rad", "robot joint space"
         elif disk_key == "dq" or disk_key == "joint_velocity":
             unit, frame = "rad/s", "robot joint space"
-        elif disk_key.endswith("pose"):
-            unit, frame = "xyz m + xyzw", "world"
+        elif "pose" in disk_key:
+            unit = "xyz m + xyzw"
+            frame = "world" if disk_key.endswith("_w") else "object" if disk_key.endswith("_o") else "robot_base"
+        elif disk_key in {"ee_twist_b", "ee_twist_w"}:
+            unit, frame = "m/s + rad/s", "robot_base" if disk_key.endswith("_b") else "world"
+        elif disk_key == "gripper_force":
+            unit, frame = "Newton", "gripper_joint_space"
         specs.append(HDF5FieldSpec(disk_key, "T+1", "float32", unit, frame))
     return tuple(specs)
 
@@ -316,6 +321,33 @@ def write_episode_group(group: Any, episode: Episode, *, metadata: Mapping[str, 
                 group.attrs[str(key)] = value
 
 
+def _validate_episode_structure(group: Any) -> tuple[str, ...]:
+    """Reject malformed nodes before value checks index their time axes."""
+    errors: list[str] = []
+    # Check structure before indexing shape[0] or applying array operations.
+    # Corrupt scalars/groups must produce a report, not abort shard validation.
+    for name in TRANSITION_FIELDS:
+        expected_ndim = 2 if name == "actions" else 1
+        if getattr(group[name], "ndim", None) != expected_ndim:
+            errors.append(f"{name} must be a {expected_ndim}-dimensional dataset")
+    for name in (OBSERVATION_GROUP, "diagnostics"):
+        if not hasattr(group[name], "keys"):
+            errors.append(f"{name} must be a group")
+    if errors:
+        return tuple(errors)
+    for name, dataset in group[OBSERVATION_GROUP].items():
+        if name == "camera_calibration":
+            continue
+        if getattr(dataset, "ndim", 0) < 1:
+            errors.append(f"obs/{name} must be a dataset with a T+1 axis")
+    for name in DIAGNOSTIC_FIELDS:
+        if name in group["diagnostics"] and getattr(group["diagnostics"][name], "ndim", 0) < 1:
+            errors.append(f"diagnostics/{name} must be a dataset with a T axis")
+    if errors:
+        return tuple(errors)
+    return tuple(errors)
+
+
 def validate_episode_group(group: Any) -> tuple[str, ...]:
     """Return precise schema errors for one HDF5 demo group."""
 
@@ -325,10 +357,17 @@ def validate_episode_group(group: Any) -> tuple[str, ...]:
     errors.extend(f"missing {name}" for name in missing)
     if errors:
         return tuple(errors)
+    errors.extend(_validate_episode_structure(group))
+    if errors:
+        return tuple(errors)
+    if group["actions"].ndim != 2 or group["actions"].shape[0] == 0:
+        return ("actions must be a nonempty [T,A] array",)
     action_count = int(group["actions"].shape[0])
     for name in TRANSITION_FIELDS:
         if int(group[name].shape[0]) != action_count:
             errors.append(f"{name} has T={group[name].shape[0]}, expected {action_count}")
+    if errors:
+        return tuple(errors)
     if group["actions"].shape[1:] != (ACTION_DIMENSION,):
         errors.append(f"actions shape must be [T, {ACTION_DIMENSION}]")
     actions = np.asarray(group["actions"])
@@ -340,29 +379,25 @@ def validate_episode_group(group: Any) -> tuple[str, ...]:
     if phases.ndim != 1 or not np.isin(phase_ids, valid_stage_ids).all():
         errors.append(f"phases must be one-dimensional valid sequence stage IDs: {valid_stage_ids.tolist()}")
     else:
-        # 旧 v3 采集器把 vertical_descent 的插值点标成 0、终点标成 1，
-        # 因此路径阶段 0/1 可在进入正式序列前交替。后续阶段必须按显式
-        # 语义顺序前进；兼容 ID 7/10/12/8/9 不能按整数大小判断。
+        # 路径阶段 0/1 可在进入正式序列前交替；后续按显式语义顺序前进。
         sequence_start = next(
             (index for index, phase in enumerate(phase_ids) if phase not in {0, 1}),
             len(phase_ids),
         )
         ordered_phase_ids = phase_ids[sequence_start:]
-        def follows_order(stage_order: Sequence[SequenceStage]) -> bool:
-            stage_rank = {stage: rank for rank, stage in enumerate(stage_order)}
-            stage_rank[SequenceStage.HOLD_COMPLETE] = len(stage_order) - 1
-            ranks = np.asarray(
-                [stage_rank[SequenceStage(int(phase))] for phase in ordered_phase_ids],
-                dtype=np.int16,
-            )
-            return not np.any(np.diff(ranks) < 0)
-
-        if not any(follows_order(order) for order in (SEQUENCE_STAGE_ORDER, LEGACY_SEQUENCE_STAGE_ORDER_V3)):
+        stage_rank = {stage: rank for rank, stage in enumerate(SEQUENCE_STAGE_ORDER)}
+        ranks = np.asarray(
+            [stage_rank[SequenceStage(int(phase))] for phase in ordered_phase_ids],
+            dtype=np.int16,
+        )
+        if np.any(np.diff(ranks) < 0):
             errors.append("phases must follow the semantic sequence order after path stages 0/1")
     waypoint_indices = np.asarray(group["waypoint_indices"])
     if np.any(np.diff(waypoint_indices.astype(np.int64)) < 0):
         errors.append("waypoint_indices must be monotonic")
     for name in group[OBSERVATION_GROUP]:
+        if name == "camera_calibration":
+            continue
         if int(group[OBSERVATION_GROUP][name].shape[0]) != action_count + 1:
             errors.append(f"obs/{name} must have T+1 samples")
     required_disk_observations = {name.removesuffix("_wxyz") for name in REQUIRED_OBSERVATION_FIELDS}
@@ -394,6 +429,9 @@ def validate_episode_group(group: Any) -> tuple[str, ...]:
         heading_targets = np.asarray(diagnostics["tcp_heading_target_rad"])
         if not np.allclose(actions[:, -2] * TCP_HEADING_SCALE_RAD, heading_targets, atol=1.0e-6):
             errors.append("actions TCP heading component must match diagnostics/tcp_heading_target_rad")
+    if group.parent.attrs.get("schema_version") == ALIGNED_SCHEMA_VERSION:
+        from .aligned_schema import validate_alignment
+        errors.extend(validate_alignment(group))
     return tuple(errors)
 
 

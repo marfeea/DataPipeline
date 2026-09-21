@@ -22,6 +22,7 @@ class R2DreamerBatch:
     is_first: tuple[tuple[bool, ...], ...]
     is_last: tuple[tuple[bool, ...], ...]
     is_terminal: tuple[tuple[bool, ...], ...]
+    reward_valid: tuple[tuple[bool, ...], ...]
 
     @classmethod
     def from_episodes(cls, episodes: tuple[Episode, ...] | list[Episode]) -> R2DreamerBatch:
@@ -31,6 +32,7 @@ class R2DreamerBatch:
             observations=tuple(tuple(frame.value for frame in episode.observations) for episode in episodes),
             actions=tuple(tuple(step.action.action for step in episode.steps) for episode in episodes),
             rewards=tuple(tuple(step.reward for step in episode.steps) for episode in episodes),
+            reward_valid=tuple(tuple(step.reward_valid for step in episode.steps) for episode in episodes),
             is_first=tuple(tuple(frame.boundary.is_first for frame in episode.observations) for episode in episodes),
             is_last=tuple(tuple(frame.boundary.is_last for frame in episode.observations) for episode in episodes),
             is_terminal=tuple(
@@ -47,6 +49,8 @@ class R2DreamerBatch:
 
         for index in range(self.batch_size):
             t_plus_one = len(self.observations[index])
+            if len(self.reward_valid[index]) != len(self.actions[index]):
+                raise ValueError(f"batch episode {index} reward_valid must have T samples")
             if len(self.actions[index]) + 1 != t_plus_one or len(self.rewards[index]) != len(self.actions[index]):
                 raise ValueError(f"batch episode {index} 的 T/T+1 长度不一致")
             if any(
@@ -63,6 +67,7 @@ class R2DreamerBatch:
             "observation": self.observations,
             "action": self.actions,
             "reward": self.rewards,
+            "reward_valid": self.reward_valid,
             "is_first": self.is_first,
             "is_last": self.is_last,
             "is_terminal": self.is_terminal,

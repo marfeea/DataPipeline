@@ -89,3 +89,11 @@ tests/.tmp/
 # Data directories 
 **/data/
 /data/
+
+# Keep the v4 contract regression source; other test artifacts stay ignored.
+!/tests/
+/tests/*
+!/tests/test_alignment_v4.py
+!/tests/test_replay_metrics.py
+!/tests/test_alignment_audit.py
+!/tests/test_collection_output.py

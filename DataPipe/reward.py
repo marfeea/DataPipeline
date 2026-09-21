@@ -54,6 +54,8 @@ def compute_reward_prediction_loss(
     predicted: Any,
     target: Any,
     config: RewardLossConfig | None = None,
+    *,
+    reward_valid: Any | None = None,
 ) -> float:
     """Compute the reference reward-head loss as a pure data-pipeline function.
 
@@ -61,12 +63,23 @@ def compute_reward_prediction_loss(
     ``batch["reward"]`` using elementwise Smooth L1.  When ``config`` is given,
     targets in ``[0, 1]`` receive an additional continuous weight and targets at
     or above ``positive_threshold`` receive ``positive_weight``.
+    Pass the batch ``reward_valid`` mask for v4 data; invalid targets contribute
+    neither numerator nor denominator, and an all-invalid batch returns zero.
     """
 
     error = smooth_l1_reward_error(predicted, target)
     target_array = _as_finite_array(target, name="target reward")
+    mask = np.ones(error.shape, dtype=bool)
+    if reward_valid is not None:
+        supplied = np.asarray(reward_valid)
+        if supplied.dtype.kind != "b":
+            raise ValueError("reward_valid must be boolean")
+        try:
+            mask = np.broadcast_to(supplied, error.shape)
+        except ValueError as exc:
+            raise ValueError("reward_valid shape must broadcast to the reward error shape") from exc
     if config is None:
-        return float(np.mean(error))
+        return float(np.mean(error[mask])) if np.any(mask) else 0.0
 
     config.validate()
     weights = 1.0 + config.continuous_weight * np.clip(target_array, 0.0, 1.0)
@@ -75,8 +88,9 @@ def compute_reward_prediction_loss(
         weighted_error = error * weights
     except ValueError as exc:
         raise ValueError("reward weighting shape is not broadcast-compatible") from exc
-    denominator = max(float(np.sum(weights)), 1.0)
-    return float(np.sum(weighted_error) / denominator)
+    weights = np.broadcast_to(weights, error.shape)
+    denominator = max(float(np.sum(weights[mask])), 1.0)
+    return float(np.sum(weighted_error[mask]) / denominator)
 
 
 __all__ = [

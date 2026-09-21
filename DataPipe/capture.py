@@ -44,6 +44,7 @@ class ControlState:
     delta_limited: bool = False
     velocity_limited: bool = False
     position_limited: bool = False
+    action_applied: tuple[float, ...] | None = None
 
     def action_record(self) -> ActionRecord:
         """将控制器各层字段转换为 P0-3 固定记录。"""
@@ -78,6 +79,7 @@ class ControlState:
             delta_limited=self.delta_limited,
             velocity_limited=self.velocity_limited,
             position_limited=self.position_limited,
+            action_applied=self.action_applied,
         )
 
 

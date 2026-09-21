@@ -27,7 +27,6 @@ from DataPipe.sequence import (
 
 @pytest.mark.parametrize("stage,next_stage", [
     (SequenceStage.ALIGN_PLACE_DIRECTION, SequenceStage.PLACE_HIGH_XY),
-    (SequenceStage.PLACE_HIGH_XY, SequenceStage.PLACE_FINAL_Z),
     (SequenceStage.PLACE_FINAL_Z, SequenceStage.PLACE_FINAL_XY),
     (SequenceStage.PLACE_FINAL_XY, SequenceStage.RELEASE_GRIPPER),
 ])
@@ -36,7 +35,7 @@ def test_wrong_physical_axis_cannot_descend_or_release(stage, next_stage):
         preposition_b=(0, 0, 0), grasp_tcp_position_b=(0, 0, 0),
         lift_position_b=(0, 0, 1), place_high_position_b=(1, 0, 1),
         place_position_b=(1, 0, 1), place_tcp_direction_w=(-1, 0, 0),
-        config=SequenceConfig(normal_dwell_steps=2), grasp_enabled=True, place_enabled=True,
+        config=SequenceConfig(normal_dwell_steps=2),
         initial_state=SequenceState(stage=stage),
     )
     def command(q):
@@ -55,7 +54,7 @@ def test_wrong_physical_axis_cannot_descend_or_release(stage, next_stage):
         assert result.flange_downward_enabled
     for _ in range(2):
         result = command(correct)
-        assert result.gripper_command == -1
+        assert result.gripper_command == (1 if result.stage is SequenceStage.RELEASE_GRIPPER else -1)
         assert result.flange_downward_enabled
     assert result.stage is next_stage
 

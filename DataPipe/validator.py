@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .config import DATASET_SCHEMA_VERSION
+from .config import DATASET_SCHEMA_VERSION, READABLE_SCHEMA_VERSIONS
 from .hdf5_schema import validate_episode_group
 from .serialization import episode_from_record
 from .writer import _sha256
@@ -85,7 +85,7 @@ def validate_hdf5_dataset(output_dir: str | Path) -> ValidationReport:
         manifest: dict[str, Any] = json.loads(manifest_path.read_text(encoding="utf-8"))
     except Exception as exc:  # pragma: no cover - dependency/IO specific
         return ValidationReport(0, 0, (f"cannot read HDF5 manifest: {exc}",))
-    if manifest.get("schema_version") != DATASET_SCHEMA_VERSION:
+    if manifest.get("schema_version") not in READABLE_SCHEMA_VERSIONS:
         errors.append("manifest schema_version mismatch")
     seen: set[str] = set()
     episode_count = 0
@@ -102,11 +102,11 @@ def validate_hdf5_dataset(output_dir: str | Path) -> ValidationReport:
         try:
             with h5py.File(path, "r") as handle:
                 data = handle["data"]
-                if data.attrs.get("schema_version") != DATASET_SCHEMA_VERSION:
+                if data.attrs.get("schema_version") != manifest.get("schema_version"):
                     errors.append(f"{path.name}: data schema_version mismatch")
                 for name in data:
                     episode_count += 1
-                    if name in seen:
+                    if name.removeprefix("demo_") in seen:
                         errors.append(f"duplicate demo group: {name}")
                     seen.add(name.removeprefix("demo_"))
                     errors.extend(f"{name}: {error}" for error in validate_episode_group(data[name]))

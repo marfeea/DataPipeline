@@ -24,6 +24,7 @@ import numpy as np
 PACKAGE_SOURCE_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PACKAGE_SOURCE_ROOT))
 
+from DataPipe.collection_output import resolve_collection_output  # noqa: E402
 from DataPipe.runtime import ensure_curriculumrl_available  # noqa: E402
 
 ensure_curriculumrl_available()
@@ -66,25 +67,20 @@ parser.add_argument("--base-clockwise-deg", type=float, default=45.0)
 parser.add_argument("--downward-yaw-offset-deg", type=float, default=0.0)
 parser.add_argument(
     "--sequence-mode",
-    choices=("position-only", "grasp", "pick-place"),
-    default="position-only",
-    help="position-only 保持旧轨迹；grasp 抓取后保持；pick-place 继续抬升、放置和松爪",
+    choices=("pick-place",),
+    default="pick-place",
+    help="采集抓取、抬升、放置和松爪的完整序列",
 )
 parser.add_argument(
     "--log-sequence-stage-transitions",
-    action="store_true",
-    help="打印 pick-place 序列的阶段转换；默认关闭",
+    action=argparse.BooleanOptionalAction,
+    default=True,
+    help="打印序列进入阶段的日志；默认开启，可用 --no-log-sequence-stage-transitions 关闭",
 )
 parser.add_argument(
     "--log-place-final-xy-conditions",
     action="store_true",
     help="逐控制步打印 PLACE_FINAL_Z -> PLACE_FINAL_XY 的判定条件；默认关闭",
-)
-parser.add_argument(
-    "--place-final-z-fixed-xy",
-    action=argparse.BooleanOptionalAction,
-    default=True,
-    help="PLACE_FINAL_Z 下降时保持固定 place XY；默认开启，可用 --no-place-final-z-fixed-xy 回退旧行为",
 )
 parser.add_argument(
     "--normal-advance-distance-m",
@@ -96,7 +92,7 @@ parser.add_argument(
     "--place-state-index",
     type=int,
     default=None,
-    help="pick-place 模式必填；将物体放置到 TARGET_STATES 中的目标状态索引",
+    help="必填；将物体放置到 TARGET_STATES 中的目标状态索引",
 )
 parser.add_argument(
     "--grasp-height-m",
@@ -108,7 +104,7 @@ parser.add_argument(
     "--lift-clearance-m",
     type=float,
     default=None,
-    help="pick-place 模式必填；抬升安全高度为 max(抓取 Z, 放置 Z) 加该间隙",
+    help="必填；抬升安全高度为 max(抓取 Z, 放置 Z) 加该间隙",
 )
 parser.add_argument(
     "--normal-angle-tolerance-deg",
@@ -132,7 +128,7 @@ parser.add_argument(
     nargs=2,
     metavar=("UPPER", "DOWN"),
     default=None,
-    help="grasp/pick-place 模式必须显式给出两个夹爪关节闭合目标，运行时按 USD 限位校验",
+    help="必填；两个夹爪关节闭合目标，运行时按 USD 限位校验",
 )
 # 视觉与 Kit 缓存：三路相机共用分辨率；缓存目录隔离 OptiX 和 Kit 用户配置。
 parser.add_argument("--camera-width", type=int, default=128)
@@ -141,6 +137,14 @@ parser.add_argument("--kit-cache-dir", type=Path, default=Path("data/isaac_kit_c
 # ``args_cli`` 是解析后的所有命令行参数；``enable_cameras`` 强制打开 CameraSensor 输出。
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
+requested_output_dir = args_cli.output_dir
+args_cli.output_dir = resolve_collection_output(requested_output_dir)
+if args_cli.output_dir != requested_output_dir:
+    print(
+        f"DATASET_OUTPUT_REDIRECT reason=legacy_v3 requested={requested_output_dir} "
+        f"output={args_cli.output_dir}",
+        flush=True,
+    )
 args_cli.enable_cameras = True
 # ``kit_cache_dir`` 是绝对缓存目录；``user_config_path`` 供 Kit 启动参数指向可写配置文件。
 kit_cache_dir = args_cli.kit_cache_dir.resolve()
@@ -179,14 +183,13 @@ from CurriculumRL.logic.tcp_kinematics import world_to_root_position  # noqa: E4
 from CurriculumRL.tasks.tcp_docking.aubo_ik_action import AuboIKActionTerm  # noqa: E402
 from CurriculumRL.tasks.tcp_docking.mdp.runtime_state import auxiliary_reward_scales, compute_step  # noqa: E402
 
-from configs.assets import SCENE_ENTITY_AUBO  # noqa: E402
+from configs.assets import SCENE_ENTITY_AUBO, SCENE_ENTITY_TARGET  # noqa: E402
 from configs.coordinate_frames import (  # noqa: E402
     FLANGE_NORMAL_AXIS_F,
     FLANGE_TO_TCP_ROTATION_F_WXYZ,
     FLANGE_TO_TCP_TRANSLATION_F,
     TCP_DIRECTION_AXIS_T,
     target_direction_in_world,
-    world_to_base_direction,
 )
 from configs.render import TEST_RENDER_CFG  # noqa: E402
 from configs.task import (  # noqa: E402
@@ -212,17 +215,18 @@ from DataPipe import (  # noqa: E402
     planar_heading_from_quaternion,
     wrap_angle_rad,
 )
-from DataPipe.config import TCP_HEADING_SCALE_RAD, TCP_POSITION_SCALE_M  # noqa: E402
+from DataPipe.alignment import pose_matrix
+from DataPipe.collection_alignment import aligned_snapshot, applied_action, xyzw_pose
+from DataPipe.collection_cameras import (  # noqa: E402
+    CameraExportingTrajectoryWriter,
+    add_camera_world_poses,
+    configure_collection_cameras,
+)
+from DataPipe.config import ALIGNED_SCHEMA_VERSION, TCP_HEADING_SCALE_RAD, TCP_POSITION_SCALE_M  # noqa: E402
 from DataPipe.episode_naming import next_episode_index  # noqa: E402
 from DataPipe.isaac_gripper import DatasetGripperController  # noqa: E402
 from DataPipe.isaac_scene import make_dataset_ik_env_cfg  # noqa: E402
 from DataPipe.trajectory import advance_reached_waypoints, make_plan  # noqa: E402
-from DataPipe.collection_cameras import (  # noqa: E402
-    add_camera_world_poses,
-    configure_collection_cameras,
-    CameraExportingTrajectoryWriter,
-)
-
 
 # ------------------------------ 写入的奖励分量 ------------------------------
 # 这些名字与正式 runtime reward 对齐；每一步同时保存总 reward 和分量，便于重播验收、
@@ -327,11 +331,6 @@ def _camera_observation(
             raise RuntimeError(f"CameraSensor {spec.name} 缺少输出：{sorted(missing)}")
         # 去掉单环境 batch 维，保留当前相机要求的所有图像/掩码字段。
         camera_values = {name: outputs[name][0] for name in spec.data_types}
-        # Isaac 默认会把未命中几何体或超出裁剪范围的深度保留为 Inf。
-        # writer 在 episode 结束时才统一校验，因此在帧读取处记录精确相机和步号。
-        depth = camera_values.get("distance_to_image_plane")
-        if depth is not None:
-            _log_nonfinite_depth(spec.name, sim_step, depth)
         # 用 RGB（若存在）作为 shape/dtype 的代表；否则使用第一个输出字段。
         representative = camera_values.get("rgb", next(iter(camera_values.values())))
         # 构造供同步适配器校验的不可变帧描述。
@@ -360,101 +359,6 @@ def _numpy(value: Any) -> np.ndarray:
         return value.detach().cpu().numpy().copy()
     # 兼容已是 NumPy/标量/数组协议对象的输入，同样复制一份独立数据。
     return np.asarray(value).copy()
-
-
-_DEPTH_NONFINITE_RUNS: dict[str, dict[str, int]] = {}
-_DEPTH_LOG_INTERVAL_STEPS = 50
-
-
-def _log_nonfinite_depth(camera_name: str, sim_step: int, depth: Any) -> None:
-    """在异常深度产生的当前帧输出可定位的数值诊断。
-
-    这里只记录而不替换数值，保留 HDF5 schema 原有的严格失败语义。
-    """
-
-    if isinstance(depth, torch.Tensor):
-        finite_mask = torch.isfinite(depth)
-        if bool(finite_mask.all().item()):
-            run = _DEPTH_NONFINITE_RUNS.pop(camera_name, None)
-            if run is not None:
-                _print_log(
-                    "DEPTH_FINITE_RECOVERED "
-                    f"camera={camera_name} sim_step={sim_step} "
-                    f"nonfinite_steps={run['steps']} first_step={run['first_step']} "
-                    f"last_step={run['last_step']} peak_invalid={run['peak_invalid']}/{run['total']} "
-                    f"peak_ratio={run['peak_invalid'] / run['total']:.6%}",
-                    error=True,
-                )
-            return
-        nan_count = int(torch.isnan(depth).sum().item())
-        posinf_count = int(torch.isposinf(depth).sum().item())
-        neginf_count = int(torch.isneginf(depth).sum().item())
-        invalid_indices = torch.nonzero(~finite_mask, as_tuple=False)
-        first_indices = invalid_indices[:8].detach().cpu().tolist()
-        finite_values = depth[finite_mask]
-        finite_range = (
-            f"[{float(finite_values.min().item()):.6g},{float(finite_values.max().item()):.6g}]"
-            if finite_values.numel() > 0
-            else "none"
-        )
-        total = depth.numel()
-    else:
-        array = np.asarray(depth)
-        finite_mask = np.isfinite(array)
-        if bool(finite_mask.all()):
-            run = _DEPTH_NONFINITE_RUNS.pop(camera_name, None)
-            if run is not None:
-                _print_log(
-                    "DEPTH_FINITE_RECOVERED "
-                    f"camera={camera_name} sim_step={sim_step} "
-                    f"nonfinite_steps={run['steps']} first_step={run['first_step']} "
-                    f"last_step={run['last_step']} peak_invalid={run['peak_invalid']}/{run['total']} "
-                    f"peak_ratio={run['peak_invalid'] / run['total']:.6%}",
-                    error=True,
-                )
-            return
-        nan_count = int(np.isnan(array).sum())
-        posinf_count = int(np.isposinf(array).sum())
-        neginf_count = int(np.isneginf(array).sum())
-        first_indices = np.argwhere(~finite_mask)[:8].tolist()
-        finite_values = array[finite_mask]
-        finite_range = (
-            f"[{float(finite_values.min()):.6g},{float(finite_values.max()):.6g}]"
-            if finite_values.size
-            else "none"
-        )
-        total = array.size
-
-    invalid_count = nan_count + posinf_count + neginf_count
-    run = _DEPTH_NONFINITE_RUNS.get(camera_name)
-    if run is None or sim_step <= run["last_step"]:
-        run = {
-            "first_step": sim_step,
-            "last_step": sim_step,
-            "last_log_step": sim_step,
-            "steps": 1,
-            "peak_invalid": invalid_count,
-            "total": total,
-        }
-        _DEPTH_NONFINITE_RUNS[camera_name] = run
-        should_log = True
-    else:
-        run["last_step"] = sim_step
-        run["steps"] += 1
-        run["peak_invalid"] = max(run["peak_invalid"], invalid_count)
-        should_log = sim_step - run["last_log_step"] >= _DEPTH_LOG_INTERVAL_STEPS
-        if should_log:
-            run["last_log_step"] = sim_step
-    if not should_log:
-        return
-    _print_log(
-        "DEPTH_NONFINITE "
-        f"camera={camera_name} sim_step={sim_step} shape={tuple(depth.shape)} dtype={depth.dtype} "
-        f"invalid={invalid_count}/{total} ratio={invalid_count / total:.6%} "
-        f"nan={nan_count} posinf={posinf_count} neginf={neginf_count} "
-        f"finite_range_m={finite_range} first_indices={first_indices}",
-        error=True,
-    )
 
 
 def _environment_position_b(unwrapped: Any, position_e: tuple[float, float, float]) -> np.ndarray:
@@ -509,17 +413,6 @@ def _target_tcp_direction_w(target_state_index: int) -> np.ndarray:
     )
 
 
-def _target_tcp_axis_b(unwrapped: Any, target_state_index: int) -> np.ndarray:
-    """兼容数据字段：把正式世界系目标方向转换为机器人根系 B 表达。"""
-
-    robot = unwrapped.scene[SCENE_ENTITY_AUBO]
-    root_quaternion_wxyz = _numpy(robot.data.root_quat_w[0]).astype(np.float64)
-    return np.asarray(
-        world_to_base_direction(_target_tcp_direction_w(target_state_index), root_quaternion_wxyz),
-        dtype=np.float64,
-    )
-
-
 def _pick_place_positions_b(
     unwrapped: Any,
     grasp_state_index: int,
@@ -546,7 +439,7 @@ def _pick_place_positions_b(
     )
 
 
-def _validate_cli_args(args: argparse.Namespace) -> tuple[SequenceConfig, bool, bool, str | None]:
+def _validate_cli_args(args: argparse.Namespace) -> tuple[SequenceConfig, str]:
     """Validate collection arguments and return the sequence configuration."""
 
     if not 0 <= args.target_state_index < len(TARGET_STATES):
@@ -569,19 +462,15 @@ def _validate_cli_args(args: argparse.Namespace) -> tuple[SequenceConfig, bool, 
         raise ValueError("normal-advance-distance-m 必须为正数")
     if not np.isclose(args.normal_advance_distance_m, NORMAL_ADVANCE_DISTANCE_M, rtol=0.0, atol=1.0e-9):
         raise ValueError("normal-advance-distance-m 必须与 task.py 的 NORMAL_ADVANCE_DISTANCE_M 一致")
-    grasp_enabled = args.sequence_mode in {"grasp", "pick-place"}
-    place_enabled = args.sequence_mode == "pick-place"
-    if grasp_enabled and args.gripper_closed_position is None:
-        raise ValueError("grasp/pick-place 模式必须显式提供 --gripper-closed-position UPPER DOWN")
-    if place_enabled and args.place_state_index is None:
-        raise ValueError("pick-place 模式必须显式提供 --place-state-index INDEX")
-    if not place_enabled and args.place_state_index is not None:
-        raise ValueError("--place-state-index 仅适用于 pick-place 模式")
+    if args.gripper_closed_position is None:
+        raise ValueError("必须显式提供 --gripper-closed-position UPPER DOWN")
+    if args.place_state_index is None:
+        raise ValueError("必须显式提供 --place-state-index INDEX")
     invalid_lift_clearance = (
         args.lift_clearance_m is None or not np.isfinite(args.lift_clearance_m) or args.lift_clearance_m <= 0.0
     )
-    if place_enabled and invalid_lift_clearance:
-        raise ValueError("pick-place 模式必须显式提供正的 --lift-clearance-m")
+    if invalid_lift_clearance:
+        raise ValueError("必须显式提供正的 --lift-clearance-m")
     sequence_config = SequenceConfig(
         position_tolerance_m=args.waypoint_position_tolerance_m,
         normal_angle_tolerance_rad=math.radians(args.normal_angle_tolerance_deg),
@@ -590,9 +479,8 @@ def _validate_cli_args(args: argparse.Namespace) -> tuple[SequenceConfig, bool, 
         gripper_position_tolerance=args.gripper_position_tolerance,
         gripper_dwell_steps=args.gripper_dwell_steps,
         log_place_final_xy_conditions=args.log_place_final_xy_conditions,
-        place_final_z_fixed_xy=args.place_final_z_fixed_xy,
     )
-    sequence_config.validate(grasp_enabled=grasp_enabled)
+    sequence_config.validate()
     if not np.isfinite(args.downward_yaw_offset_deg):
         raise ValueError("downward-yaw-offset-deg 必须为有限值")
     if args.camera_width <= 0 or args.camera_height <= 0:
@@ -601,8 +489,7 @@ def _validate_cli_args(args: argparse.Namespace) -> tuple[SequenceConfig, bool, 
         not np.isfinite(args.grasp_height_m) or args.grasp_height_m <= 0.0
     ):
         raise ValueError("grasp-height-m 必须为正数")
-    place_state_name = None if args.place_state_index is None else TARGET_STATES[args.place_state_index].name
-    return sequence_config, grasp_enabled, place_enabled, place_state_name
+    return sequence_config, TARGET_STATES[args.place_state_index].name
 
 
 def _snapshot(
@@ -647,6 +534,24 @@ def _snapshot(
         "desired_approach_axis_b": np.asarray(desired_approach_axis_b, dtype=np.float32),
         "advance_target_position_b": np.asarray(advance_target_position_b, dtype=np.float32),
     }
+    root_quaternion = _numpy(robot.data.root_quat_w[0])
+    root_rotation = pose_matrix(xyzw_pose((0, 0, 0), root_quaternion))[:3, :3]
+    grasp_position = _grasp_tcp_position_b(unwrapped, args_cli.target_state_index, args_cli.grasp_height_m)
+    direction_b = root_rotation.T @ _target_tcp_direction_w(args_cli.target_state_index)
+    heading = math.atan2(direction_b[1], direction_b[0])
+    grasp_yaw = flange_down_yaw_offset_for_tcp_heading(
+        grasp_position, heading, root_quaternion_wxyz=root_quaternion,
+        tcp_heading_axis_local=TCP_DIRECTION_AXIS_T,
+    )
+    _, grasp_quaternion = flange_down_tcp_target_pose(
+        grasp_position, root_quaternion_wxyz=root_quaternion, downward_yaw_offset_rad=grasp_yaw,
+    )
+    value.update(aligned_snapshot(
+        robot, controller, gripper_controller, env_origin=_numpy(unwrapped.scene.env_origins[0]),
+        source_state=TARGET_STATES[args_cli.target_state_index], goal_state=TARGET_STATES[args_cli.place_state_index],
+        tcp_position_b=_numpy(tcp_position_b[0]), tcp_quaternion_b=_numpy(tcp_quaternion_b[0]),
+        grasp_position_b=grasp_position, grasp_quaternion_b=grasp_quaternion,
+    ))
     # 将 Isaac data_type 名称转换为数据集字段名；未列出的类型不写盘。
     camera_key_names = {
         "rgb": "image",
@@ -753,6 +658,9 @@ def _control_state(
         # ``sim_step``/``sim_time_s`` 标识这批动作和状态对应的 Isaac 时间点。
         sim_step=sim_step,
         sim_time_s=float(sim_step * unwrapped.step_dt),
+        action_applied=applied_action(
+            controller, float(dataset_action[-1]), TCP_POSITION_SCALE_M, TCP_HEADING_SCALE_RAD
+        ),
         raw_action=tuple(float(value) for value in dataset_action),
         normalized_action=tuple(float(value) for value in dataset_action),
         tcp_displacement=tuple(float(value) for value in controller.processed_action[0].detach().cpu().tolist()),
@@ -872,13 +780,6 @@ def _log_episode_start(collection_index: int, total: int) -> None:
     _print_log(f"episode {collection_index + 1}/{total} 开始收集")
 
 
-def _log_episode_progress(episode_id: str, steps: int, waypoint_index: int, waypoint_count: int) -> None:
-    """打印当前 episode 的周期性控制进度。"""
-
-    # 输出周期性控制进度，供采集中观察步数和 waypoint 推进状态。
-    _print_log(f"EPISODE_PROGRESS episode={episode_id} steps={steps} waypoint={waypoint_index}/{waypoint_count - 1}")
-
-
 def _log_episode_collected(episode_id: str, steps: int, termination: str) -> None:
     """打印一条 episode 写盘完成信息。"""
 
@@ -892,25 +793,13 @@ def _log_sequence_stage_transition(
     previous_stage: SequenceStage,
     current_stage: SequenceStage,
 ) -> None:
-    """打印抓取后状态机的阶段转换，避免按控制步重复输出。"""
+    """打印状态机进入新阶段的日志，避免按控制步重复输出。"""
 
-    tracked_stages = {
-        SequenceStage.CLOSE_GRIPPER,
-        SequenceStage.LIFT_OBJECT,
-        SequenceStage.PLACE_HIGH_XY,
-        SequenceStage.ALIGN_PLACE_DIRECTION,
-        SequenceStage.PLACE_FINAL_Z,
-        SequenceStage.PLACE_FINAL_XY,
-        SequenceStage.RELEASE_GRIPPER,
-        SequenceStage.PLACE_COMPLETE,
-    }
-    if current_stage not in tracked_stages:
-        return
     _print_log(
-        "SEQUENCE_STAGE_TRANSITION "
+        "SEQUENCE_STAGE_ENTER "
         f"episode={episode_id} control_step={control_step} "
         f"from={previous_stage.name}({previous_stage.value}) "
-        f"to={current_stage.name}({current_stage.value})"
+        f"stage={current_stage.name}({current_stage.value})"
     )
 
 
@@ -951,7 +840,7 @@ def main() -> int:
 
     # ------------------------------ 参数校验与环境创建 ------------------------------
     # 先检查轨迹规划和相机参数，再创建正式 CurriculumRL IK 环境。
-    sequence_config, grasp_enabled, place_enabled, place_state_name = _validate_cli_args(args_cli)
+    sequence_config, place_state_name = _validate_cli_args(args_cli)
 
     # ``args_cli.seed`` 是整批采集的基准种子；每条 episode 会在此基础上加索引。
     torch.manual_seed(args_cli.seed)
@@ -963,8 +852,8 @@ def main() -> int:
         control_hz=args_cli.control_hz,
         target_state_index=args_cli.target_state_index,
         downward_yaw_offset_rad=math.radians(args_cli.downward_yaw_offset_deg),
-        isolate_collection_sequence=grasp_enabled,
-        episode_length_s=(args_cli.max_steps + 1) / args_cli.control_hz if grasp_enabled else None,
+        isolate_collection_sequence=True,
+        episode_length_s=(args_cli.max_steps + 1) / args_cli.control_hz,
     )
     # 将用户指定的 Isaac device 写入配置，避免环境默认选到另一张设备。
     env_cfg.sim.device = args_cli.device
@@ -977,11 +866,10 @@ def main() -> int:
     # ``unwrapped`` 是去掉 Gym wrapper 后的 CurriculumRL 环境，便于访问 scene、reward_buf 等内部状态。
     unwrapped = env.unwrapped
     robot = unwrapped.scene[SCENE_ENTITY_AUBO]
-    closed_gripper_position = args_cli.gripper_closed_position or args_cli.gripper_open_position
     gripper_controller = DatasetGripperController(
         robot,
         open_position=args_cli.gripper_open_position,
-        closed_position=closed_gripper_position,
+        closed_position=args_cli.gripper_closed_position,
     )
     # ``cameras`` 按相机规格名索引实际 CameraSensor 实体，后续每步从中读取输出。
     cameras = {spec.name: unwrapped.scene[spec.name] for spec in camera_specs}
@@ -991,6 +879,7 @@ def main() -> int:
     writer = CameraExportingTrajectoryWriter(
         args_cli.output_dir,
         DatasetConfig(
+            schema_version=ALIGNED_SCHEMA_VERSION,
             episodes_per_shard=2,
             min_free_disk_bytes=0,
             cameras=camera_specs,
@@ -998,16 +887,11 @@ def main() -> int:
             physics_dt_s=SIMULATION_DT_S,
         ),
         dataset_metadata={
-            "task_id": "CurriculumRL-DatasetSequence-IK-v3",
+            "task_id": "CurriculumRL-DatasetSequence-IK-v4",
             "source_task_id": "CurriculumRL-TcpDocking-IK-v0",
+            "robot_model": "AUBO_E5",
             "sequence_mode": args_cli.sequence_mode,
-            "success_semantics": (
-                "pick_place_sequence_complete"
-                if place_enabled
-                else "dataset_sequence_complete"
-                if grasp_enabled
-                else "formal_task_success"
-            ),
+            "success_semantics": "pick_place_sequence_complete",
             "target_state_index": args_cli.target_state_index,
             "target_state_name": TARGET_STATES[args_cli.target_state_index].name,
             "place_state_index": args_cli.place_state_index,
@@ -1015,8 +899,8 @@ def main() -> int:
             "trajectory_mode": args_cli.trajectory_mode,
             "run_tag": args_cli.run_tag,
             "reward_target_field": "rewards",
-            "reward_semantics": "formal_task_reward_without_sequence_shaping",
-            "reward_prediction_loss": "smooth_l1",
+            "reward_semantics": "not_defined; original environment values retained for diagnostics only",
+            "reward_prediction_loss": "masked_smooth_l1_requires_reward_valid",
             "reward_component_fields": ",".join(RECORDED_REWARD_COMPONENTS),
         },
     )
@@ -1082,13 +966,9 @@ def main() -> int:
             waypoint_index=active_waypoint_index,
         )
         # ``outcome`` 只消费正式环境的 success/timeout/safety_failure，不在采集层复制阈值逻辑。
-        collection_safety_failure = (
-            metrics.outside_workspace | metrics.illegal_contact | metrics.joint_hard_limit
-            if grasp_enabled
-            else metrics.safety_failure
-        )
+        collection_safety_failure = metrics.outside_workspace | metrics.illegal_contact | metrics.joint_hard_limit
         outcome = EpisodeOutcome(
-            success=bool(metrics.success[0].item()) if not grasp_enabled else False,
+            success=False,
             timeout=bool(unwrapped.reset_time_outs[0].item()),
             safety_failure=bool(collection_safety_failure[0].item()),
         )
@@ -1167,24 +1047,16 @@ def main() -> int:
             active_grasp_tcp_position_b = _grasp_tcp_position_b(
                 unwrapped, args_cli.target_state_index, args_cli.grasp_height_m
             )
-            if place_enabled:
-                place_state = TARGET_STATES[args_cli.place_state_index]
-                place_tcp_position_e = place_state.grasp_tcp_position_e
-                # 正式方向真值保留在世界系 W；B 系版本只用于控制量和旧数据字段。
-                place_tcp_direction_w = _target_tcp_direction_w(args_cli.place_state_index)
-                place_tcp_axis_b = _target_tcp_axis_b(unwrapped, args_cli.place_state_index)
-                lift_position_b, place_high_position_b, place_position_b = _pick_place_positions_b(
-                    unwrapped,
-                    args_cli.target_state_index,
-                    args_cli.place_state_index,
-                    float(args_cli.lift_clearance_m),
-                    args_cli.grasp_height_m,
-                )
-            else:
-                place_tcp_position_e = None
-                place_tcp_direction_w = None
-                place_tcp_axis_b = None
-                lift_position_b = place_high_position_b = place_position_b = None
+            place_state = TARGET_STATES[args_cli.place_state_index]
+            place_tcp_position_e = place_state.grasp_tcp_position_e
+            place_tcp_direction_w = _target_tcp_direction_w(args_cli.place_state_index)
+            lift_position_b, place_high_position_b, place_position_b = _pick_place_positions_b(
+                unwrapped,
+                args_cli.target_state_index,
+                args_cli.place_state_index,
+                float(args_cli.lift_clearance_m),
+                args_cli.grasp_height_m,
+            )
             # 固定目标姿态与 action term 的 Flange-down 几何约束一致，而不是沿用 reset 姿态。
             robot = unwrapped.scene[SCENE_ENTITY_AUBO]
             _, active_target_quaternion_b = flange_down_tcp_target_pose(
@@ -1199,11 +1071,8 @@ def main() -> int:
                 lift_position_b=lift_position_b,
                 place_high_position_b=place_high_position_b,
                 place_position_b=place_position_b,
-                place_tcp_axis_b=place_tcp_axis_b,
                 place_tcp_direction_w=place_tcp_direction_w,
                 config=sequence_config,
-                grasp_enabled=grasp_enabled,
-                place_enabled=place_enabled,
                 place_state_index=args_cli.place_state_index,
                 tool_forward_axis=TOOL_FORWARD_AXIS,
                 tcp_heading_axis=TCP_DIRECTION_AXIS_T,
@@ -1213,14 +1082,7 @@ def main() -> int:
             )
             active_desired_axis_b = np.asarray(sequence.desired_axis_b, dtype=np.float64)
             active_advance_target_position_b = np.asarray(sequence.advance_target_b, dtype=np.float64)
-            episode_goal_position_b = np.asarray(
-                place_position_b
-                if place_enabled
-                else active_advance_target_position_b
-                if grasp_enabled
-                else active_target_position_b,
-                dtype=np.float64,
-            )
+            episode_goal_position_b = np.asarray(place_position_b, dtype=np.float64)
             active_semantic_stage_id = int(SequenceStage.HIGH_XY_APPROACH)
             active_dataset_action = np.asarray((0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0), dtype=np.float32)
             active_controller.flange_downward_enabled = True
@@ -1257,6 +1119,23 @@ def main() -> int:
             control_waypoints = plan.control_waypoints
             # ``episode_metadata`` 保存复现轨迹和解释数据所需的配置，不参与控制决策。
             episode_metadata = {
+                "target_object_id": SCENE_ENTITY_TARGET,
+                "tcp_frame_name": "controller_TCP",
+                "selected_grasp_id": TARGET_STATES[args_cli.target_state_index].name,
+                "grasp_definition_source": "task_config_position_and_flange_down_heading_solver",
+                "grasp_reference_frame": "object",
+                "object_reference_frame": "target_config_root",
+                "action_frame": "robot_base",
+                "action_position_scale_m": TCP_POSITION_SCALE_M,
+                "action_rotation_scale_rad": TCP_HEADING_SCALE_RAD,
+                "action_applied_source": "FK_of_final_transmitted_joint_target_minus_policy_start_FK",
+                "goal_position_tolerance_m": sequence_config.position_tolerance_m,
+                "goal_rotation_tolerance_rad": sequence_config.normal_angle_tolerance_rad,
+                "goal_tolerance_source": "sequence_tcp_tolerances; object_success_not_evaluated",
+                "gripper_force_semantics": (
+                    "physx_projected_joint_force_along_prismatic_axes; not_fingertip_contact_force"
+                ),
+
                 "seed": episode_seed,
                 "target_state_index": args_cli.target_state_index,
                 "target_state_name": TARGET_STATES[args_cli.target_state_index].name,
@@ -1275,13 +1154,14 @@ def main() -> int:
                 "flange_downward_axis_world": "-Z",
                 "downward_yaw_offset_deg": args_cli.downward_yaw_offset_deg,
                 "ik_seed_strategy": "current_joint_position_at_policy_step",
-                "action_semantics": "normalized_tcp_increment_6d_plus_tcp_heading_target_plus_gripper_open_close",
+                "action_semantics": "normalized_xyz_plus_absolute_heading_plus_gripper_in_legacy8_layout",
                 "action_rotation_semantics": (
                     "six-dimensional TCP increment is submitted to the existing IK adapter; "
                     "Flange-down mode zeros incremental rotation and resolves orientation from tcp_heading_target"
                 ),
                 "tcp_heading_semantics": (
-                    "normalized XOY heading terminal value; ALIGN_NORMAL and ALIGN_PLACE_DIRECTION use bounded heading steps; "
+                    "normalized XOY heading terminal value; "
+                    "ALIGN_NORMAL and ALIGN_PLACE_DIRECTION use bounded heading steps; "
                     "Flange normal remains downward in every sequence stage"
                 ),
                 "tcp_heading_step_rad": sequence_config.heading_step_rad,
@@ -1299,27 +1179,16 @@ def main() -> int:
                 "grasp_tcp_position_e": TARGET_STATES[args_cli.target_state_index].grasp_tcp_position_e,
                 "grasp_tcp_position_b": tuple(float(value) for value in active_grasp_tcp_position_b),
                 "place_tcp_position_e": place_tcp_position_e,
-                "place_tcp_axis_b": None
-                if place_tcp_axis_b is None
-                else tuple(float(value) for value in place_tcp_axis_b),
-                "place_tcp_direction_w": None
-                if place_tcp_direction_w is None
-                else tuple(float(value) for value in place_tcp_direction_w),
+                "place_tcp_direction_w": tuple(float(value) for value in place_tcp_direction_w),
                 "place_state_index": args_cli.place_state_index,
-                "place_state_name": None if not place_enabled else place_state.name,
-                "place_object_position_e": None if not place_enabled else place_state.position_e,
-                "place_object_rotation_wxyz": None if not place_enabled else place_state.rotation_wxyz,
+                "place_state_name": place_state.name,
+                "place_object_position_e": place_state.position_e,
+                "place_object_rotation_wxyz": place_state.rotation_wxyz,
                 "lift_clearance_m": args_cli.lift_clearance_m,
                 "grasp_height_m": args_cli.grasp_height_m,
-                "lift_position_b": None
-                if lift_position_b is None
-                else tuple(float(value) for value in lift_position_b),
-                "place_high_position_b": None
-                if place_high_position_b is None
-                else tuple(float(value) for value in place_high_position_b),
-                "place_position_b": None
-                if place_position_b is None
-                else tuple(float(value) for value in place_position_b),
+                "lift_position_b": tuple(float(value) for value in lift_position_b),
+                "place_high_position_b": tuple(float(value) for value in place_high_position_b),
+                "place_position_b": tuple(float(value) for value in place_position_b),
                 "sequence_mode": args_cli.sequence_mode,
                 "semantic_stage_labels": ",".join(stage.name.lower() for stage in SequenceStage),
                 "normal_angle_tolerance_deg": args_cli.normal_angle_tolerance_deg,
@@ -1350,7 +1219,7 @@ def main() -> int:
                 waypoint_index=0,
             )
             # ``builder`` 按 o0-a0-r0-o1-... 顺序组装本条 episode。
-            builder = EpisodeBuilder(episode_id)
+            builder = EpisodeBuilder(episode_id, reward_valid=False)
             builder.start(initial_snapshot)
             # ``supervisor`` 确保 reset hook 捕获的正式终局只提交一次。
             supervisor = EpisodeSupervisor()
@@ -1420,6 +1289,8 @@ def main() -> int:
                         sequence_command.stage,
                     )
                 active_dataset_action = np.asarray(sequence_command.dataset_action, dtype=np.float32)
+                # Flange-down uses only heading; remove ignored legacy rotation channels before submission.
+                active_dataset_action[3:6] = 0.0
                 # 新增的 TCP 平面朝向量只影响 Flange-down 目标姿态；现有六维
                 # TCP action 仍按原接口送入 IK，不改变 IK 数学求解器。
                 commanded_position_b = (
@@ -1532,7 +1403,7 @@ def main() -> int:
                     last_snapshot,
                     _reward_components(unwrapped),
                 )
-                if grasp_enabled and sequence_command.complete:
+                if sequence_command.complete:
                     episode = builder.close(TerminationReason.SUCCESS, last_snapshot)
                     episode_metadata.update(
                         executed_control_steps=episode.length,
@@ -1555,14 +1426,6 @@ def main() -> int:
                 # 若环境报告终止却没有经过 reset hook，说明终局捕获契约被破坏，应立即报错。
                 if bool(terminated[0].item()) or bool(truncated[0].item()):
                     raise RuntimeError("环境已终止但未在 reset hook 捕获 terminal observation")
-                if (control_step + 1) % 50 == 0:
-                    # 打印周期性控制进度，避免长时间采集时无法判断流程是否仍在运行。
-                    _log_episode_progress(
-                        episode_id,
-                        control_step + 1,
-                        waypoint_index,
-                        len(control_waypoints),
-                    )
             if not completed:
                 # 达到 ``max_steps`` 或 waypoint 数量上限时，按采集层上限关闭 episode。
                 # 该 timeout 是 collection cap，不冒充正式环境的成功/安全终止。

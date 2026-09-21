@@ -14,6 +14,7 @@ from .config import (
     DATASET_SCHEMA_VERSION,
     NORMALIZED_ACTION_HIGH,
     NORMALIZED_ACTION_LOW,
+    READABLE_SCHEMA_VERSIONS,
     TCP_HEADING_SCALE_RAD,
 )
 
@@ -78,6 +79,7 @@ class ActionRecord:
     delta_limited: bool = False
     velocity_limited: bool = False
     position_limited: bool = False
+    action_applied: Sequence[float] | None = None
 
     def __post_init__(self) -> None:
         raw_action = _fixed_vector("raw_action", self.raw_action)
@@ -151,6 +153,8 @@ class ActionRecord:
         object.__setattr__(self, "delta_limited", bool(self.delta_limited))
         object.__setattr__(self, "velocity_limited", bool(self.velocity_limited))
         object.__setattr__(self, "position_limited", bool(self.position_limited))
+        if self.action_applied is not None:
+            object.__setattr__(self, "action_applied", _fixed_vector("action_applied", self.action_applied))
 
     @property
     def normalized_action(self) -> tuple[float, ...]:
@@ -190,6 +194,7 @@ class ActionRecord:
             "delta_limited": self.delta_limited,
             "velocity_limited": self.velocity_limited,
             "position_limited": self.position_limited,
+            "action_applied": self.action_applied,
         }
 
 
@@ -223,6 +228,7 @@ class StepRecord:
     action: ActionRecord
     reward: float
     reward_components: Mapping[str, float] = field(default_factory=dict)
+    reward_valid: bool = True
 
     def __post_init__(self) -> None:
         if self.timestep < 0:
@@ -270,7 +276,7 @@ class Episode:
 
         if not self.episode_id:
             raise ValueError("episode_id 不能为空")
-        if self.schema_version != DATASET_SCHEMA_VERSION:
+        if self.schema_version not in READABLE_SCHEMA_VERSIONS:
             raise ValueError(f"不支持的数据 schema：{self.schema_version}")
         if len(self.observations) != len(self.steps) + 1:
             raise ValueError("observation 长度必须等于 action/reward 长度加一")
@@ -330,6 +336,7 @@ class Episode:
                     "timestep": step.timestep,
                     "reward": step.reward,
                     "reward_components": dict(step.reward_components),
+                    "reward_valid": step.reward_valid,
                     **step.action.as_dict(),
                 }
                 for step in self.steps
@@ -343,8 +350,9 @@ _UNSET = object()
 class EpisodeBuilder:
     """按先观测、后控制步、再终局观测的顺序装配 episode。"""
 
-    def __init__(self, episode_id: str) -> None:
+    def __init__(self, episode_id: str, *, reward_valid: bool = True) -> None:
         self.episode_id = episode_id
+        self.reward_valid = bool(reward_valid)
         self._active = False
         self._observations: list[ObservationFrame] = []
         self._steps: list[StepRecord] = []
@@ -377,7 +385,7 @@ class EpisodeBuilder:
         if not self._active:
             raise RuntimeError("必须先 start episode")
         timestep = len(self._steps)
-        self._steps.append(StepRecord(timestep, action, reward, reward_components or {}))
+        self._steps.append(StepRecord(timestep, action, reward, reward_components or {}, self.reward_valid))
         self._observations.append(ObservationFrame(timestep + 1, next_observation, BoundaryFlags()))
 
     def close(self, termination_reason: TerminationReason, terminal_observation: Any = _UNSET) -> Episode:

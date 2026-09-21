@@ -9,6 +9,8 @@ from typing import Any
 
 import numpy as np
 
+from .config import ALIGNED_SCHEMA_VERSION
+
 
 def window_count(transition_count: int, horizon: int = 16) -> int:
     """Return the number of legal fixed windows for one episode."""
@@ -91,6 +93,14 @@ class MambaSequenceBuffer:
         for file_index, handle in enumerate(self._files):
             for name in sorted(handle["data"].keys()):
                 demo = handle["data"][name]
+                if handle["data"].attrs.get("schema_version") == ALIGNED_SCHEMA_VERSION:
+                    from .aligned_schema import validate_reward_mask
+
+                    try:
+                        validate_reward_mask(demo)
+                    except ValueError:
+                        self.close()
+                        raise
                 if self.split is not None and str(demo.attrs.get("split", "")) != self.split:
                     continue
                 lookup.append((file_index, name))
@@ -139,6 +149,7 @@ class MambaSequenceBuffer:
             "observations": observations,
             "actions": np.stack([example["actions"] for example in examples], axis=0),
             "rewards": np.stack([example["rewards"] for example in examples], axis=0)[..., None],
+            "reward_valid": np.stack([example["reward_valid"] for example in examples], axis=0)[..., None],
             "dones": np.stack([example["dones"] for example in examples], axis=0)[..., None],
             "timeouts": np.stack([example["timeouts"] for example in examples], axis=0)[..., None],
             "is_terminal": np.stack([example["is_terminal"] for example in examples], axis=0)[..., None],
@@ -156,12 +167,19 @@ class MambaSequenceBuffer:
             raise IndexError("window start is outside the legal 0..T-horizon range")
         observation_group = demo["obs"]
         observations = {
-            key: np.asarray(observation_group[key][start : start + self.horizon + 1]) for key in observation_group
+            key: np.asarray(observation_group[key][start : start + self.horizon + 1])
+            for key in observation_group
+            if key != "camera_calibration"
         }
         return {
             "observations": observations,
             "actions": np.asarray(demo["actions"][start : start + self.horizon], dtype=np.float32),
             "rewards": np.asarray(demo["rewards"][start : start + self.horizon], dtype=np.float32),
+            "reward_valid": (
+                np.asarray(demo["reward_valid"][start : start + self.horizon], dtype=bool)
+                if "reward_valid" in demo
+                else np.ones(self.horizon, dtype=bool)
+            ),
             "dones": np.asarray(demo["dones"][start : start + self.horizon], dtype=np.uint8),
             "timeouts": np.asarray(demo["timeouts"][start : start + self.horizon], dtype=np.uint8),
             "is_terminal": np.asarray(demo["is_terminal"][start : start + self.horizon], dtype=np.uint8),

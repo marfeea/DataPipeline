@@ -161,19 +161,11 @@ def test_hdf5_writer_reports_incompatible_manifest_schema(tmp_path: Path) -> Non
     assert DATASET_SCHEMA_VERSION == "r2dreamer-aubo-ik-sequence-v3"
 
 
-@pytest.mark.parametrize(
-    "stages",
-    (
-        (0, 1, 0, 2, 3, 4, 6, 7, 11, 10, 12, 8, 9),
-        (0, 1, 0, 2, 3, 4, 6, 11, 7, 10, 12, 8, 9),
-    ),
-    ids=("current-move-before-align", "legacy-align-before-move"),
-)
 def test_sequence_v3_validator_uses_semantic_stage_order_not_numeric_order(
     tmp_path: Path,
-    stages: tuple[int, ...],
 ) -> None:
     import h5py
+    stages = (0, 1, 0, 2, 3, 4, 6, 11, 7, 10, 12, 8, 9)
 
     builder = EpisodeBuilder("semantic-stage-order")
     builder.start(_observation(0))

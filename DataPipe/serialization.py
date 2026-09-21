@@ -82,8 +82,10 @@ def episode_from_record(record: Mapping[str, Any]) -> Episode:
                 delta_limited=item.get("delta_limited", False),
                 velocity_limited=item.get("velocity_limited", False),
                 position_limited=item.get("position_limited", False),
+                action_applied=item.get("action_applied"),
             ),
             reward_components=item.get("reward_components", {}),
+            reward_valid=item.get("reward_valid", True),
         )
         for item in record["steps"]
     )

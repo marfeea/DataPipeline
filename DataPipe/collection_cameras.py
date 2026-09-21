@@ -133,6 +133,7 @@ def export_episode_frames(
             "time_since_reset_s": control_step / control_hz,
             "control": step.action.as_dict(),
             "reward": step.reward,
+            "reward_valid": getattr(step, "reward_valid", True),
             "reward_components": dict(step.reward_components),
         })
         for spec in camera_specs:

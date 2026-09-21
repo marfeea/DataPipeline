@@ -7,6 +7,7 @@ from typing import Any
 
 import numpy as np
 
+from .config import ALIGNED_SCHEMA_VERSION, DATASET_SCHEMA_VERSION
 from .hdf5_schema import xyzw_to_wxyz
 from .records import ActionRecord, BoundaryFlags, Episode, ObservationFrame, StepRecord, TerminationReason
 
@@ -29,10 +30,15 @@ def episode_from_hdf5_group(
     fields instead of expanding them into Python lists.
     """
 
+    schema_version = str(group.parent.attrs.get("schema_version", DATASET_SCHEMA_VERSION))
+    if schema_version == ALIGNED_SCHEMA_VERSION:
+        from .aligned_schema import validate_reward_mask
+
+        validate_reward_mask(group)
     action_count = int(group["actions"].shape[0])
     observation_group = group["obs"]
     if observation_keys is None:
-        selected_observation_keys = tuple(observation_group)
+        selected_observation_keys = tuple(name for name in observation_group if name != "camera_calibration")
     else:
         selected_observation_keys = tuple(str(name) for name in observation_keys)
         if len(selected_observation_keys) != len(set(selected_observation_keys)):
@@ -49,7 +55,15 @@ def episode_from_hdf5_group(
                 field_value = xyzw_to_wxyz(field_value)
                 value[name + "_wxyz"] = field_value
             else:
+                if (
+                    name.endswith(("_quat_w_ros", "_quat_w_opengl"))
+                    and observation_group[name].attrs.get("quaternion_order") == "xyzw"
+                ):
+                    field_value = [field_value[3], *field_value[:3]]
                 value[name] = field_value
+        if observation_keys is None and "transforms/T_w_b" in group:
+            transform = group["transforms/T_w_b"]
+            value["T_w_b"] = _python_value(transform[...] if transform.ndim == 2 else transform[index])
         observations.append(
             ObservationFrame(
                 index,
@@ -164,16 +178,19 @@ def episode_from_hdf5_group(
                     velocity_limited=(
                         bool(diagnostics["velocity_limited"][index]) if "velocity_limited" in diagnostics else False
                     ),
+                    action_applied=(group["action_applied"][index] if "action_applied" in group else None),
                     position_limited=(
                         bool(diagnostics["position_limited"][index]) if "position_limited" in diagnostics else False
                     ),
                 ),
                 float(group["rewards"][index]),
                 reward_components,
+                bool(group["reward_valid"][index]) if "reward_valid" in group else True,
             )
         )
     return Episode(
         episode_id=str(group.attrs["episode_id"]),
+        schema_version=schema_version,
         observations=tuple(observations),
         steps=tuple(steps),
         termination_reason=reason,

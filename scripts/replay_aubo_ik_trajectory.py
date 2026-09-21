@@ -30,15 +30,22 @@ ensure_curriculumrl_available()
 # 先加载纯 HDF5 读取接口；真正依赖 Isaac/Kit 的模块放到 main() 中延迟导入。
 from CurriculumRL.logic.aubo_ik import flange_down_yaw_offset_for_tcp_heading  # noqa: E402
 
-from DataPipe.config import GRIPPER_OPEN_POSITION, TCP_HEADING_SCALE_RAD, TCP_POSITION_SCALE_M  # noqa: E402
+from DataPipe.config import (  # noqa: E402
+    GRIPPER_OPEN_POSITION,
+    TCP_HEADING_SCALE_RAD,
+    TCP_POSITION_SCALE_M,
+    DatasetConfig,
+)
 from DataPipe.hdf5_writer import HDF5TrajectoryWriter  # noqa: E402
 from DataPipe.records import Episode  # noqa: E402
+from DataPipe.replay_metrics import replay_error, summarize_replay  # noqa: E402
 
 # GUI replay 的目标节拍；``--frame-delay`` 默认使用其倒数。
 REPLAY_FRAME_RATE_HZ = 60.0
 REPLAY_OBSERVATION_KEYS = (
     "q",
     "dq",
+    "tcp_pose",
     "gripper_position",
     "gripper_velocity",
     "semantic_stage_id",
@@ -62,6 +69,7 @@ episode_selection.add_argument(
 )
 parser.add_argument("--mode", choices=("state", "action"), default="state")
 parser.add_argument("--start", type=int, default=0)
+parser.add_argument("--report-json", type=Path, help="Write numerical replay errors and completion counts")
 parser.add_argument("--stop", type=int, default=None)
 parser.add_argument(
     "--frame-delay",
@@ -102,7 +110,8 @@ def _load_dataset(
     """
 
     # writer.load_episodes() 会先校验 manifest 中的 SHA-256，再把 T/T+1 数据恢复为 Episode。
-    writer = HDF5TrajectoryWriter(output_dir)
+    schema_version = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))["schema_version"]
+    writer = HDF5TrajectoryWriter(output_dir, DatasetConfig(schema_version=schema_version))
     episodes = writer.load_episodes(
         episode_ids=episode_ids,
         observation_keys=REPLAY_OBSERVATION_KEYS,
@@ -316,6 +325,10 @@ def main() -> int:
                 value = dict(reference)
                 value["q"] = robot.data.joint_pos[0, joint_ids].detach().cpu().tolist()
                 value["gripper_position"] = list(gripper_controller.state()[0])
+                position, quaternion, _ = controller.current_tcp_pose_b()
+                value["tcp_pose_wxyz"] = [
+                    *position[0].detach().cpu().tolist(), *quaternion[0].detach().cpu().tolist(),
+                ]
                 return value
 
             # state 模式的核心：直接写回关节状态，不执行记录动作，也不重新计算任务轨迹。
@@ -348,9 +361,12 @@ def main() -> int:
                 joint_vel[:, gripper_controller.joint_ids] = gripper_dq
                 robot.write_joint_state_to_sim(joint_pos, joint_vel)
                 robot.set_joint_position_target(q, joint_ids=joint_ids)
+                robot.set_joint_position_target(gripper_q, joint_ids=gripper_controller.joint_ids)
                 unwrapped.scene.write_data_to_sim()
-                unwrapped.sim.step(render=True)
-                unwrapped.scene.update(unwrapped.step_dt)
+                # Refresh link transforms and the viewport without integrating the
+                # recorded velocities or applying stale actuator targets for a step.
+                unwrapped.sim.forward()
+                unwrapped.sim.render()
 
             # ------------------------------ 多 episode 重播 ------------------------------
             # 只创建一次 Isaac 环境；每条 episode 开始时重新 reset，结束后继续遍历下一条记录。
@@ -358,6 +374,7 @@ def main() -> int:
                 f"REPLAY_START episodes={len(replay_items)} mode={args_cli.mode} frame_rate={REPLAY_FRAME_RATE_HZ:.1f}",
                 flush=True,
             )
+            reports = []
             for replay_index, (episode, episode_metadata) in enumerate(replay_items, start=1):
                 # 旧数据第 7 维表示 IK TCP +Y；新数据显式保存物理朝向轴的 T 系表达。
                 heading_axis = _as_float_array(
@@ -383,12 +400,15 @@ def main() -> int:
                     flush=True,
                 )
 
+                frame_errors = []
                 if args_cli.mode == "state":
                     # state 模式用于检查记录的每一帧姿态是否能在同一场景中恢复到视窗。
                     for index in range(start, stop):
                         observation = episode.observations[index].value
                         write_recorded_state(observation)
-                        _print_frame(index=index, total=total_frames, observation=runtime_observation(observation))
+                        actual = runtime_observation(observation)
+                        frame_errors.append(replay_error(observation, actual))
+                        _print_frame(index=index, total=total_frames, observation=actual)
                         _pause()
                 else:
                     # action 模式从本条 episode reset 后逐步执行记录动作，并输出正式终止/误差信息。
@@ -426,6 +446,7 @@ def main() -> int:
                         _, reward, terminated, truncated, _ = env.step(action)
                         runtime_done = (bool(terminated[0].item()), bool(truncated[0].item()))
                         next_observation = runtime_observation(episode.observations[index + 1].value)
+                        frame_errors.append(replay_error(episode.observations[index + 1].value, next_observation))
                         _print_frame(
                             index=index + 1,
                             total=total_frames,
@@ -442,9 +463,22 @@ def main() -> int:
                                 flush=True,
                             )
                             break
+                expected_frames = stop - start if args_cli.mode == "state" else max(0, action_stop - start)
+                reports.append({
+                    "episode_id": episode.episode_id, "mode": args_cli.mode,
+                    "expected_frames": expected_frames,
+                    "completed": len(frame_errors) == expected_frames,
+                    **summarize_replay(frame_errors),
+                })
+                print("REPLAY_METRICS " + json.dumps(reports[-1]), flush=True)
                 print(
                     f"REPLAY_EPISODE_COMPLETE index={replay_index}/{len(replay_items)} episode={episode.episode_id}",
                     flush=True,
+                )
+            if args_cli.report_json is not None:
+                args_cli.report_json.parent.mkdir(parents=True, exist_ok=True)
+                args_cli.report_json.write_text(
+                    json.dumps({"episodes": reports}, indent=2) + "\n", encoding="utf-8",
                 )
             # 在关闭 Isaac App 前输出汇总；Kit close 可能终止或吞掉其后的标准输出。
             print(
@@ -458,7 +492,7 @@ def main() -> int:
     finally:
         # 释放 Isaac Sim/Kit 资源，避免下次 replay 继承残留窗口或渲染状态。
         simulation_app.close()
-    return 0
+    return 0 if all(report["completed"] for report in reports) else 1
 
 
 if __name__ == "__main__":

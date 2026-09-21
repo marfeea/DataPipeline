@@ -14,6 +14,8 @@ TCP_HEADING_ACTION_DIMENSION: Final = 1
 GRIPPER_ACTION_DIMENSION: Final = 1
 ACTION_DIMENSION: Final = ARM_ACTION_DIMENSION + TCP_HEADING_ACTION_DIMENSION + GRIPPER_ACTION_DIMENSION
 DATASET_SCHEMA_VERSION: Final = "r2dreamer-aubo-ik-sequence-v3"
+ALIGNED_SCHEMA_VERSION: Final = "r2dreamer-aubo-ik-aligned-v4"
+READABLE_SCHEMA_VERSIONS: Final = (DATASET_SCHEMA_VERSION, ALIGNED_SCHEMA_VERSION)
 CONTROL_FREQUENCY_HZ: Final = 4.0
 JOINT_NAMES: Final = ("Joint1", "Joint2", "Joint3", "Joint4", "Joint5", "Flange")
 NORMALIZED_ACTION_LOW: Final = -1.0
@@ -95,7 +97,7 @@ class DatasetConfig:
     def validate(self, *, require_camera_poses: bool = False) -> None:
         """验证字段、频率、分片和相机配置。"""
 
-        if self.schema_version != DATASET_SCHEMA_VERSION:
+        if self.schema_version not in READABLE_SCHEMA_VERSIONS:
             raise ValueError(f"不支持的数据 schema：{self.schema_version}")
         if self.control_frequency_hz <= 0.0:
             raise ValueError("control_frequency_hz 必须为正数")

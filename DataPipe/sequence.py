@@ -10,7 +10,6 @@ from math import acos, atan2, cos, isfinite, pi, sin, sqrt
 from configs.coordinate_frames import (
     IDENTITY_QUATERNION_WXYZ,
     TCP_DIRECTION_AXIS_T,
-    base_to_world_direction,
     direction_error_rad,
     tcp_direction_in_world,
     world_to_base_direction,
@@ -32,7 +31,6 @@ class SequenceStage(IntEnum):
     ALIGN_NORMAL = 2
     ADVANCE_NORMAL = 3
     CLOSE_GRIPPER = 4
-    HOLD_COMPLETE = 5
     LIFT_OBJECT = 6
     ALIGN_PLACE_DIRECTION = 11
     PLACE_HIGH_XY = 7
@@ -40,11 +38,9 @@ class SequenceStage(IntEnum):
     PLACE_FINAL_XY = 12
     RELEASE_GRIPPER = 8
     PLACE_COMPLETE = 9
-    # 兼容旧调用方：旧的 PLACE_OBJECT(7) 现在明确表示高位 XOY 平移阶段。
-    PLACE_OBJECT = PLACE_HIGH_XY
 
 
-# 阶段 ID 为兼容已生成数据保持稳定，不能再用整数大小推断执行顺序。
+# 阶段 ID 不按执行顺序排列，不能用整数大小推断阶段先后。
 SEQUENCE_STAGE_ORDER = (
     SequenceStage.HIGH_XY_APPROACH,
     SequenceStage.MATCH_Z,
@@ -60,29 +56,13 @@ SEQUENCE_STAGE_ORDER = (
     SequenceStage.PLACE_COMPLETE,
 )
 SEQUENCE_STAGE_RANK = {stage: rank for rank, stage in enumerate(SEQUENCE_STAGE_ORDER)}
-# HOLD_COMPLETE 是 position-only/grasp 分支的终态，与 pick-place 的末态同级。
-SEQUENCE_STAGE_RANK[SequenceStage.HOLD_COMPLETE] = len(SEQUENCE_STAGE_ORDER) - 1
-LEGACY_SEQUENCE_STAGE_ORDER_V3 = (
-    SequenceStage.HIGH_XY_APPROACH,
-    SequenceStage.MATCH_Z,
-    SequenceStage.ALIGN_NORMAL,
-    SequenceStage.ADVANCE_NORMAL,
-    SequenceStage.CLOSE_GRIPPER,
-    SequenceStage.LIFT_OBJECT,
-    SequenceStage.ALIGN_PLACE_DIRECTION,
-    SequenceStage.PLACE_HIGH_XY,
-    SequenceStage.PLACE_FINAL_Z,
-    SequenceStage.PLACE_FINAL_XY,
-    SequenceStage.RELEASE_GRIPPER,
-    SequenceStage.PLACE_COMPLETE,
-)
 PLACE_TRANSFER_HEADING_FRACTION = 0.5
 
 
 @dataclass(frozen=True, slots=True)
 class SequenceConfig:
     position_tolerance_m: float = 0.01
-    # 字段名沿用旧 CLI；用于抓取和放置的 XOY 平面 heading 到位门限。
+    # 用于抓取和放置的 XOY 平面 heading 到位门限。
     normal_angle_tolerance_rad: float = 5.0 * pi / 180.0
     normal_dwell_steps: int = 3
     advance_distance_m: float = 0.0
@@ -90,10 +70,8 @@ class SequenceConfig:
     gripper_dwell_steps: int = 3
     heading_step_rad: float = TCP_ROTATION_SCALE_RAD
     log_place_final_xy_conditions: bool = False
-    # 放置最后下降阶段默认保持目标点 XY，避免使用漂移中的 TCP XY 作为动态目标。
-    place_final_z_fixed_xy: bool = True
 
-    def validate(self, *, grasp_enabled: bool) -> None:
+    def validate(self) -> None:
         if self.position_tolerance_m <= 0.0:
             raise ValueError("position_tolerance_m must be positive")
         if not 0.0 < self.normal_angle_tolerance_rad < pi:
@@ -341,55 +319,36 @@ class DatasetSequence:
         self,
         *,
         preposition_b: Sequence[float],
-        target_b: Sequence[float] | None = None,
-        grasp_tcp_position_b: Sequence[float] | None = None,
+        grasp_tcp_position_b: Sequence[float],
         grasp_tcp_direction_w: Sequence[float] | None = None,
         lift_position_b: Sequence[float] | None = None,
         place_high_position_b: Sequence[float] | None = None,
         place_position_b: Sequence[float] | None = None,
-        place_tcp_axis_b: Sequence[float] | None = None,
-        place_tcp_direction_w: Sequence[float] | None = None,
+        place_tcp_direction_w: Sequence[float],
         config: SequenceConfig,
-        grasp_enabled: bool,
-        place_enabled: bool = False,
         place_state_index: int | None = None,
         tool_forward_axis: Sequence[float] = (0.0, 0.0, 1.0),
         tcp_heading_axis: Sequence[float] = TCP_DIRECTION_AXIS_T,
         initial_tcp_heading_rad: float | None = None,
         initial_state: SequenceState | None = None,
     ) -> None:
-        config.validate(grasp_enabled=grasp_enabled)
+        config.validate()
         self.preposition_b = _vector(preposition_b, size=3, name="preposition_b")
-        if grasp_tcp_position_b is not None and target_b is not None:
-            raise ValueError("provide grasp_tcp_position_b or legacy target_b, not both")
-        legacy_target = grasp_tcp_position_b is None and target_b is not None
-        grasp_target = grasp_tcp_position_b if grasp_tcp_position_b is not None else target_b
-        if grasp_enabled and grasp_target is None:
-            raise ValueError("grasp sequence requires grasp_tcp_position_b")
-        if grasp_target is None:
-            grasp_target = self.preposition_b
-        direction_target_b = _vector(grasp_target, size=3, name="grasp_tcp_position_b")
+        direction_target_b = _vector(grasp_tcp_position_b, size=3, name="grasp_tcp_position_b")
         self.target_b = direction_target_b
         self.desired_axis_b = (
             approach_direction(self.preposition_b, direction_target_b)
             if direction_target_b != self.preposition_b
             else (0.0, 0.0, 1.0)
         )
-        self.grasp_tcp_position_b = (
-            tuple(
-                value + config.advance_distance_m * axis
-                for value, axis in zip(self.preposition_b, self.desired_axis_b, strict=True)
-            )
-            if legacy_target
-            else direction_target_b
-        )
+        self.grasp_tcp_position_b = direction_target_b
         self.grasp_tcp_direction_w = (
             normalize(grasp_tcp_direction_w, name="grasp_tcp_direction_w")
             if grasp_tcp_direction_w is not None
             else None
         )
         self.advance_target_b = self.grasp_tcp_position_b
-        if not legacy_target and config.advance_distance_m > 0.0:
+        if config.advance_distance_m > 0.0:
             configured_distance = _norm(
                 tuple(
                     grasp - preposition
@@ -398,11 +357,8 @@ class DatasetSequence:
             )
             if abs(configured_distance - config.advance_distance_m) > config.position_tolerance_m:
                 raise ValueError("advance_distance_m is inconsistent with grasp_tcp_position_b")
-        self.place_enabled = bool(place_enabled)
-        if self.place_enabled and not grasp_enabled:
-            raise ValueError("place sequence requires grasp_enabled")
         place_positions = (lift_position_b, place_high_position_b, place_position_b)
-        if self.place_enabled and any(position is None for position in place_positions):
+        if any(position is None for position in place_positions):
             raise ValueError("place sequence requires lift, place-high, and place positions")
         self.lift_position_b = (
             _vector(lift_position_b, size=3, name="lift_position_b") if lift_position_b is not None else None
@@ -415,18 +371,7 @@ class DatasetSequence:
         self.place_position_b = (
             _vector(place_position_b, size=3, name="place_position_b") if place_position_b is not None else None
         )
-        if self.place_enabled and place_tcp_axis_b is None and place_tcp_direction_w is None:
-            raise ValueError("place sequence requires place_tcp_direction_w or legacy place_tcp_axis_b")
-        # ``place_tcp_direction_w`` 是正式接口：目标方向始终在世界系 W 中表达。
-        # ``place_tcp_axis_b`` 只保留给旧数据和纯逻辑调用方，运行时会先转回 W 系再比较。
-        self.place_tcp_axis_b = (
-            normalize(place_tcp_axis_b, name="place_tcp_axis_b") if place_tcp_axis_b is not None else None
-        )
-        self.place_tcp_direction_w = (
-            normalize(place_tcp_direction_w, name="place_tcp_direction_w")
-            if place_tcp_direction_w is not None
-            else None
-        )
+        self.place_tcp_direction_w = normalize(place_tcp_direction_w, name="place_tcp_direction_w")
         # TCP 工具轴用于放置方向对齐；Flange-down 约束下只保留 XOY 平面朝向角。
         self.tool_forward_axis = normalize(tool_forward_axis, name="tool_forward_axis")
         self.tcp_heading_axis = normalize(tcp_heading_axis, name="tcp_heading_axis")
@@ -436,21 +381,19 @@ class DatasetSequence:
         # Index-specific routing belongs to the state machine. Keep heading policy
         # unchanged so the detour can be evaluated independently of orientation timing.
         self.place_high_waypoints: tuple[Vector3, ...] = ()
-        if self.place_enabled:
-            assert self.lift_position_b is not None and self.place_high_position_b is not None
-            high = self.place_high_position_b
-            if place_state_index == 0:
-                start = self.lift_position_b
-                swing_x = min(start[0], high[0]) - 0.18
-                self.place_high_waypoints = (
-                    (swing_x, start[1], high[2]),
-                    (swing_x, 0.5 * (start[1] + high[1]), high[2]),
-                    high,
-                )
-            else:
-                self.place_high_waypoints = (high,)
+        assert self.lift_position_b is not None and self.place_high_position_b is not None
+        high = self.place_high_position_b
+        if place_state_index == 0:
+            start = self.lift_position_b
+            swing_x = min(start[0], high[0]) - 0.18
+            self.place_high_waypoints = (
+                (swing_x, start[1], high[2]),
+                (swing_x, 0.5 * (start[1] + high[1]), high[2]),
+                high,
+            )
+        else:
+            self.place_high_waypoints = (high,)
         self.config = config
-        self.grasp_enabled = bool(grasp_enabled)
         self.initial_state = initial_state or SequenceState()
         if self.initial_state.dwell_steps < 0 or self.initial_state.stage_steps < 0:
             raise ValueError("initial sequence counters must be non-negative")
@@ -497,11 +440,7 @@ class DatasetSequence:
     def _place_direction_w(self, observation: SequenceObservation) -> Vector3:
         """返回世界系 W 中的目标 TCP 朝向。"""
 
-        if self.place_tcp_direction_w is not None:
-            return self.place_tcp_direction_w
-        if self.place_tcp_axis_b is None:
-            raise RuntimeError("place stage requires a TCP direction")
-        return base_to_world_direction(self.place_tcp_axis_b, observation.base_quaternion_wxyz)
+        return self.place_tcp_direction_w
 
     def _place_direction_b(self, observation: SequenceObservation) -> Vector3:
         """仅在生成 B 系控制目标时，把世界系目标方向转换到 B 系。"""
@@ -626,7 +565,7 @@ class DatasetSequence:
             if open_gripper_position is not None
             else None
         )
-        if self.place_enabled and opened is None:
+        if opened is None:
             raise ValueError("place sequence requires open_gripper_position")
         state = self.state
 
@@ -644,10 +583,7 @@ class DatasetSequence:
                     True,
                     False,
                 )
-            if not self.grasp_enabled:
-                self.state = SequenceState(SequenceStage.HOLD_COMPLETE, 0, 0, True)
-            else:
-                self.state = SequenceState(SequenceStage.ALIGN_NORMAL)
+            self.state = SequenceState(SequenceStage.ALIGN_NORMAL)
             state = self.state
 
         if state.stage is SequenceStage.ALIGN_NORMAL:
@@ -717,10 +653,8 @@ class DatasetSequence:
             )
             dwell = self._qualified(gripper_error <= self.config.gripper_position_tolerance)
             if dwell >= self.config.gripper_dwell_steps:
-                next_stage = SequenceStage.LIFT_OBJECT if self.place_enabled else SequenceStage.HOLD_COMPLETE
                 self.state = SequenceState(
-                    next_stage,
-                    complete=not self.place_enabled,
+                    SequenceStage.LIFT_OBJECT,
                     tcp_quaternion_ref_b_wxyz=state.tcp_quaternion_ref_b_wxyz,
                     tcp_heading_ref_rad=state.tcp_heading_ref_rad,
                 )
@@ -823,21 +757,8 @@ class DatasetSequence:
             xy_ok = xy_error <= self.config.position_tolerance_m
             z_ok = z_error <= self.config.position_tolerance_m
             position_ok = xy_ok and z_ok
-            # Lock X/Y to their measured values during the descent.  The
-            # preceding PLACE_HIGH_XY stage is responsible for XOY precision;
-            # this stage must command only the remaining Z displacement.
-            if self.config.place_final_z_fixed_xy:
-                vertical_target = (
-                    float(self.place_position_b[0]),
-                    float(self.place_position_b[1]),
-                    float(self.place_position_b[2]),
-                )
-            else:
-                vertical_target = (
-                    float(observation.tcp_position_b[0]),
-                    float(observation.tcp_position_b[1]),
-                    float(self.place_position_b[2]),
-                )
+            # Keep the configured place X/Y fixed during the final descent.
+            vertical_target = tuple(float(value) for value in self.place_position_b)
             place_direction_ok = self._place_direction_ok(observation)
             condition_ok = position_ok and place_direction_ok
             dwell = self._qualified(condition_ok)
@@ -1048,17 +969,7 @@ class DatasetSequence:
                 True,
             )
 
-        hold_target = self.advance_target_b if self.grasp_enabled else self.preposition_b
-        return self._make_command(
-            observation,
-            SequenceStage.HOLD_COMPLETE,
-            hold_target,
-            self.desired_axis_b,
-            self._arm_action(observation, hold_target, state.tcp_quaternion_ref_b_wxyz),
-            -1.0 if self.grasp_enabled else 1.0,
-            not self.grasp_enabled,
-            True,
-        )
+        raise RuntimeError(f"unsupported pick-place stage: {state.stage}")
 
 
 __all__ = [
@@ -1067,7 +978,6 @@ __all__ = [
     "SequenceConfig",
     "SequenceObservation",
     "SequenceStage",
-    "LEGACY_SEQUENCE_STAGE_ORDER_V3",
     "PLACE_TRANSFER_HEADING_FRACTION",
     "SEQUENCE_STAGE_ORDER",
     "SEQUENCE_STAGE_RANK",

@@ -10,7 +10,8 @@ from collections.abc import Collection, Mapping
 from pathlib import Path
 from typing import Any
 
-from .config import DATASET_SCHEMA_VERSION, DatasetConfig
+from .aligned_schema import FILE_METADATA, validate_observations, write_alignment
+from .config import ALIGNED_SCHEMA_VERSION, DatasetConfig
 from .hdf5_schema import observation_keys, write_episode_group
 from .records import Episode
 
@@ -50,7 +51,11 @@ class HDF5TrajectoryWriter:
         """Append an episode, rewriting only the current shard via ``.partial``."""
 
         episode.validate()
+        if episode.schema_version == ALIGNED_SCHEMA_VERSION and self.config.schema_version != ALIGNED_SCHEMA_VERSION:
+            raise ValueError("cannot silently downgrade a v4 episode to a legacy schema")
         observation_keys(episode)
+        if self.config.schema_version == ALIGNED_SCHEMA_VERSION:
+            validate_observations(episode)
         if episode.episode_id in self._episode_ids:
             raise ValueError(f"duplicate episode_id: {episode.episode_id}")
         self._check_disk()
@@ -104,6 +109,8 @@ class HDF5TrajectoryWriter:
                 ),
                 **self.dataset_metadata,
             }
+            if self.config.schema_version == ALIGNED_SCHEMA_VERSION:
+                attrs.update(FILE_METADATA)
             for key, value in attrs.items():
                 if value is not None:
                     data.attrs[str(key)] = value
@@ -114,7 +121,10 @@ class HDF5TrajectoryWriter:
             demo_name = f"demo_{episode.episode_id}"
             if demo_name in data:
                 raise ValueError(f"duplicate episode_id in shard: {episode.episode_id}")
-            write_episode_group(data.create_group(demo_name), episode, metadata=metadata)
+            demo = data.create_group(demo_name)
+            write_episode_group(demo, episode, metadata=metadata)
+            if self.config.schema_version == ALIGNED_SCHEMA_VERSION:
+                write_alignment(demo, episode)
             data.attrs["episodes"] = len(data) - 0
             data.attrs["total"] = sum(int(data[name].attrs["num_samples"]) for name in data)
             handle.flush()
@@ -124,7 +134,7 @@ class HDF5TrajectoryWriter:
         shard["sha256"] = _sha256(final_path)
         self._episode_ids.add(episode.episode_id)
         self._manifest = {
-            "schema_version": DATASET_SCHEMA_VERSION,
+            "schema_version": self.config.schema_version,
             "episode_count": len(self._episode_ids),
             "episode_ids": sorted(self._episode_ids),
             "shards": shards,

@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from typing import Any
 
 import torch
+
 from configs.assets import ROBOT_PRIM_CONTRACT
 
 
@@ -23,6 +24,9 @@ class DatasetGripperController:
         self.joint_ids, joint_names = robot.find_joints(list(ROBOT_PRIM_CONTRACT.gripper_joints), preserve_order=True)
         if tuple(joint_names) != ROBOT_PRIM_CONTRACT.gripper_joints:
             raise RuntimeError(f"gripper joint contract mismatch: {tuple(joint_names)}")
+        dof_types = robot.root_physx_view.get_dof_types()[0, self.joint_ids]
+        if any(int(value) != 1 for value in dof_types):
+            raise ValueError("gripper force in Newton requires two prismatic (translation) joints")
         self.open_position = self._target(open_position, name="open_position")
         self.closed_position = self._target(closed_position, name="closed_position")
         limits = robot.data.joint_pos_limits[0, self.joint_ids]

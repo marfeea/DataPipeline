@@ -77,10 +77,8 @@ def test_place_high_xy_turns_toward_midpoint_heading_while_transferring() -> Non
         lift_position_b=(0.0, 0.0, 1.0),
         place_high_position_b=(1.0, 0.0, 1.0),
         place_position_b=(1.0, 0.0, 0.2),
-        place_tcp_axis_b=(0.0, -1.0, 0.0),
+        place_tcp_direction_w=(0.0, -1.0, 0.0),
         config=SequenceConfig(normal_dwell_steps=1, gripper_dwell_steps=1),
-        grasp_enabled=True,
-        place_enabled=True,
         initial_state=SequenceState(
             stage=SequenceStage.PLACE_HIGH_XY,
             tcp_quaternion_ref_b_wxyz=source_quaternion,
@@ -102,126 +100,6 @@ def test_place_high_xy_turns_toward_midpoint_heading_while_transferring() -> Non
     assert command.target_position_b == pytest.approx((1.0, 0.0, 1.0))
 
 
-def test_grasp_sequence_is_monotonic_and_measurement_gated() -> None:
-    sequence = DatasetSequence(
-        tcp_heading_axis=(0.0, 1.0, 0.0),  # Explicit synthetic/legacy frame for these stage tests.
-        preposition_b=(0.0, 0.0, 0.0),
-        target_b=(1.0, 0.0, 0.0),
-        config=SequenceConfig(
-            position_tolerance_m=0.005,
-            normal_angle_tolerance_rad=0.02,
-            normal_dwell_steps=2,
-            advance_distance_m=0.1,
-            gripper_position_tolerance=1.0e-4,
-            gripper_dwell_steps=2,
-        ),
-        grasp_enabled=True,
-    )
-    # TCP +Z 必须落在 XOY 平面；绕 B 系 Y 轴 +90° 后指向 +X。
-    horizontal = (sqrt(0.5), 0.0, sqrt(0.5), 0.0)
-
-    command = sequence.command(
-        _observation((0.1, 0.0, 0.2), horizontal),
-        active_waypoint_b=(0.0, 0.0, 0.2),
-        active_waypoint_label="high_pose_alignment",
-        path_complete=False,
-        closed_gripper_position=(0.0, 0.0),
-    )
-    assert command.stage is SequenceStage.HIGH_XY_APPROACH
-    assert command.flange_downward_enabled
-    assert command.dataset_action[-1] == 1.0
-
-    command = sequence.command(
-        _observation((0.0, 0.0, 0.0), horizontal),
-        active_waypoint_b=(0.0, 0.0, 0.0),
-        active_waypoint_label="target_settle",
-        path_complete=True,
-        closed_gripper_position=(0.0, 0.0),
-    )
-    assert command.stage is SequenceStage.ALIGN_NORMAL
-    assert command.flange_downward_enabled
-    assert command.arm_action[3:] == (0.0, 0.0, 0.0)
-
-    for _ in range(2):
-        command = sequence.command(
-            _observation((0.0, 0.0, 0.0), horizontal),
-            active_waypoint_b=(0.0, 0.0, 0.0),
-            active_waypoint_label="target_settle",
-            path_complete=True,
-            closed_gripper_position=(0.0, 0.0),
-        )
-    assert command.stage is SequenceStage.ADVANCE_NORMAL
-    assert command.target_position_b == pytest.approx((0.1, 0.0, 0.0))
-    assert command.flange_downward_enabled
-    assert command.arm_action[3:] == (0.0, 0.0, 0.0)
-
-    command = sequence.command(
-        _observation((0.0, 0.0, 0.0), (sqrt(0.5), 0.0, 0.0, sqrt(0.5))),
-        active_waypoint_b=(0.0, 0.0, 0.0),
-        active_waypoint_label="target_settle",
-        path_complete=True,
-        closed_gripper_position=(0.0, 0.0),
-    )
-    assert command.stage is SequenceStage.ADVANCE_NORMAL
-    assert command.arm_action[3:] == pytest.approx((-1.0, 1.0, -1.0))
-
-    for _ in range(2):
-        command = sequence.command(
-            _observation((0.1, 0.0, 0.0), horizontal),
-            active_waypoint_b=(0.0, 0.0, 0.0),
-            active_waypoint_label="target_settle",
-            path_complete=True,
-            closed_gripper_position=(0.0, 0.0),
-        )
-    assert command.stage is SequenceStage.CLOSE_GRIPPER
-    assert command.gripper_command == -1.0
-    assert command.arm_action == (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-    assert command.flange_downward_enabled
-    assert command.arm_action[3:] == (0.0, 0.0, 0.0)
-
-    for _ in range(2):
-        command = sequence.command(
-            _observation((0.1, 0.0, 0.0), horizontal, (0.0, 0.0)),
-            active_waypoint_b=(0.0, 0.0, 0.0),
-            active_waypoint_label="target_settle",
-            path_complete=True,
-            closed_gripper_position=(0.0, 0.0),
-        )
-    assert command.stage is SequenceStage.HOLD_COMPLETE
-    assert command.complete
-    assert command.flange_downward_enabled
-    assert command.arm_action[3:] == (0.0, 0.0, 0.0)
-
-
-def test_position_only_mode_completes_without_grasp_parameters() -> None:
-    sequence = DatasetSequence(
-        tcp_heading_axis=(0.0, 1.0, 0.0),  # Explicit synthetic/legacy frame for these stage tests.
-        preposition_b=(0.0, 0.0, 0.0),
-        target_b=(1.0, 0.0, 0.0),
-        config=SequenceConfig(),
-        grasp_enabled=False,
-    )
-    command = sequence.command(
-        _observation((0.0, 0.0, 0.0), (sqrt(0.5), 0.0, sqrt(0.5), 0.0)),
-        active_waypoint_b=(0.0, 0.0, 0.0),
-        active_waypoint_label="target_settle",
-        path_complete=True,
-        closed_gripper_position=(0.0, 0.0),
-    )
-    assert command.complete
-    assert command.stage is SequenceStage.HOLD_COMPLETE
-    assert command.target_position_b == pytest.approx((0.0, 0.0, 0.0))
-
-
-def test_grasp_mode_requires_an_explicit_grasp_tcp_position() -> None:
-    with pytest.raises(ValueError, match="requires grasp_tcp_position_b"):
-        DatasetSequence(
-            preposition_b=(0.0, 0.0, 0.0),
-            config=SequenceConfig(),
-            grasp_enabled=True,
-        )
-
-
 def test_pick_place_sequence_aligns_then_corrects_xy_then_descends_and_releases() -> None:
     sequence = DatasetSequence(
         tcp_heading_axis=(0.0, 1.0, 0.0),  # Explicit synthetic/legacy frame for these stage tests.
@@ -230,10 +108,8 @@ def test_pick_place_sequence_aligns_then_corrects_xy_then_descends_and_releases(
         lift_position_b=(0.1, 0.0, 1.0),
         place_high_position_b=(1.0, 0.0, 1.0),
         place_position_b=(1.0, 0.0, 0.2),
-        place_tcp_axis_b=(0.0, 1.0, 0.0),
+        place_tcp_direction_w=(0.0, 1.0, 0.0),
         config=SequenceConfig(normal_dwell_steps=1, gripper_dwell_steps=1),
-        grasp_enabled=True,
-        place_enabled=True,
     )
     horizontal = (sqrt(0.5), 0.0, sqrt(0.5), 0.0)
 
@@ -341,8 +217,6 @@ def test_place_direction_alignment_follows_fixed_radius_base_xoy_arc() -> None:
         place_position_b=(0.0, 1.0, 0.2),
         place_tcp_direction_w=(-1.0, 0.0, 0.0),
         config=SequenceConfig(normal_dwell_steps=1, gripper_dwell_steps=1),
-        grasp_enabled=True,
-        place_enabled=True,
         initial_state=SequenceState(stage=SequenceStage.ALIGN_PLACE_DIRECTION),
     )
 
@@ -385,8 +259,6 @@ def test_align_place_direction_compares_tcp_and_target_in_world_frame() -> None:
         place_position_b=(1.0, 0.0, 0.2),
         place_tcp_direction_w=(-1.0, 0.0, 0.0),
         config=SequenceConfig(normal_dwell_steps=1, gripper_dwell_steps=1),
-        grasp_enabled=True,
-        place_enabled=True,
         initial_state=SequenceState(stage=SequenceStage.ALIGN_PLACE_DIRECTION),
     )
 
@@ -408,7 +280,9 @@ def test_grasp_aligns_before_docking(base_yaw):
         preposition_b=(0.0, 0.0, 0.0), grasp_tcp_position_b=(0.1, 0.0, 0.0),
         grasp_tcp_direction_w=(cos(base_yaw), sin(base_yaw), 0.0),
         tcp_heading_axis=(1.0, 0.0, 0.0),
-        config=SequenceConfig(normal_dwell_steps=2), grasp_enabled=True,
+        config=SequenceConfig(normal_dwell_steps=2),
+        lift_position_b=(0.1, 0.0, 1.0), place_high_position_b=(1.0, 0.0, 1.0),
+        place_position_b=(1.0, 0.0, 0.2), place_tcp_direction_w=(1.0, 0.0, 0.0),
         initial_state=SequenceState(stage=SequenceStage.ALIGN_NORMAL),
     )
     def step(yaw, position=(0.0, 0.0, 0.0)):
@@ -417,6 +291,7 @@ def test_grasp_aligns_before_docking(base_yaw):
                          base_quaternion=(cos(base_yaw / 2), 0.0, 0.0, sin(base_yaw / 2))),
             active_waypoint_b=(0.0, 0.0, 0.0), active_waypoint_label="target_settle",
             path_complete=True, closed_gripper_position=(0.0, 0.0),
+            open_gripper_position=(0.01, -0.01),
         )
     for _ in range(4):
         command = step(pi / 2)
@@ -444,7 +319,7 @@ def test_place_detour_index_arrival_and_reset(index):
         lift_position_b=(-0.2, -0.3, 0.6), place_high_position_b=(-0.1, 0.3, 0.6),
         place_position_b=(-0.1, 0.3, 0.1), place_tcp_direction_w=(1, 0, 0),
         tcp_heading_axis=(1, 0, 0), config=SequenceConfig(normal_dwell_steps=2),
-        grasp_enabled=True, place_enabled=True, place_state_index=index, initial_state=initial,
+        place_state_index=index, initial_state=initial,
     )
 
     def step(position):
