@@ -1,0 +1,146 @@
+{
+  "recipe_version": 1,
+  "source": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\aubo_e5_with_claw.urdf",
+  "source_sha256": "b7c7c5cecd65fb730267e0f24f481979060f8d0d3b392a0880e89f9edeb959c5",
+  "derived_sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+  "ee_link": "project_tcp",
+  "velocity_policy": "min(source_urdf, measured_isaac)",
+  "velocity_changes": [
+    {
+      "joint": "Joint1",
+      "old_velocity": 2.617994,
+      "isaac_velocity": 3.140000104904175,
+      "effective_velocity": 2.617994
+    },
+    {
+      "joint": "Joint2",
+      "old_velocity": 2.617994,
+      "isaac_velocity": 3.140000104904175,
+      "effective_velocity": 2.617994
+    },
+    {
+      "joint": "Joint3",
+      "old_velocity": 2.617994,
+      "isaac_velocity": 3.140000104904175,
+      "effective_velocity": 2.617994
+    },
+    {
+      "joint": "Joint4",
+      "old_velocity": 3.141593,
+      "isaac_velocity": 3.140000104904175,
+      "effective_velocity": 3.140000104904175
+    },
+    {
+      "joint": "Joint5",
+      "old_velocity": 3.141593,
+      "isaac_velocity": 3.140000104904175,
+      "effective_velocity": 3.140000104904175
+    },
+    {
+      "joint": "Flange",
+      "old_velocity": 3.141593,
+      "isaac_velocity": 3.140000104904175,
+      "effective_velocity": 3.140000104904175
+    }
+  ],
+  "flange_to_project_tcp": [
+    [
+      -2.220446049250313e-16,
+      0.0,
+      1.0000000000000002,
+      -0.17086
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      -1.0000000000000002,
+      0.0,
+      -2.220446049250313e-16,
+      0.11305
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "original_tool_center_point_preserved": true,
+  "meshes": [
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Visuals_Base.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Visuals_Base.obj",
+      "sha256": "126e3d43e47d1fe405967341fbda2de7df4ed37830dd227e392b581906e2cf2d"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Collisions_Base.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Collisions_Base.obj",
+      "sha256": "eb1612955734c50be2738fdb6d79dc33ecfd747a038904c7b6afcbfdc633a29e"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Visuals_01.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Visuals_01.obj",
+      "sha256": "89b646db150d1d9a069133bca0e4a33a3e3dab4b98744bcfca8134e4116e84fd"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Collisions_01.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Collisions_01.obj",
+      "sha256": "a9593fd70b674fddfaf441d1376216794aa67b318da80536245b9d5220e9b179"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Visuals_02.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Visuals_02.obj",
+      "sha256": "39a83c0e652556e02afe3f65669dc6eda18f8ac418678129cec8169dcf41afcd"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Collisions_02.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Collisions_02.obj",
+      "sha256": "5acb724b91a49d75ba2bf4e865dc60b8be2668c8e23f7786ac52f1a33b6dadb8"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Visuals_03.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Visuals_03.obj",
+      "sha256": "097695000dcdceda4d4febd685e8e886717adfc8d4c2ef3a8d1e8e3a414daded"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Collisions_03.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Collisions_03.obj",
+      "sha256": "c544e38504ad5d753ab0b8ddc69f683f554c4bf9c937882876dbfb01c2e3dac8"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Visuals_04.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Visuals_04.obj",
+      "sha256": "ba4c00958cb4d603b3da4bcf46d0ec3128dcbec9ef61c600467b6f46ad395036"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Collisions_04.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Collisions_04.obj",
+      "sha256": "b5cc8487a89f6880005eb2e6c8708eff83eeaa7a5ed8ebd5ca4f81434559e56d"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Visuals_05.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Visuals_05.obj",
+      "sha256": "55bc5f5c53702fd19f0a60a0a5d3f0a6c96cd1117f8e46f98810b5e7cac818fd"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Collisions_05.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Collisions_05.obj",
+      "sha256": "cbb0f0d6e96441177f6b3936e51cc5a4f5c34f422a3de335c9f5b6286f8e6015"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Visuals_Flange.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Visuals_Flange.obj",
+      "sha256": "ec84f530c0faf75e8167977a03ee375537a32b8d57c10bf1904478054260a528"
+    },
+    {
+      "source_reference": "../../Asset/AUBOE5_URDF/meshes/Collisions_Flange.obj",
+      "path": "D:\\Project\\S2R\\Asset\\AUBOE5_URDF\\meshes\\Collisions_Flange.obj",
+      "sha256": "3541450a8457f8bc28a6acb106cba144f88399c3eedc71da19b1da5978dd86c6"
+    }
+  ],
+  "scope": "kinematics only; collision spheres not validated"
+}

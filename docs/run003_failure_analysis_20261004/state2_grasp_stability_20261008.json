@@ -1,0 +1,52 @@
+{
+  "comparisons": [
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\incoming_state2_side060_lift040\\2_to_4_evidence\\contact_probe_01",
+      "trace_sha256": "710781251292ae76e29aed59649d61d0abf0d60315cc704d84eac1bcb91240ce",
+      "execution_contract": {
+        "physics_hz": 120,
+        "control_hz": 60.0,
+        "physics_dt_s": 0.008333333333333333,
+        "decimation": 2
+      },
+      "pick_lift_probe_passed": true,
+      "peak_wrist_velocity_rad_s": 3.1400017738342285,
+      "peak_wrist_acceleration_rad_s2": 362.7903699874878,
+      "final_object_displacement_mm": 411.0141543989158
+    },
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\incoming_state2_side060_lift040_wrist070\\physics_preflight",
+      "trace_sha256": "4ef59a41d1621a0e32f5690a275de39f2572e64a8ecfb99e682e39fb09415309",
+      "execution_contract": {
+        "physics_hz": 120,
+        "control_hz": 60.0,
+        "physics_dt_s": 0.008333333333333333,
+        "decimation": 2,
+        "wrist_drive": {
+          "joint_names": [
+            "Joint4",
+            "Joint5",
+            "Flange"
+          ],
+          "velocity_limit_rad_s": 0.7,
+          "original_velocity_limits_rad_s": {
+            "Joint4": 3.14,
+            "Joint5": 3.14,
+            "Flange": 3.14
+          },
+          "physx_velocity_limits_rad_s": {
+            "Joint4": 0.699999988079071,
+            "Joint5": 0.699999988079071,
+            "Flange": 0.699999988079071
+          }
+        }
+      },
+      "pick_lift_probe_passed": true,
+      "peak_wrist_velocity_rad_s": 0.8010015487670898,
+      "peak_wrist_acceleration_rad_s2": 84.00285959243774,
+      "final_object_displacement_mm": 381.9296985769687
+    }
+  ],
+  "scope": "Standalone native contact traces, not full-route acceptance or proof of contact pairs",
+  "acceleration_definition": "Backward difference of measured 60 Hz joint velocities, matching artifact assembly"
+}

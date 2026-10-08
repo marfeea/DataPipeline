@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="AUBO_E5_WithClaw_CuRobo">
+  <link name="AUBO_E5" />
+  <link name="Base_Link">
+    <inertial>
+      <origin xyz="0.0013559 0.0000028 0.024477" rpy="0 0 0" />
+      <mass value="1.5907245" />
+      <inertia ixx="0.0053725" ixy="0" ixz="0.0000517" iyy="0.0037332" iyz="-0.0000006" izz="0.0081309" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Visuals_Base.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Collisions_Base.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Root_Joint" type="fixed">
+    <parent link="AUBO_E5" />
+    <child link="Base_Link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="Link_01">
+    <inertial>
+      <origin xyz="0.0001822 0 0.0913718" rpy="0 0 0" />
+      <mass value="1.6325213" />
+      <inertia ixx="0.0037347" ixy="0" ixz="-0.0005585" iyy="0.0036122" iyz="0" izz="0.0032576" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Visuals_01.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Collisions_01.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Joint1" type="revolute">
+    <origin xyz="0.0000784 0.0000151 0.0640635" rpy="0 0 0" />
+    <parent link="Base_Link" />
+    <child link="Link_01" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.0543262" upper="3.0543262" effort="2400" velocity="2.6179939999999999" />
+  </joint>
+  <link name="Link_02">
+    <inertial>
+      <origin xyz="-0.079605 0 0.2039654" rpy="0 0 0" />
+      <mass value="5.6596131" />
+      <inertia ixx="0.1726154" ixy="0" ixz="0.0000003" iyy="0.1766561" iyz="-0.0000035" izz="0.0130056" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Visuals_02.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Collisions_02.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Joint2" type="revolute">
+    <origin xyz="-0.061865 0 0.0784497" rpy="0 0 0" />
+    <parent link="Link_01" />
+    <child link="Link_02" />
+    <axis xyz="1 0 0" />
+    <limit lower="-3.0543262" upper="3.0543262" effort="2400" velocity="2.6179939999999999" />
+  </joint>
+  <link name="Link_03">
+    <inertial>
+      <origin xyz="0.0484074 -0.0000001 0.2038529" rpy="0 0 0" />
+      <mass value="2.5132504" />
+      <inertia ixx="0.0519505" ixy="0" ixz="0.001567" iyy="0.052378" iyz="0" izz="0.0024832" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Visuals_03.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Collisions_03.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Joint3" type="revolute">
+    <origin xyz="-0.0071188 0 0.4079251" rpy="0 0 0" />
+    <parent link="Link_02" />
+    <child link="Link_03" />
+    <axis xyz="1 0 0" />
+    <limit lower="-3.0543262" upper="3.0543262" effort="2400" velocity="2.6179939999999999" />
+  </joint>
+  <link name="Link_04">
+    <inertial>
+      <origin xyz="-0.043383 0 -0.0001633" rpy="0 0 0" />
+      <mass value="0.732743" />
+      <inertia ixx="0.0009923" ixy="0" ixz="-0.0000003" iyy="0.0010141" iyz="0" izz="0.0005477" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Visuals_04.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Collisions_04.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Joint4" type="revolute">
+    <origin xyz="-0.0028194 0 0.3757994" rpy="0 0 0" />
+    <parent link="Link_03" />
+    <child link="Link_04" />
+    <axis xyz="1 0 0" />
+    <limit lower="-3.0543262" upper="3.0543262" effort="2400" velocity="3.1400001049041748" />
+  </joint>
+  <link name="Link_05">
+    <inertial>
+      <origin xyz="0.0001731 0 0.0429273" rpy="0 0 0" />
+      <mass value="0.7334834" />
+      <inertia ixx="0.0005488" ixy="0" ixz="-0.0000003" iyy="0.0010153" iyz="0" izz="0.000993" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Visuals_05.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Collisions_05.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Joint5" type="revolute">
+    <origin xyz="-0.0485087 -0.0000002 0.0544221" rpy="0 0 0" />
+    <parent link="Link_04" />
+    <child link="Link_05" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.0543262" upper="3.0543262" effort="2400" velocity="3.1400001049041748" />
+  </joint>
+  <link name="AUBO_E5_Flange">
+    <inertial>
+      <origin xyz="-0.037572 -0.0001086 0.0014177" rpy="0 0 0" />
+      <mass value="0.2731123" />
+      <inertia ixx="0.0002235" ixy="0.0000003" ixz="0.0000057" iyy="0.0002044" iyz="0.0000007" izz="0.0002306" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Visuals_Flange.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../../../../../Asset/AUBOE5_URDF/meshes/Collisions_Flange.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Flange" type="revolute">
+    <origin xyz="-0.0540166 0.0000002 0.0480781" rpy="0 0 0" />
+    <parent link="Link_05" />
+    <child link="AUBO_E5_Flange" />
+    <axis xyz="1 0 0" />
+    <limit lower="-3.0543262" upper="3.0543262" effort="2400" velocity="3.1400001049041748" />
+  </joint>
+  <link name="gripper_base">
+    <visual>
+      <origin xyz="0 0 -0.0713" rpy="0 0 0" />
+      <geometry>
+        <box size="0.071824 0.128000 0.142600" />
+      </geometry>
+      <material name="gripper_gray">
+        <color rgba="0.35 0.35 0.35 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.0713" rpy="0 0 0" />
+      <geometry>
+        <box size="0.071824 0.128000 0.142600" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="flange_to_gripper" type="fixed">
+    <parent link="AUBO_E5_Flange" />
+    <child link="gripper_base" />
+    <origin xyz="-0.068635544 0 0" rpy="1.570796327 0 1.570796327" />
+  </joint>
+  <link name="UpperFinger">
+    <visual>
+      <origin xyz="0 0.0876 -0.087800" rpy="0 0 0" />
+      <geometry>
+        <box size="0.065000 0.065800 0.028600" />
+      </geometry>
+      <material name="finger_gray">
+        <color rgba="0.55 0.55 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0876 -0.087800" rpy="0 0 0" />
+      <geometry>
+        <box size="0.065000 0.065800 0.028600" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="UpperFinger" type="prismatic">
+    <parent link="gripper_base" />
+    <child link="UpperFinger" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="0.0115" effort="50" velocity="0.05" />
+  </joint>
+  <link name="DownFinger">
+    <visual>
+      <origin xyz="0 0.0876 -0.116400" rpy="0 0 0" />
+      <geometry>
+        <box size="0.065000 0.065800 0.028600" />
+      </geometry>
+      <material name="finger_gray" />
+    </visual>
+    <collision>
+      <origin xyz="0 0.0876 -0.116400" rpy="0 0 0" />
+      <geometry>
+        <box size="0.065000 0.065800 0.028600" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="DownFinger" type="prismatic">
+    <parent link="gripper_base" />
+    <child link="DownFinger" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.0115" upper="0" effort="50" velocity="0.05" />
+  </joint>
+  <link name="tool_center_point" />
+  <joint name="gripper_to_tcp" type="fixed">
+    <parent link="gripper_base" />
+    <child link="tool_center_point" />
+    <origin xyz="0 0.1000 -0.1021" rpy="0 0 0" />
+  </joint>
+  <link name="project_tcp" />
+  <joint name="flange_to_project_tcp" type="fixed">
+    <parent link="AUBO_E5_Flange" />
+    <child link="project_tcp" />
+    <origin xyz="-0.17086000000000001 0 0.11305" rpy="0 1.5707963267948966 0" />
+  </joint>
+</robot>

@@ -1,0 +1,17 @@
+{
+  "recorded_on": "2026-09-21",
+  "baseline_commit": "cfc156de78c11177b72167330441aaf206e86a71",
+  "python": "3.11.15 | packaged by Anaconda, Inc. | (main, Mar 11 2026, 17:12:15) [MSC v.1942 64 bit (AMD64)]",
+  "executable": "D:\\Anaconda\\envs\\isaaclab\\python.exe",
+  "packages": {
+    "isaacsim": "5.1.0.0",
+    "isaaclab": "0.54.3",
+    "torch": "2.7.0+cu128",
+    "numpy": "1.26.0",
+    "h5py": "3.15.1",
+    "pytest": "9.1.1",
+    "curobo": null,
+    "nvidia-curobo": null
+  },
+  "status": "observed_environment_only_not_a_curobo_lock"
+}

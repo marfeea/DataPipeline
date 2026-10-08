@@ -1,0 +1,77 @@
+{
+  "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+  "limits": [
+    2.617994,
+    2.617994,
+    2.617994,
+    3.140000104904175,
+    3.140000104904175,
+    3.140000104904175
+  ],
+  "results": [
+    {
+      "case": "integrated_01_01",
+      "execution_contract": null,
+      "trace_sha256": "a36c68ff3fe5aa8b60d4038ddf6c41ebe3e440e21f8bc72c3f8d1522e627520f",
+      "peak_velocity_rad_s": 4.46696138381958,
+      "peak_record": 610,
+      "peak_joint": 5,
+      "peak_stage": "legacy_place_approach",
+      "violations": [
+        {
+          "record": 605,
+          "joint": 5,
+          "velocity": 3.5480995178222656,
+          "limit": 3.140000104904175,
+          "stage": "legacy_place_approach"
+        },
+        {
+          "record": 610,
+          "joint": 5,
+          "velocity": -4.46696138381958,
+          "limit": 3.140000104904175,
+          "stage": "legacy_place_approach"
+        }
+      ]
+    },
+    {
+      "case": "integrated_04_01",
+      "execution_contract": null,
+      "trace_sha256": "270fecedfa656008bd15928bae5fdabc0e4f8dcc7421977639a35c471dd38b64",
+      "peak_velocity_rad_s": 4.311978340148926,
+      "peak_record": 683,
+      "peak_joint": 5,
+      "peak_stage": "legacy_place_approach",
+      "violations": [
+        {
+          "record": 683,
+          "joint": 5,
+          "velocity": -4.311978340148926,
+          "limit": 3.140000104904175,
+          "stage": "legacy_place_approach"
+        },
+        {
+          "record": 684,
+          "joint": 5,
+          "velocity": 3.633275270462036,
+          "limit": 3.140000104904175,
+          "stage": "legacy_place_approach"
+        },
+        {
+          "record": 703,
+          "joint": 5,
+          "velocity": -3.276545763015747,
+          "limit": 3.140000104904175,
+          "stage": "legacy_place_approach"
+        },
+        {
+          "record": 706,
+          "joint": 5,
+          "velocity": 3.8257813453674316,
+          "limit": 3.140000104904175,
+          "stage": "legacy_place_approach"
+        }
+      ]
+    }
+  ]
+}

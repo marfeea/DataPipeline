@@ -1,0 +1,66 @@
+{
+  "records": [
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\incoming_state2_side060_lift040_physics240\\physics_preflight",
+      "grasp_lift_passed": false,
+      "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+      "max_acceleration_by_joint": [
+        7.187023535370827,
+        4.300495237112045,
+        32.351501137018204,
+        48.19459855556488,
+        65.10457277297974,
+        369.63589668273926
+      ],
+      "kinematic_limits_passed": false,
+      "acceleration_definition": "Backward difference at control rate"
+    },
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\incoming_state2_side060_lift040_veliter2\\physics_preflight",
+      "grasp_lift_passed": true,
+      "failure_reason": null,
+      "max_acceleration_by_joint": [
+        10.488791540265083,
+        4.800392836332321,
+        33.07188302278519,
+        66.60367548465729,
+        89.22963827848434,
+        375.3239393234253
+      ],
+      "kinematic_limits_passed": false,
+      "acceleration_definition": "Backward difference at control rate"
+    },
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\incoming_state2_side060_lift040_veliter2_wrist040\\physics_preflight",
+      "grasp_lift_passed": false,
+      "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+      "max_acceleration_by_joint": [
+        8.431686032563448,
+        4.823843166232109,
+        33.28874297440052,
+        78.52008372545242,
+        141.4304280281067,
+        48.00088405609131
+      ],
+      "kinematic_limits_passed": false,
+      "acceleration_definition": "Backward difference at control rate"
+    },
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\incoming_state2_side060_lift040_wrist070\\physics_preflight",
+      "grasp_lift_passed": true,
+      "failure_reason": null,
+      "max_acceleration_by_joint": [
+        6.979612112045288,
+        3.4729302674531937,
+        31.769131869077682,
+        74.85296845436096,
+        65.44787049293518,
+        84.00285959243774
+      ],
+      "kinematic_limits_passed": false,
+      "acceleration_definition": "Backward difference at control rate"
+    }
+  ],
+  "correction": "Previous centered-difference preflight did not match formal backward-difference acceleration gate.",
+  "scope": "Standalone contact evidence only; not full route acceptance"
+}

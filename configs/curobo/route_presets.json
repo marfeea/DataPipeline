@@ -1,0 +1,227 @@
+{
+  "schema": "curobo_route_presets/1",
+  "routes": {
+    "4_to_0": {
+      "parameters": {
+        "source_index": 4,
+        "destination_index": 0,
+        "lift_clearance_m": 0.3,
+        "state4_routing": true,
+        "state4_pick_lift_m": 0.015,
+        "state4_pick_exit_m": 0.18,
+        "state4_place_standoff_m": 0.18,
+        "physics_hz": 120,
+        "gui": true,
+        "capture_execution": true,
+        "seed_count": 200,
+        "max_candidates": 8,
+        "contact_policy": "run003",
+        "collision_model": "data/curobo_pick_place_graph_run003_20261003_r2/collision_model.json"
+      },
+      "collision_model_sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+      "validation": {
+        "accepted_run": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick015_exit180_gate10mm/full/4_to_0",
+        "task_hash": "15f3fe8eb28ccf801395cb99b7b9dd5a671a366cea038401ac35dc8d7a630e49",
+        "accepted_candidate": "01_02",
+        "samples": 548,
+        "control_hz": 60,
+        "task_seed": 7,
+        "final_target_position_error_m": 0.012018724637156608,
+        "scope": "run003 mixed free-space planning/state writing, physics contact execution and GUI state replay; contact tray collision remains diagnostic",
+        "note": "Validated for 4_to_0 only. place_standoff_m is inactive for destination state0."
+      }
+    },
+    "4_to_1": {
+      "parameters": {
+        "source_index": 4,
+        "destination_index": 1,
+        "lift_clearance_m": 0.3,
+        "state4_routing": true,
+        "state4_pick_lift_m": 0.015,
+        "state4_pick_exit_m": 0.18,
+        "state4_place_standoff_m": 0.18,
+        "physics_hz": 120,
+        "gui": true,
+        "capture_execution": true,
+        "seed_count": 200,
+        "max_candidates": 8,
+        "contact_policy": "run003",
+        "collision_model": "data/curobo_pick_place_graph_run003_20261003_r2/collision_model.json"
+      },
+      "collision_model_sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+      "validation": {
+        "accepted_run": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/outgoing_4_to_123_20261004/4_to_1",
+        "task_hash": "17afe15cdb4c524f6aca97ae454d6c0d29d2979db3fb5d75040d1d3edf0eb988",
+        "accepted_candidate": "01_02",
+        "samples": 538,
+        "control_hz": 60,
+        "task_seed": 7,
+        "final_target_position_error_m": 0.009588863764230014,
+        "scope": "run003 mixed free-space planning/state writing, physics contact execution and GUI state replay; contact tray collision remains diagnostic",
+        "note": "Independently validated outgoing state4 route using the unchanged 4_to_0 pick parameters. place_standoff_m is inactive for this destination."
+      }
+    },
+    "4_to_2": {
+      "parameters": {
+        "source_index": 4,
+        "destination_index": 2,
+        "lift_clearance_m": 0.3,
+        "state4_routing": true,
+        "state4_pick_lift_m": 0.015,
+        "state4_pick_exit_m": 0.18,
+        "state4_place_standoff_m": 0.18,
+        "physics_hz": 120,
+        "gui": true,
+        "capture_execution": true,
+        "seed_count": 200,
+        "max_candidates": 8,
+        "contact_policy": "run003",
+        "collision_model": "data/curobo_pick_place_graph_run003_20261003_r2/collision_model.json"
+      },
+      "collision_model_sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+      "validation": {
+        "accepted_run": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/outgoing_4_to_123_20261004/4_to_2",
+        "task_hash": "96a035be60ce084bec5d2bcc1c14ab59612aa798575446ce5aed1fe87981e43a",
+        "accepted_candidate": "01_01",
+        "samples": 491,
+        "control_hz": 60,
+        "task_seed": 7,
+        "final_target_position_error_m": 0.008358890729572762,
+        "scope": "run003 mixed free-space planning/state writing, physics contact execution and GUI state replay; contact tray collision remains diagnostic",
+        "note": "Independently validated outgoing state4 route using the unchanged 4_to_0 pick parameters. place_standoff_m is inactive for this destination."
+      }
+    },
+    "4_to_3": {
+      "parameters": {
+        "source_index": 4,
+        "destination_index": 3,
+        "lift_clearance_m": 0.3,
+        "state4_routing": true,
+        "state4_pick_lift_m": 0.015,
+        "state4_pick_exit_m": 0.18,
+        "state4_place_standoff_m": 0.18,
+        "physics_hz": 120,
+        "gui": true,
+        "capture_execution": true,
+        "seed_count": 200,
+        "max_candidates": 8,
+        "contact_policy": "run003",
+        "collision_model": "data/curobo_pick_place_graph_run003_20261003_r2/collision_model.json"
+      },
+      "collision_model_sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+      "validation": {
+        "accepted_run": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/outgoing_4_to_123_20261004/4_to_3",
+        "task_hash": "fcce2c7a6f8b610ace4f5351c36badf77ad9615cab1df63bc59afd23d64f3c39",
+        "accepted_candidate": "01_02",
+        "samples": 549,
+        "control_hz": 60,
+        "task_seed": 7,
+        "final_target_position_error_m": 0.001365691856542692,
+        "scope": "run003 mixed free-space planning/state writing, physics contact execution and GUI state replay; contact tray collision remains diagnostic",
+        "note": "Independently validated outgoing state4 route using the unchanged 4_to_0 pick parameters. place_standoff_m is inactive for this destination."
+      }
+    },
+    "0_to_4": {
+      "parameters": {
+        "source_index": 0,
+        "destination_index": 4,
+        "lift_clearance_m": 0.3,
+        "state4_routing": true,
+        "state4_pick_lift_m": 0.015,
+        "state4_pick_exit_m": 0.18,
+        "state4_place_standoff_m": 0.24,
+        "physics_hz": 120,
+        "gui": true,
+        "capture_execution": true,
+        "seed_count": 200,
+        "max_candidates": 8,
+        "contact_policy": "run003",
+        "collision_model": "data/curobo_pick_place_graph_run003_20261003_r2/collision_model.json",
+        "state4_place_entry_lift_m": 0.012,
+        "state4_place_measured_grasp": true
+      },
+      "collision_model_sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+      "validation": {
+        "accepted_run": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry012_standoff240_contacts_r2/0_to_4",
+        "task_hash": "64f3c76116436770f37f283f8b8d2dc1c6a87e8748fdfda2ea6364f57abf2c04",
+        "accepted_candidate": "01_01",
+        "samples": 830,
+        "control_hz": 60,
+        "task_seed": 7,
+        "final_target_position_error_m": 0.004359039928216206,
+        "native_images": 207,
+        "replay_images": 207,
+        "scope": "same-run mixed planning/contact execution and GUI state replay; run003 contact policy retained",
+        "note": "Measured same-run TCP-object transform levels the object. 240 mm standoff and 12 mm entry lift precede the unchanged object goal. Independent full-pose IK, native image binding and GUI replay audited."
+      }
+    },
+    "1_to_4": {
+      "parameters": {
+        "source_index": 1,
+        "destination_index": 4,
+        "lift_clearance_m": 0.3,
+        "state4_routing": true,
+        "state4_pick_lift_m": 0.015,
+        "state4_pick_exit_m": 0.18,
+        "state4_place_standoff_m": 0.24,
+        "physics_hz": 120,
+        "gui": true,
+        "capture_execution": true,
+        "seed_count": 200,
+        "max_candidates": 8,
+        "contact_policy": "run003",
+        "collision_model": "data/curobo_pick_place_graph_run003_20261003_r2/collision_model.json",
+        "state4_place_entry_lift_m": 0.012,
+        "state4_place_measured_grasp": true
+      },
+      "collision_model_sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+      "validation": {
+        "task_hash": "79a817a31025de29be01203c8f2eea47bc7477d4e10ebce7130c6378dc8fc65d",
+        "accepted_candidate": "01_01",
+        "samples": 736,
+        "final_target_position_error_m": 0.004338274113546168,
+        "native_images": 183,
+        "replay_images": 183,
+        "accepted_run": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/1_to_4",
+        "control_hz": 60,
+        "task_seed": 7,
+        "scope": "same-run mixed planning/contact execution and GUI state replay; run003 contact policy retained",
+        "note": "Validated incoming state4 route: measured same-run grasp, 240 mm outside standoff, 12 mm raised entry, unchanged object goal; native capture, full-pose IK and GUI replay audited."
+      }
+    },
+    "3_to_4": {
+      "parameters": {
+        "source_index": 3,
+        "destination_index": 4,
+        "lift_clearance_m": 0.3,
+        "state4_routing": true,
+        "state4_pick_lift_m": 0.015,
+        "state4_pick_exit_m": 0.18,
+        "state4_place_standoff_m": 0.24,
+        "physics_hz": 120,
+        "gui": true,
+        "capture_execution": true,
+        "seed_count": 200,
+        "max_candidates": 8,
+        "contact_policy": "run003",
+        "collision_model": "data/curobo_pick_place_graph_run003_20261003_r2/collision_model.json",
+        "state4_place_entry_lift_m": 0.012,
+        "state4_place_measured_grasp": true
+      },
+      "collision_model_sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+      "validation": {
+        "task_hash": "0725063cb5fe8955a4e4d55f63c321e79fbba77455e24945ce75c26bc2e83839",
+        "accepted_candidate": "01_01",
+        "samples": 772,
+        "final_target_position_error_m": 0.004343978312089629,
+        "native_images": 192,
+        "replay_images": 192,
+        "accepted_run": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/3_to_4",
+        "control_hz": 60,
+        "task_seed": 7,
+        "scope": "same-run mixed planning/contact execution and GUI state replay; run003 contact policy retained",
+        "note": "Validated incoming state4 route: measured same-run grasp, 240 mm outside standoff, 12 mm raised entry, unchanged object goal; native capture, full-pose IK and GUI replay audited."
+      }
+    }
+  }
+}

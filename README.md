@@ -100,6 +100,10 @@ $episode = ((Get-Content "<OUTPUT_DIR>\manifest.json" -Raw | ConvertFrom-Json).e
 & $isaac scripts/replay_aubo_ik_trajectory.py --output-dir <OUTPUT_DIR> --episode-id $episode --mode state
 & $isaac scripts/replay_aubo_ik_trajectory.py --output-dir <OUTPUT_DIR> --episode-id $episode --mode action
 
+# CuRobo run_006：只允许在同次规划场景中 state/physics replay
+& $isaac scripts/replay_curobo_trajectory_isaac.py --trajectory data/curobo_mvp/run_006/trajectory.npz --plan-report data/curobo_mvp/run_006/report.json --replay-report <NEW_STATE_REPORT> --device cuda:0
+& $isaac scripts/replay_curobo_trajectory_physics_isaac.py --trajectory data/curobo_mvp/run_006/trajectory.npz --plan-report data/curobo_mvp/run_006/report.json --replay-report <NEW_PHYSICS_REPORT> --device cuda:0
+
 # 从源 state 抓取后，抬升、高位 XOY 平移到目标 state、Z 轴对齐并松爪
 & $isaac scripts/collect_aubo_ik_dataset_isaac.py --output-dir <NEW_OUTPUT_DIR> --target-state-index <SOURCE_INDEX> --sequence-mode pick-place --place-state-index <DESTINATION_INDEX> --lift-clearance-m <CLEARANCE_M> --gripper-closed-position <UPPER> <DOWN> --headless
 ```
@@ -170,3 +174,36 @@ loss = compute_reward_prediction_loss(
     config=RewardLossConfig(positive_weight=2.0),
 )
 ```
+# V2 replay visual evidence
+
+`scripts/replay_curobo_pick_place_v2_isaac.py` enables the same three CameraSensor
+views used by the Legacy IK collector. After every 12th `env.sim.render()` call
+it writes RGB PNGs for HandCamera, CameraSensor_2 and CameraSensor_3, plus a
+`frames.json` index with the source trajectory index, time, event and camera
+calibration. The default output is `<run>/replay_visualization`; use
+`--visualization-dir` for a separate new directory. Existing evidence
+directories are never overwritten. The default capture resolution is 128×128
+and can be changed with `--camera-width` and `--camera-height`.
+
+## CuRobo V2 抓放目标对
+
+`configs/task.py::TARGET_STATES` 的索引为 0=sample_bottle_state_01、1=sample_bottle_state_02、2=sample_bottle_state_03、3=sample_bottle_state_04、4=sample_bottle_state_05。CuRobo 的 `--source-index` / `--destination-index` 分别对应 LegacyIK 的 `--target-state-index` / `--place-state-index`。两个索引必须合法且不同。
+
+在仓库根目录使用 Isaac Lab Python，每对路线选一个全新的输出目录：
+
+~~~powershell
+$isaac = "D:\Anaconda\envs\isaaclab\python.exe"
+& $isaac scripts/plan_curobo_pick_place_v2.py --source-index 1 --destination-index 0 --device cuda:0 --output data/curobo_pick_place_graph_20260924/1_to_0
+& $isaac scripts/replay_curobo_pick_place_v2_isaac.py --run data/curobo_pick_place_graph_20260924/1_to_0 --device cuda:0 --headless --no-realtime
+~~~
+
+规划入口依次生成本路线的目标、生产世界、CuRobo 非接触段和 Isaac 实测抓取/放置证据。证据位于 `<输出目录>_evidence`，阶段结果汇总在 `run_report.json`；成功时输出目录包含混合轨迹及 `plan_report.json`。失败时检查 `run_report.json` 的阶段、原因和对应日志，不会生成标为通过的轨迹。重播结果写入 `replay_report.json`，三相机稀疏帧写入 `replay_visualization`。重跑时更换输出目录，避免覆盖既有证据。此 CuRobo V2 入口生成单条混合轨迹；HDF5 批量采集仍使用上面的 LegacyIK 入口。
+
+五点双向图（20 条有向路线）可用以下命令顺序测试并汇总；已有路线证据会被跳过。复测失败路线时换用新目录，以保留原始失败记录。
+
+~~~powershell
+& $isaac scripts/collect_curobo_pick_place_v2_graph.py --output-root data/curobo_pick_place_graph_tray_strict_20260927 --seed-count 200 --max-candidates 8
+& $isaac scripts/summarize_curobo_pick_place_v2_graph.py --output-root data/curobo_pick_place_graph_tray_strict_20260927
+~~~
+
+2026-09-24 的[五点有向图](data/curobo_pick_place_graph_20260924/RESULTS.md)已测试 20/20 条，旧规则下有 6 条通过轨迹采集与重播。2026-09-27 加入严格接触策略：首段规划仅允许机器人接触采样瓶 target，support_tray_* 和其他场景障碍仍参与碰撞检查，自碰撞仍为硬门禁；Legacy 接触段若碰到托盘，最终产物构建会失败。对旧版 6 条轨迹的逐帧机器人—托盘复核全部不通过，因此旧轨迹不代表符合新策略。新策略在 [独立整图结果](data/curobo_pick_place_graph_tray_strict_20260927/RESULTS.md) 中完成 20/20 条 Isaac Lab 测试：当前 0 条通过完整轨迹及重播门禁；9 条停在目标 IK、3 条停在预抓取自碰撞、8 条被机器人—托盘碰撞门禁拒绝。若要再次重跑整图，请给 --output-root 指定全新目录；旧目录中的证据会被遍历脚本跳过。

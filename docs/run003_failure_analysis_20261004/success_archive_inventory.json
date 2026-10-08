@@ -1,0 +1,2139 @@
+{
+  "accepted_records": 16,
+  "successful_directions": 10,
+  "rejected": [],
+  "records": [
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003",
+      "priority": 0,
+      "version": "92080f58cf491e5b4cabb677526479be2293e5166dadcf55b274299fa679770b",
+      "route": "0_to_1",
+      "source_index": 0,
+      "destination_index": 1,
+      "task_hash": "5c8eea2dabd7e20e7148c239399dda08b8b42eed823481671ac70bf53af0dbe4",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 701,
+      "replay_images": 174,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "7a4f9ceac3d2cd7b2f2a763009b1034291481eafb728bbde03408b56f77c1798",
+        "scene_snapshot.json": "88504fc8c797e87ded2531dbb6688ca3b575bededac99c460d5741c815d21d9e",
+        "plan_report.json": "2584083140bb9caa463e6c2e04544ab17a796b2d35a4c6222b97fbc26c35acff",
+        "replay_report.json": "de0bb0f47fc29395605f0183a0ff21d3e642a0e0e7be1af3eb600f218b765451"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_retry_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003",
+      "priority": 0,
+      "version": "6311d927f0ad9e1d4e6882f8a6d1f29dd077f355aa3a7e01b15e7f5a93f46cbd",
+      "route": "0_to_3",
+      "source_index": 0,
+      "destination_index": 3,
+      "task_hash": "aab465035521d6c0a220d40abd2139b71bc8744695e685112837ac3c8cedf244",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 762,
+      "replay_images": 189,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "55a1f6c876abc2161354befa0694747eb70ed55923bddb83744cb805ff74718b",
+        "scene_snapshot.json": "1268933332bfeccad104fed4bf8df612a2b8fc2d4775044432b428ef5672cc80",
+        "plan_report.json": "c260a5cc1bd183f627f999f565c6906437eac19c8ffdd5aa29113e028b4d0881",
+        "replay_report.json": "2ad2b5d4490901f7e26a2044b1e6a2efe443736855473057680064c06dde1a2c"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_3_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003",
+      "priority": 0,
+      "version": "2a276b7daf7aed5683d244317c6aa2c1e780f8e16fb53094e4620c4c7dd9e02b",
+      "route": "1_to_2",
+      "source_index": 1,
+      "destination_index": 2,
+      "task_hash": "2e3ef3e88d24b0f742ac1385d76ba69ea7023feef5ecd67c62e3d2b65565c779",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 672,
+      "replay_images": 168,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "5ecc0d9a57e0607b1957712c55d99215f05411fb296403ab858bccf0d5e5a38c",
+        "scene_snapshot.json": "f765ab285bb4aad1e447982a6360df713c50e1bf49d8ba42122a72adb53a539b",
+        "plan_report.json": "b20b5757ef3614d643cc95cf9b302436735ff1c287230b21cc10d7e5c79f1601",
+        "replay_report.json": "d7bcde3d65f2dffbb0438c3e66b8cfded20282147d6654ff2810f93bdf76571c"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\1_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003",
+      "priority": 0,
+      "version": "14781c123fed51408fac3f604fe0191c35896886ea612b87fcb96dbae97d887a",
+      "route": "3_to_1",
+      "source_index": 3,
+      "destination_index": 1,
+      "task_hash": "f6d2cff39921e2c96fa93279d60851000b8d8af1a21edc0e72ca8684fd75ba9a",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 686,
+      "replay_images": 171,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "0e28d9e15c888e03934f0274667ca9cc28d35930f508ad30c0bcfd15eaf9e6c0",
+        "scene_snapshot.json": "7ffda5833c4c6d731573f303e215f631f92d1e89ae79caf338db5fde30c757bc",
+        "plan_report.json": "0a8c8ec408e2918471f1476fc8c2a7036eaf8822206f8c953aecb4dd0fda120b",
+        "replay_report.json": "b53f17dcc45cde8cafb4bc8a0f24da098938024877f0b3e63df91f7d2b1e999c"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_1_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003",
+      "priority": 0,
+      "version": "b5884e5ab55454bb61613b717ffb7b55de34d794bfbcff8cf29f7d7d67435741",
+      "route": "3_to_2",
+      "source_index": 3,
+      "destination_index": 2,
+      "task_hash": "99550cbc84b009c65a3db163bde6580beb4b33934de49d880e37745a51fc9b9d",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 671,
+      "replay_images": 165,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "72b0e29a839c94f886d664f7860763d797839d98380d2d9a178d0c2a5684ed9f",
+        "scene_snapshot.json": "24a90a4091c2b2c5c6b41afd19ddedd043eb373ef78aa47b89631bda27e2f58f",
+        "plan_report.json": "9ca64ed2d47677463b24564022ad1818d9a88b8e62fb1c2ded39d1ed64587329",
+        "replay_report.json": "85178a8e4563a4b92a69632a4c2c32595e739249be5d0f9b193f238b6de5b818"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\3_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "84592697252f529fd2104b58b3560ca1ec096ea44a8a18f2a8bc9548a5f2c92a",
+      "route": "0_to_1",
+      "source_index": 0,
+      "destination_index": 1,
+      "task_hash": "5c8eea2dabd7e20e7148c239399dda08b8b42eed823481671ac70bf53af0dbe4",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 699,
+      "replay_images": 174,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": null,
+      "core_sha256": {
+        "trajectory.npz": "1e8d4afb05f40812e65f943379acd37bec3c06a20d5ea7186cb3db25efd458cd",
+        "scene_snapshot.json": "1437dd737bb43b76c2802fd4c7dadd5b96b20f1a35b728c9956f027787b7e8ed",
+        "plan_report.json": "9110be9fed8d5bc9fff1cd1f594222f9eaf605ed970c4fea1fc019283f445e14",
+        "replay_report.json": "605a5f521e15edd971a6ffc7ab46d356c3e262ee2df9e8250e6b6522c24995eb"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\glass.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_01.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_02.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_03.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_04.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_05.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_06.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_08.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_09.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_10.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_11.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_12.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_13.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_14.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\target.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_1_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\workstation.obj",
+          "recovered_missing": true
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "b7d28409739ec1297c483119db8536f820d8add4e801dbfb0e20ab1855f7ca82",
+      "route": "0_to_2",
+      "source_index": 0,
+      "destination_index": 2,
+      "task_hash": "221e48092347cacfd6d637f2341191a8e5eae2ab237ea625b23ec5bf95d91645",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 722,
+      "replay_images": 180,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": null,
+      "core_sha256": {
+        "trajectory.npz": "04b0bf10322087312765ec24f46aa1dd490f77ac4b9e2bfbd198b0cad8d99dff",
+        "scene_snapshot.json": "57d312ffcd6f80e5c96460b9dce4c709b971f1f595e447d25a4cb856b94e3029",
+        "plan_report.json": "8d3c133ba247b7b926cb0a0a7d5a5aad984bf8fd8f609c915b8b9aabe91f8738",
+        "replay_report.json": "029747f15d3b5524e7ee8e42754f124e73316a469ae0a6166454326a51d2ba42"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\glass.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_01.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_02.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_03.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_04.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_05.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_06.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_08.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_09.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_10.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_11.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_12.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_13.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\support_tray_14.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\target.obj",
+          "recovered_missing": true
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003\\0_to_1_evidence\\contact_probe_04\\world_assets\\workstation.obj",
+          "recovered_missing": true
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\0_to_3",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "4a493aa42dcf00bba97f2bdb9db92b982778c2dcffb16e0f553424d2b3edcd8a",
+      "route": "0_to_3",
+      "source_index": 0,
+      "destination_index": 3,
+      "task_hash": "aab465035521d6c0a220d40abd2139b71bc8744695e685112837ac3c8cedf244",
+      "world_hash": "b74c030b44e18427086de111d1e99c6c1b663f3bb1164f1ef9b1df59a0cd7974",
+      "replay_mode": "headless",
+      "samples": 761,
+      "replay_images": 189,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "88a4290fbb98cb4cb1d7ad52613fcd79d06eeb3c8678f9c99418ebc5e821d0ae",
+        "scene_snapshot.json": "5dc5752ae0859c95876fbdf23348c59d49409eb1611ef6ca76c891a4fe4b5cc6",
+        "plan_report.json": "47ee7ac4f161dc49fd6238932df4fec05e4f2a73bd8195c3a0dcc16f6681eb29",
+        "replay_report.json": "36de1c47552bf6fa256402053bf073d82ed4d0518cfdb5ba0d2586e074690058"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\target.obj",
+          "sha256": "ebf2e53c7e586736113aa7a327a7bd7c71695adbaa9c780f67d1e6dc6ed61d50",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\0_to_3_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\1_to_0",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "2768f11c9a8bbb7128a6855124f77938f09c4cec33b55456513cb53e829f1cae",
+      "route": "1_to_0",
+      "source_index": 1,
+      "destination_index": 0,
+      "task_hash": "c3af42469cc408be8bc114ec757dd2d92d09273ceef3750e3cd0b297d7785d2e",
+      "world_hash": "0b36e71d7546e5ac845a785dca774ab5f110381e352a81212a547b206266c926",
+      "replay_mode": "headless",
+      "samples": 668,
+      "replay_images": 165,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "95593771dcede31b0f0b1f08fc61e2cb163389b5ab2ea8be8dfd13fbcbf829e3",
+        "scene_snapshot.json": "d7d5a9912e3adee9d9ce20e0321f80b84e4f3f35bf38aa1303cd7adbbcee3528",
+        "plan_report.json": "214a1b7b4066e120cec31ee6663e7791445ece70fff2b4e5a011bbf2aed8b026",
+        "replay_report.json": "d53ac96c3d4c5e7d2235861a7aab71c4dfb55ea38a824141bda69f433c4944ab"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\target.obj",
+          "sha256": "baa57f5082195c3cce5e947891ee51ba8c99bf25e423f4790571cb946b2ca09e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_0_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\1_to_2",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "44d3b86ca990dd9a5bc530b182139ccb76b597e0b42291e17d44e3ed4f51f2a9",
+      "route": "1_to_2",
+      "source_index": 1,
+      "destination_index": 2,
+      "task_hash": "2e3ef3e88d24b0f742ac1385d76ba69ea7023feef5ecd67c62e3d2b65565c779",
+      "world_hash": "0b36e71d7546e5ac845a785dca774ab5f110381e352a81212a547b206266c926",
+      "replay_mode": "headless",
+      "samples": 621,
+      "replay_images": 153,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "a0d88cb526374280efd7fc4b8c251aff245e7485e6076612071e7e0ae1d2dd41",
+        "scene_snapshot.json": "3fc6967144fd5b6a06b4b6cab5acd1b42775d6c244b18a728b80288d08a1a8c1",
+        "plan_report.json": "80c1cd01c0d638b0cea77d566f4bcd54a6532884b1a0e10a1c11ca9e456cb2cc",
+        "replay_report.json": "6feeec5d2069ec888d1fe8fa640e00dd18b86779e6b34fa46adc1e8b69cc5340"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\target.obj",
+          "sha256": "baa57f5082195c3cce5e947891ee51ba8c99bf25e423f4790571cb946b2ca09e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\1_to_3",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "ce4f242c6add5998acc45a4522dc971c1641b7b2a7d42198d7ad8be2220ba5ff",
+      "route": "1_to_3",
+      "source_index": 1,
+      "destination_index": 3,
+      "task_hash": "6e07cacd470e1a41b2b17d63e9f4c8f1064f31c97a22fe69aabf7d1e43da1467",
+      "world_hash": "0b36e71d7546e5ac845a785dca774ab5f110381e352a81212a547b206266c926",
+      "replay_mode": "headless",
+      "samples": 720,
+      "replay_images": 180,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "da0dd14a36ece9a273cbe9361cdd0b5903c534afc58cbb982e30c26e9e2f671e",
+        "scene_snapshot.json": "5ff5891f7d2b563c80eba40752f0668cde41449d34b8e1cf5480963936b9836b",
+        "plan_report.json": "1117344356e88e7c38722a2ae99cb3f6e9dec31d6ed5d1e6ad6d57854af1f35e",
+        "replay_report.json": "7c13746957c009cd81743dd791879884ba17a859011590dc65fd996126113a26"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\target.obj",
+          "sha256": "baa57f5082195c3cce5e947891ee51ba8c99bf25e423f4790571cb946b2ca09e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\1_to_3_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\3_to_1",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "ddf928aca20b4096a2ef4fc1ecab625613ceff3547251ba60ca81695311224f9",
+      "route": "3_to_1",
+      "source_index": 3,
+      "destination_index": 1,
+      "task_hash": "f6d2cff39921e2c96fa93279d60851000b8d8af1a21edc0e72ca8684fd75ba9a",
+      "world_hash": "13e1359af75e33c196f9568f28a93253e224ea65245841f67d9092cf96ffb664",
+      "replay_mode": "headless",
+      "samples": 686,
+      "replay_images": 171,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "6c08bc8672c25634334bc7975181200d793a5f03f22e109563f83e62c4ee497e",
+        "scene_snapshot.json": "c45226231b0165c5065b71263ebc1db779b1f32d03e0efd9bab8ce3e387ab167",
+        "plan_report.json": "ad18c0d79db8bfbb0e20ea0f93419bb9d587b05e6074569632824454bc2e37e9",
+        "replay_report.json": "13b6257471dbe4f51b1bfa70f9ce23fff13ecb3bf1f208e88b4fc7f5d4610fc6"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\target.obj",
+          "sha256": "54094fabb6d2bc2fe980a003c717fc9aceb26af330ec9ab0f63308e7d3980175",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_1_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\3_to_2",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2",
+      "priority": 1,
+      "version": "7eeb2181a3c1e40eca94133b1d96ddd394568bb02ce1263d0e303b34b6bcce8d",
+      "route": "3_to_2",
+      "source_index": 3,
+      "destination_index": 2,
+      "task_hash": "99550cbc84b009c65a3db163bde6580beb4b33934de49d880e37745a51fc9b9d",
+      "world_hash": "13e1359af75e33c196f9568f28a93253e224ea65245841f67d9092cf96ffb664",
+      "replay_mode": "headless",
+      "samples": 671,
+      "replay_images": 165,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "480a63f284ed3f7486a3cc9f3bab8e8c01075c7a1bbe86e949228e0ef08322b4",
+        "scene_snapshot.json": "a58efa3261a6dacdc57ef17c8adb6c1082171e49b6467dc4fdad0a82e45a618f",
+        "plan_report.json": "b6b3686c0487f2ddfb8d204bb08ff725978b6c21a77a1a7632609510b1928640",
+        "replay_report.json": "024c14b54b9f745338a5196fe1e0b8b11b13c4d545a70e78da31faec4762e958"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\target.obj",
+          "sha256": "54094fabb6d2bc2fe980a003c717fc9aceb26af330ec9ab0f63308e7d3980175",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\evidence\\3_to_2_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004",
+      "priority": 2,
+      "version": "a33b29444515d276dda224d3a4a23770c36c10b06bb6c32a55ddb6d6fbc994f5",
+      "route": "3_to_0",
+      "source_index": 3,
+      "destination_index": 0,
+      "task_hash": "37791d56822b1e11c9bfc90d2ec21ba87347d8c09a84658f24d2b337f9c4f198",
+      "world_hash": "13e1359af75e33c196f9568f28a93253e224ea65245841f67d9092cf96ffb664",
+      "replay_mode": "gui",
+      "samples": 744,
+      "replay_images": 186,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "6b28cff2c4469d1c36a84f851c7ef1b02af1c78da6e35f9eae14d77a836f633f",
+        "scene_snapshot.json": "c9ee7fec8474e3155d887e7d134603d60a1d7e1a1dd36339d9194541836bd65e",
+        "plan_report.json": "616d1db423df93b2da9295a7df1c06ef353aef6f2c46dc87124b6c1dfd93e9c6",
+        "replay_report.json": "0a435b02a9b059d9829b536e42af697739e09afecf7b8f63e9c88c5e09ba9620"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\target.obj",
+          "sha256": "54094fabb6d2bc2fe980a003c717fc9aceb26af330ec9ab0f63308e7d3980175",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_0_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004",
+      "priority": 2,
+      "version": "ef1b909197cd9367865b5f7dc195eea8cd6c7c961924d3944d52347e7304a039",
+      "route": "3_to_1",
+      "source_index": 3,
+      "destination_index": 1,
+      "task_hash": "f6d2cff39921e2c96fa93279d60851000b8d8af1a21edc0e72ca8684fd75ba9a",
+      "world_hash": "13e1359af75e33c196f9568f28a93253e224ea65245841f67d9092cf96ffb664",
+      "replay_mode": "gui",
+      "samples": 686,
+      "replay_images": 171,
+      "lift_clearance_m": 0.4,
+      "state4_routing": null,
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "ced16320440825e2c8a0c434a793c5a06967c8cf50b64ce39d59d7396b9c97f5",
+        "scene_snapshot.json": "c1507a3d4ae1b0143505442c2c35886a82c521d44a466a2dfb170685e8ccee05",
+        "plan_report.json": "f5921697c24a39541536a575f492c41da6e377bf079c29bf184fbcb4012f0c11",
+        "replay_report.json": "9f192b8a28fa11e6beb4fbdfff1ad31c616ed0f8de01f55c24d538a564c4a6fc"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\target.obj",
+          "sha256": "54094fabb6d2bc2fe980a003c717fc9aceb26af330ec9ab0f63308e7d3980175",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\stage1\\3_to_1_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    },
+    {
+      "source_run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0",
+      "source_root": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004",
+      "priority": 2,
+      "version": "228432a7638e312e2c2a5cbb786e6ea865251d49bb305ec05574f07202ef9f1b",
+      "route": "4_to_0",
+      "source_index": 4,
+      "destination_index": 0,
+      "task_hash": "15f3fe8eb28ccf801395cb99b7b9dd5a671a366cea038401ac35dc8d7a630e49",
+      "world_hash": "2aa5e7bad1588f394dd86e8b50e98fcd4cf3af23e008dfe8bb1f746434393f30",
+      "replay_mode": "gui",
+      "samples": 548,
+      "replay_images": 135,
+      "lift_clearance_m": 0.3,
+      "state4_routing": {
+        "pick_lift_m": 0.015,
+        "pick_exit_m": 0.18,
+        "place_standoff_m": 0.18
+      },
+      "source_route_report": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\run_report.json",
+      "core_sha256": {
+        "trajectory.npz": "700c4a0057ef6101beacafd18c1acb94d97b9b748823a290dece934b30cf30cd",
+        "scene_snapshot.json": "726d38cd6a593af9b27a6735961caa70d03911266d8d3daad0ff85b6436a409b",
+        "plan_report.json": "dc3e3b3025ad741d1fb96d4d71e422afbd36167a1d1ef4ef04e3588a72ad04c9",
+        "replay_report.json": "f3626ad06be7a07f43053a08c1c475ebd9ee7b3f1c33d58340a49fd0fce0bc8e"
+      },
+      "assets": [
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "sha256": "2a88974b62bbfb48f31203b313c2022b3a92f94b447751b577f51bfc3f7d2c76",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_20261003_r2\\collision_model.json",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "sha256": "93bf0b06c284ca42ed689d91977964fc26e146187a084dad06beb752f68a29d8",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_project.urdf",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\glass.obj",
+          "sha256": "032f21c465c66da33e7bc5630d64384c80926197ad6ba192b41510607e33e768",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\glass.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_01.obj",
+          "sha256": "854682985546fca3aaa9c7b9dccd0630642b01e2c2567044080cf36c22a862e9",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_01.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_02.obj",
+          "sha256": "5a67498706384add2ba99882611413d46ad8e5115c20b200497db74f89dae50a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_02.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_03.obj",
+          "sha256": "362fb17e0301e3b1788489612c5bc5314a8a801fca3b623f806119b93e4c3121",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_03.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_04.obj",
+          "sha256": "98ef27e3109e5134dd570d132e6d08c0761e7225bf1c574934e1bc6a1de26991",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_04.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_05.obj",
+          "sha256": "e2ec9dbaa4b53a899a75c2306a05840c03f05468b1e3d67d951332adafaf2347",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_05.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_06.obj",
+          "sha256": "5f2ebb9a7b3ac2758d79d6700bd160dd4c80c9dbbe0225c020b444bc12baa767",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_06.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_08.obj",
+          "sha256": "14e3cef5be474ca113b8ac9e31d438e28054f892eef54336fb00183c3ff3eda5",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_08.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_09.obj",
+          "sha256": "e131c5e87097b4e03b3baaebfe0d3310117478995f287990e70eddd1d578967a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_09.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_10.obj",
+          "sha256": "adfe1de4e105be5dc7debddd955c64146c3ae141af1334f1824b4da3b147accb",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_10.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_11.obj",
+          "sha256": "106003c1d638b78940f781c4d94dca927a7993c0604a68bdbd52abffc96a796a",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_11.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_12.obj",
+          "sha256": "0f944fcc23fe2e034d51a96ea2edcc84e626677834da9a0e76252c2f1dc5eb7e",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_12.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_13.obj",
+          "sha256": "a6104c7bb5cbe54af9bac1441b3d45add6401844937b08cc7bddd54a3cddc959",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_13.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_14.obj",
+          "sha256": "4e809edae80d4244fc8b36a9d7ce1cafb04cc6746ad7d6da18228c410861504b",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\support_tray_14.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\target.obj",
+          "sha256": "bd3f61a6774d0075cd425e14b985385de712b85fb7f48c40e6eb21ddb18207ae",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\target.obj",
+          "recovered_missing": false
+        },
+        {
+          "original_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\workstation.obj",
+          "sha256": "06adc951b601822a0f1a0d2e1aae156ea1939ddb5523ad125e947f59c422ef12",
+          "source_path": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_routing\\pick015_exit180_gate10mm\\full\\4_to_0_evidence\\world\\world_assets\\workstation.obj",
+          "recovered_missing": false
+        }
+      ]
+    }
+  ]
+}

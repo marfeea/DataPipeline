@@ -1,0 +1,19 @@
+{
+  "trials": [
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\measured_entry004_standoff240\\0_to_4_evidence\\integrated_01_01",
+      "passed": false,
+      "insertion_samples": 600,
+      "final_insertion_tilt_deg": 47.693899518177474,
+      "trace_sha256": "9f3576999b4855666c4ccac8f32128c8e9f111d1ad87d7af672c4efd9fff65cb"
+    },
+    {
+      "run": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\curobo_pick_place_graph_run003_fix_20261004\\state4_placement_20261005\\measured_entry012_standoff240_contacts_r2\\0_to_4_evidence\\integrated_01_01",
+      "passed": true,
+      "insertion_samples": 112,
+      "final_insertion_tilt_deg": 0.5928182230877845,
+      "trace_sha256": "60e50f59f1d5f614903552dae6f451a997e96f8ff54fc25d4f61331fd1e64024"
+    }
+  ],
+  "scope": "Measured object/TCP trace; not contact-pair or mesh clearance proof"
+}

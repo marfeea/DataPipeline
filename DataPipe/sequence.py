@@ -16,6 +16,8 @@ from configs.coordinate_frames import (
 )
 
 from .config import TCP_POSITION_SCALE_M, TCP_ROTATION_SCALE_RAD
+from .source2_routing import Source2RoutingConfig, source2_advance_waypoints, source2_pre_pick
+from .state4_routing import State4RoutingConfig, state4_waypoints
 
 Vector3 = tuple[float, float, float]
 QuaternionWxyz = tuple[float, float, float, float]
@@ -95,6 +97,9 @@ class SequenceState:
     tcp_quaternion_ref_b_wxyz: QuaternionWxyz | None = None
     tcp_heading_ref_rad: float | None = None
     place_waypoint_index: int = 0
+    lift_waypoint_index: int = 0
+    place_final_waypoint_index: int = 0
+    advance_waypoint_index: int = 0
     # The placement-direction stage follows a Base-frame XOY circular arc.
     # These values are latched when the stage starts so tracking error cannot
     # change the commanded radius or height from one control step to the next.
@@ -109,6 +114,7 @@ class SequenceObservation:
     gripper_position: tuple[float, float]
     # q_WB：Base 坐标系 B 在世界坐标系 W 中的姿态，把 B 系方向旋转到 W 系。
     base_quaternion_wxyz: QuaternionWxyz = IDENTITY_QUATERNION_WXYZ
+    object_pose_b: tuple[float, ...] | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -327,6 +333,11 @@ class DatasetSequence:
         place_tcp_direction_w: Sequence[float],
         config: SequenceConfig,
         place_state_index: int | None = None,
+        source_state_index: int | None = None,
+        place_preposition_b: Sequence[float] | None = None,
+        place_object_pose_b: Sequence[float] | None = None,
+        state4_routing: State4RoutingConfig | None = None,
+        source2_routing: Source2RoutingConfig | None = None,
         tool_forward_axis: Sequence[float] = (0.0, 0.0, 1.0),
         tcp_heading_axis: Sequence[float] = TCP_DIRECTION_AXIS_T,
         initial_tcp_heading_rad: float | None = None,
@@ -371,6 +382,55 @@ class DatasetSequence:
         self.place_position_b = (
             _vector(place_position_b, size=3, name="place_position_b") if place_position_b is not None else None
         )
+        self.state4_routing = state4_routing
+        self.measured_placement_enabled = bool(
+            state4_routing is not None and state4_routing.place_measured_grasp and place_state_index == 4
+        )
+        self.place_object_pose_b = (
+            _vector(place_object_pose_b, size=7, name="place_object_pose_b")
+            if place_object_pose_b is not None
+            else None
+        )
+        if self.measured_placement_enabled and self.place_object_pose_b is None:
+            raise ValueError("measured state4 placement requires the original object goal pose")
+        self.placement_calibration = None
+        self.measured_place_quaternion_b = None
+        self.lift_waypoints = (self.lift_position_b,)
+        self.place_descent_position_b = self.place_position_b
+        self.place_final_waypoints = (self.place_position_b,)
+        if state4_routing is not None:
+            routed, contact = state4_waypoints(
+                source_index=source_state_index,
+                destination_index=place_state_index,
+                pre_pick=self.preposition_b,
+                pick=self.grasp_tcp_position_b,
+                lift=self.lift_position_b,
+                place_high=self.place_high_position_b,
+                place=self.place_position_b,
+                place_preposition=place_preposition_b,
+                config=state4_routing,
+            )
+            self.lift_position_b = routed["lift"]
+            self.place_high_position_b = routed["place_high"]
+            self.lift_waypoints = (
+                (contact["pick_low_lift"], self.lift_position_b)
+                if "pick_low_lift" in contact
+                else (self.lift_position_b,)
+            )
+            self.place_descent_position_b = contact.get("place_descent", self.place_position_b)
+            if "place_entry" in contact:
+                self.place_final_waypoints = (contact["place_entry"], self.place_position_b)
+        self.nominal_place_position_b = self.place_position_b
+        self.source2_routing = source2_routing
+        self.preposition_b = source2_pre_pick(
+            source_index=source_state_index, pre_pick=self.preposition_b,
+            pick=self.grasp_tcp_position_b, config=source2_routing
+        )
+        if source2_routing is not None:
+            self.desired_axis_b = approach_direction(self.preposition_b, self.grasp_tcp_position_b)
+        self.advance_waypoints = source2_advance_waypoints(pick=self.grasp_tcp_position_b, config=source2_routing)
+        self.nominal_place_descent_position_b = self.place_descent_position_b
+        self.nominal_place_final_waypoints = self.place_final_waypoints
         self.place_tcp_direction_w = normalize(place_tcp_direction_w, name="place_tcp_direction_w")
         # TCP 工具轴用于放置方向对齐；Flange-down 约束下只保留 XOY 平面朝向角。
         self.tool_forward_axis = normalize(tool_forward_axis, name="tool_forward_axis")
@@ -399,10 +459,42 @@ class DatasetSequence:
             raise ValueError("initial sequence counters must be non-negative")
         if not 0 <= self.initial_state.place_waypoint_index < max(1, len(self.place_high_waypoints)):
             raise ValueError("initial place waypoint index is out of range")
+        if not 0 <= self.initial_state.lift_waypoint_index < len(self.lift_waypoints):
+            raise ValueError("initial lift waypoint index is out of range")
+        if not 0 <= self.initial_state.advance_waypoint_index < len(self.advance_waypoints):
+            raise ValueError("initial advance waypoint index is out of range")
         self.state = self.initial_state
 
     def reset(self) -> None:
         self.state = self.initial_state
+        self.placement_calibration = None
+        self.measured_place_quaternion_b = None
+        self.place_position_b = self.nominal_place_position_b
+        self.place_descent_position_b = self.nominal_place_descent_position_b
+        self.place_final_waypoints = self.nominal_place_final_waypoints
+
+    def _calibrate_measured_placement(self, observation: SequenceObservation) -> None:
+        if not self.measured_placement_enabled or self.placement_calibration is not None:
+            return
+        if observation.object_pose_b is None:
+            raise ValueError("measured state4 placement requires an observed object pose")
+        from .pipelines.curobo_bootstrap.measured_placement import measured_tcp_waypoints_b
+
+        points = dict(place_descent=self.nominal_place_descent_position_b)
+        if len(self.nominal_place_final_waypoints) == 2:
+            points["place_entry"] = self.nominal_place_final_waypoints[0]
+        self.placement_calibration = measured_tcp_waypoints_b(
+            tcp_pose_b=(*observation.tcp_position_b, *observation.tcp_quaternion_b_wxyz),
+            object_pose_b=observation.object_pose_b,
+            goal_object_pose_b=self.place_object_pose_b,
+            nominal_final_position_b=self.nominal_place_position_b,
+            contact_points_b=points,
+        )
+        poses = self.placement_calibration["tcp_waypoint_pose_b"]
+        self.place_position_b = tuple(poses["place"][:3])
+        self.place_descent_position_b = tuple(poses["place_descent"][:3])
+        self.place_final_waypoints = (tuple(poses["place_entry"][:3]), self.place_position_b)
+        self.measured_place_quaternion_b = tuple(poses["place"][3:])
 
     def _arm_action(
         self,
@@ -413,6 +505,14 @@ class DatasetSequence:
         target_axis_b: Vector3 | None = None,
     ) -> ArmAction:
         position = _vector(observation.tcp_position_b, size=3, name="tcp_position_b")
+        if self.measured_place_quaternion_b is not None and self.state.stage in (
+            SequenceStage.PLACE_FINAL_Z,
+            SequenceStage.PLACE_FINAL_XY,
+            SequenceStage.RELEASE_GRIPPER,
+            SequenceStage.PLACE_COMPLETE,
+        ):
+            target_quaternion_b_wxyz = self.measured_place_quaternion_b
+            target_axis_b = None
         translation = tuple(
             max(-1.0, min(1.0, (target - actual) / TCP_POSITION_SCALE_M))
             for target, actual in zip(target_position_b, position, strict=True)
@@ -461,9 +561,20 @@ class DatasetSequence:
 
     def _place_direction_ok(self, observation: SequenceObservation) -> bool:
         """下降及松爪前仍检查实测世界方向，避免高位到位后姿态漂移。"""
-        return direction_error_rad(
-            self._tcp_direction_w(observation), self._place_direction_w(observation)
-        ) <= self.config.normal_angle_tolerance_rad
+        if self.measured_place_quaternion_b is not None:
+            tcp_error = _norm(
+                quaternion_rotation_error_vector(observation.tcp_quaternion_b_wxyz, self.measured_place_quaternion_b)
+            )
+            if observation.object_pose_b is None:
+                return False
+            object_error = _norm(
+                quaternion_rotation_error_vector(observation.object_pose_b[3:], self.place_object_pose_b[3:])
+            )
+            return max(tcp_error, object_error) <= min(self.config.normal_angle_tolerance_rad, pi / 180.0)
+        return (
+            direction_error_rad(self._tcp_direction_w(observation), self._place_direction_w(observation))
+            <= self.config.normal_angle_tolerance_rad
+        )
 
     def _place_transfer_heading(self, observation: SequenceObservation) -> float:
         place_heading_rad = self._place_heading_rad(observation)
@@ -541,7 +652,15 @@ class DatasetSequence:
             desired_axis_b,
             arm_action,
             gripper_command,
-            True,
+            not (
+                self.measured_place_quaternion_b is not None
+                and stage in (
+                    SequenceStage.PLACE_FINAL_Z,
+                    SequenceStage.PLACE_FINAL_XY,
+                    SequenceStage.RELEASE_GRIPPER,
+                    SequenceStage.PLACE_COMPLETE,
+                )
+            ),
             complete,
             self._heading_target(observation, stage),
         )
@@ -592,10 +711,12 @@ class DatasetSequence:
                 <= self.config.position_tolerance_m
             )
             # 保持预停靠位置和 Flange-down，仅调整 TCP 的 XOY 朝向。
-            heading_error = abs(wrap_angle_rad(
-                self._grasp_heading_rad(observation)
-                - planar_heading_from_quaternion(observation.tcp_quaternion_b_wxyz, self.tcp_heading_axis)
-            ))
+            heading_error = abs(
+                wrap_angle_rad(
+                    self._grasp_heading_rad(observation)
+                    - planar_heading_from_quaternion(observation.tcp_quaternion_b_wxyz, self.tcp_heading_axis)
+                )
+            )
             dwell = self._qualified(position_ok and heading_error <= self.config.normal_angle_tolerance_rad)
             if dwell >= self.config.normal_dwell_steps:
                 self.state = SequenceState(
@@ -622,11 +743,27 @@ class DatasetSequence:
                 )
 
         if state.stage is SequenceStage.ADVANCE_NORMAL:
+            advance_target = self.advance_waypoints[state.advance_waypoint_index]
             position_ok = (
-                _norm(tuple(a - b for a, b in zip(observation.tcp_position_b, self.advance_target_b, strict=True)))
+                _norm(tuple(a - b for a, b in zip(observation.tcp_position_b, advance_target, strict=True)))
                 <= self.config.position_tolerance_m
             )
             dwell = self._qualified(position_ok)
+            if state.advance_waypoint_index < len(self.advance_waypoints) - 1:
+                if dwell >= self.config.normal_dwell_steps:
+                    state = replace(
+                        state, advance_waypoint_index=state.advance_waypoint_index + 1,
+                        dwell_steps=0, stage_steps=state.stage_steps + 1,
+                    )
+                    advance_target = self.advance_waypoints[state.advance_waypoint_index]
+                else:
+                    state = replace(state, dwell_steps=dwell, stage_steps=state.stage_steps + 1)
+                self.state = state
+                return self._make_command(
+                    observation, state.stage, advance_target, self.desired_axis_b,
+                    self._arm_action(observation, advance_target, state.tcp_quaternion_ref_b_wxyz),
+                    1.0, False, False,
+                )
             if dwell >= self.config.normal_dwell_steps:
                 self.state = SequenceState(
                     SequenceStage.CLOSE_GRIPPER,
@@ -639,9 +776,9 @@ class DatasetSequence:
                 return self._make_command(
                     observation,
                     state.stage,
-                    self.advance_target_b,
+                    advance_target,
                     self.desired_axis_b,
-                    self._arm_action(observation, self.advance_target_b, state.tcp_quaternion_ref_b_wxyz),
+                    self._arm_action(observation, advance_target, state.tcp_quaternion_ref_b_wxyz),
                     1.0,
                     False,
                     False,
@@ -674,11 +811,34 @@ class DatasetSequence:
 
         if state.stage is SequenceStage.LIFT_OBJECT:
             assert self.lift_position_b is not None
+            lift_target = self.lift_waypoints[state.lift_waypoint_index]
+            tolerance = self.config.position_tolerance_m
             position_ok = (
-                _norm(tuple(a - b for a, b in zip(observation.tcp_position_b, self.lift_position_b, strict=True)))
-                <= self.config.position_tolerance_m
+                _norm(tuple(a - b for a, b in zip(observation.tcp_position_b, lift_target, strict=True))) <= tolerance
             )
             dwell = self._qualified(position_ok)
+            if state.lift_waypoint_index < len(self.lift_waypoints) - 1:
+                if dwell >= self.config.normal_dwell_steps:
+                    state = replace(
+                        state,
+                        lift_waypoint_index=state.lift_waypoint_index + 1,
+                        dwell_steps=0,
+                        stage_steps=state.stage_steps + 1,
+                    )
+                    lift_target = self.lift_waypoints[state.lift_waypoint_index]
+                else:
+                    state = replace(state, dwell_steps=dwell, stage_steps=state.stage_steps + 1)
+                self.state = state
+                return self._make_command(
+                    observation,
+                    state.stage,
+                    lift_target,
+                    self.desired_axis_b,
+                    self._arm_action(observation, lift_target, state.tcp_quaternion_ref_b_wxyz),
+                    -1.0,
+                    False,
+                    False,
+                )
             if dwell >= self.config.normal_dwell_steps:
                 self.state = SequenceState(
                     SequenceStage.ALIGN_PLACE_DIRECTION,
@@ -691,9 +851,9 @@ class DatasetSequence:
                 return self._make_command(
                     observation,
                     state.stage,
-                    self.lift_position_b,
+                    lift_target,
                     self.desired_axis_b,
-                    self._arm_action(observation, self.lift_position_b, state.tcp_quaternion_ref_b_wxyz),
+                    self._arm_action(observation, lift_target, state.tcp_quaternion_ref_b_wxyz),
                     -1.0,
                     False,
                     False,
@@ -711,17 +871,24 @@ class DatasetSequence:
                 dwell = self._qualified(position_ok)
                 if dwell >= self.config.normal_dwell_steps:
                     state = replace(
-                        state, place_waypoint_index=state.place_waypoint_index + 1,
-                        dwell_steps=0, stage_steps=state.stage_steps + 1,
+                        state,
+                        place_waypoint_index=state.place_waypoint_index + 1,
+                        dwell_steps=0,
+                        stage_steps=state.stage_steps + 1,
                     )
                     place_target = self.place_high_waypoints[state.place_waypoint_index]
                 else:
                     state = replace(state, dwell_steps=dwell, stage_steps=state.stage_steps + 1)
                 self.state = state
                 return self._make_command(
-                    observation, state.stage, place_target, self.desired_axis_b,
+                    observation,
+                    state.stage,
+                    place_target,
+                    self.desired_axis_b,
                     self._arm_action(observation, place_target, state.tcp_quaternion_ref_b_wxyz),
-                    -1.0, False, False,
+                    -1.0,
+                    False,
+                    False,
                 )
             dwell = self._qualified(position_ok)
             if dwell >= self.config.normal_dwell_steps:
@@ -748,17 +915,18 @@ class DatasetSequence:
                     False,
                 )
         if state.stage is SequenceStage.PLACE_FINAL_Z:
+            self._calibrate_measured_placement(observation)
             assert self.place_position_b is not None
+            descent = self.place_descent_position_b
             xy_error = sqrt(
-                (observation.tcp_position_b[0] - self.place_position_b[0]) ** 2
-                + (observation.tcp_position_b[1] - self.place_position_b[1]) ** 2
+                (observation.tcp_position_b[0] - descent[0]) ** 2 + (observation.tcp_position_b[1] - descent[1]) ** 2
             )
-            z_error = abs(observation.tcp_position_b[2] - self.place_position_b[2])
+            z_error = abs(observation.tcp_position_b[2] - descent[2])
             xy_ok = xy_error <= self.config.position_tolerance_m
             z_ok = z_error <= self.config.position_tolerance_m
             position_ok = xy_ok and z_ok
             # Keep the configured place X/Y fixed during the final descent.
-            vertical_target = tuple(float(value) for value in self.place_position_b)
+            vertical_target = tuple(float(value) for value in descent)
             place_direction_ok = self._place_direction_ok(observation)
             condition_ok = position_ok and place_direction_ok
             dwell = self._qualified(condition_ok)
@@ -784,9 +952,9 @@ class DatasetSequence:
                 return self._make_command(
                     observation,
                     SequenceStage.PLACE_FINAL_XY,
-                    self.place_position_b,
+                    self.place_final_waypoints[0],
                     self.desired_axis_b,
-                    self._arm_action(observation, self.place_position_b),
+                    self._arm_action(observation, self.place_final_waypoints[0]),
                     -1.0,
                     False,
                     False,
@@ -880,8 +1048,9 @@ class DatasetSequence:
 
         if state.stage is SequenceStage.PLACE_FINAL_XY:
             assert self.place_position_b is not None
+            place_target = self.place_final_waypoints[state.place_final_waypoint_index]
             position_ok = (
-                _norm(tuple(a - b for a, b in zip(observation.tcp_position_b, self.place_position_b, strict=True)))
+                _norm(tuple(a - b for a, b in zip(observation.tcp_position_b, place_target, strict=True)))
                 <= self.config.position_tolerance_m
             )
             place_direction_ok = self._place_direction_ok(observation)
@@ -898,6 +1067,24 @@ class DatasetSequence:
                     flush=True,
                 )
             if dwell >= self.config.normal_dwell_steps:
+                if state.place_final_waypoint_index < len(self.place_final_waypoints) - 1:
+                    self.state = replace(
+                        state,
+                        place_final_waypoint_index=state.place_final_waypoint_index + 1,
+                        dwell_steps=0,
+                        stage_steps=state.stage_steps + 1,
+                    )
+                    next_target = self.place_final_waypoints[self.state.place_final_waypoint_index]
+                    return self._make_command(
+                        observation,
+                        state.stage,
+                        next_target,
+                        self.desired_axis_b,
+                        self._arm_action(observation, next_target),
+                        -1.0,
+                        False,
+                        False,
+                    )
                 self.state = SequenceState(
                     SequenceStage.RELEASE_GRIPPER,
                     tcp_quaternion_ref_b_wxyz=state.tcp_quaternion_ref_b_wxyz,
@@ -918,11 +1105,11 @@ class DatasetSequence:
                 return self._make_command(
                     observation,
                     state.stage,
-                    self.place_position_b,
+                    place_target,
                     self.desired_axis_b,
                     self._arm_action(
                         observation,
-                        self.place_position_b,
+                        place_target,
                     ),
                     -1.0,
                     False,

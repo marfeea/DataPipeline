@@ -32,12 +32,17 @@ ensure_curriculumrl_available()
 from isaaclab.app import AppLauncher  # noqa: E402
 
 from configs.task import NORMAL_ADVANCE_DISTANCE_M  # noqa: E402
+from DataPipe.source2_routing import add_source2_routing_args, source2_routing_from_args  # noqa: E402
+from DataPipe.state4_routing import add_state4_routing_args, routing_from_args  # noqa: E402
 
 # ------------------------------ Isaac 采集参数 ------------------------------
 # 这里集中定义输出目录、episode 数量、轨迹规划、控制频率和相机分辨率。
 # AppLauncher 的参数会一并注入，故可继续使用 --headless、--device 等 Isaac 参数。
 # ``parser`` 定义采集入口的命令行契约；AppLauncher 参数会在下方一并注入。
 parser = argparse.ArgumentParser(description=__doc__)
+add_state4_routing_args(parser)
+add_source2_routing_args(parser)
+parser.set_defaults(state4_routing=True)
 # 输出与批次规模：``output-dir`` 为 HDF5 目标目录，``episodes``/``max-steps`` 控制采集上限。
 parser.add_argument("--output-dir", type=Path, required=True)
 parser.add_argument("--episodes", type=int, default=3)
@@ -179,7 +184,6 @@ from CurriculumRL.logic.aubo_ik import (  # noqa: E402
     flange_down_yaw_offset_for_tcp_heading,
     tcp_heading_decomposition,
 )
-from CurriculumRL.logic.tcp_kinematics import world_to_root_position  # noqa: E402
 from CurriculumRL.tasks.tcp_docking.aubo_ik_action import AuboIKActionTerm  # noqa: E402
 from CurriculumRL.tasks.tcp_docking.mdp.runtime_state import auxiliary_reward_scales, compute_step  # noqa: E402
 
@@ -226,6 +230,11 @@ from DataPipe.config import ALIGNED_SCHEMA_VERSION, TCP_HEADING_SCALE_RAD, TCP_P
 from DataPipe.episode_naming import next_episode_index  # noqa: E402
 from DataPipe.isaac_gripper import DatasetGripperController  # noqa: E402
 from DataPipe.isaac_scene import make_dataset_ik_env_cfg  # noqa: E402
+from DataPipe.pipelines.curobo_bootstrap.replay import pose_w_to_b as measured_pose_w_to_b  # noqa: E402
+from DataPipe.pipelines.curobo_bootstrap.task_targets import (  # noqa: E402
+    environment_position_to_base,
+    pick_place_positions_b,
+)
 from DataPipe.trajectory import advance_reached_waypoints, make_plan  # noqa: E402
 
 # ------------------------------ 写入的奖励分量 ------------------------------
@@ -361,17 +370,28 @@ def _numpy(value: Any) -> np.ndarray:
     return np.asarray(value).copy()
 
 
+
+def _measured_base_pose_w(robot: Any) -> tuple[float, ...]:
+    """Normalize Isaac's measured root quaternion before strict frame conversion."""
+
+    position = _numpy(robot.data.root_pos_w[0]).astype(np.float64)
+    quaternion = _numpy(robot.data.root_quat_w[0]).astype(np.float64)
+    norm = float(np.linalg.norm(quaternion))
+    if not np.isfinite(position).all() or not np.isfinite(norm) or norm <= 0.0:
+        raise ValueError("invalid measured robot root pose")
+    quaternion /= norm
+    return (*position, *quaternion)
+
+
 def _environment_position_b(unwrapped: Any, position_e: tuple[float, float, float]) -> np.ndarray:
     """Convert one environment-frame position to robot-root B."""
 
     robot = unwrapped.scene[SCENE_ENTITY_AUBO]
-    position_w = unwrapped.scene.env_origins[0:1] + torch.as_tensor(
+    return environment_position_to_base(
         position_e,
-        dtype=unwrapped.scene.env_origins.dtype,
-        device=unwrapped.scene.env_origins.device,
-    ).view(1, 3)
-    position_b = world_to_root_position(position_w, robot.data.root_pos_w[0:1], robot.data.root_quat_w[0:1])
-    return _numpy(position_b[0]).astype(np.float64)
+        environment_origin_w=_numpy(unwrapped.scene.env_origins[0]).astype(np.float64),
+        base_pose_w=_measured_base_pose_w(robot),
+    )
 
 
 def _target_position_b(
@@ -419,24 +439,31 @@ def _pick_place_positions_b(
     place_state_index: int,
     lift_clearance_m: float,
     grasp_height_m: float | None = None,
+    state4_routing=None,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Plan lift, high-XY and final place points from source/destination states."""
 
-    grasp_b = _environment_position_b(unwrapped, TARGET_STATES[grasp_state_index].grasp_tcp_position_e)
-    place_b = _environment_position_b(unwrapped, TARGET_STATES[place_state_index].grasp_tcp_position_e)
     if grasp_height_m is not None:
+        # The V2 contract intentionally has no height override.  Preserve the
+        # Legacy CLI behavior until that compatibility option is retired.
+        grasp_b = _environment_position_b(unwrapped, TARGET_STATES[grasp_state_index].grasp_tcp_position_e)
+        place_b = _environment_position_b(unwrapped, TARGET_STATES[place_state_index].grasp_tcp_position_e)
         grasp_b[2] = grasp_height_m
         place_b[2] = grasp_height_m
-    safe_z_b = max(grasp_b[2], place_b[2]) + lift_clearance_m
-    lift_b = grasp_b.copy()
-    lift_b[2] = safe_z_b
-    place_high_b = place_b.copy()
-    place_high_b[2] = safe_z_b
-    return (
-        lift_b,
-        place_high_b,
-        place_b,
+        safe_z_b = max(grasp_b[2], place_b[2]) + lift_clearance_m
+        lift_b, place_high_b = grasp_b.copy(), place_b.copy()
+        lift_b[2] = place_high_b[2] = safe_z_b
+        return lift_b, place_high_b, place_b
+    robot = unwrapped.scene[SCENE_ENTITY_AUBO]
+    positions = pick_place_positions_b(
+        environment_origin_w=_numpy(unwrapped.scene.env_origins[0]).astype(np.float64),
+        base_pose_w=_measured_base_pose_w(robot),
+        source_index=grasp_state_index,
+        destination_index=place_state_index,
+        lift_clearance_m=lift_clearance_m,
+        state4_routing=state4_routing,
     )
+    return positions["lift"], positions["place_high"], positions["place"]
 
 
 def _validate_cli_args(args: argparse.Namespace) -> tuple[SequenceConfig, str]:
@@ -1056,6 +1083,7 @@ def main() -> int:
                 args_cli.place_state_index,
                 float(args_cli.lift_clearance_m),
                 args_cli.grasp_height_m,
+                routing_from_args(args_cli),
             )
             # 固定目标姿态与 action term 的 Flange-down 几何约束一致，而不是沿用 reset 姿态。
             robot = unwrapped.scene[SCENE_ENTITY_AUBO]
@@ -1074,6 +1102,17 @@ def main() -> int:
                 place_tcp_direction_w=place_tcp_direction_w,
                 config=sequence_config,
                 place_state_index=args_cli.place_state_index,
+                source_state_index=args_cli.target_state_index,
+                place_preposition_b=_environment_position_b(unwrapped, place_state.preposition_e),
+                place_object_pose_b=measured_pose_w_to_b(
+                    _measured_base_pose_w(robot),
+                    [
+                        *(_numpy(unwrapped.scene.env_origins[0]) + np.asarray(place_state.position_e)),
+                        *place_state.rotation_wxyz,
+                    ],
+                ),
+                state4_routing=routing_from_args(args_cli),
+                source2_routing=source2_routing_from_args(args_cli),
                 tool_forward_axis=TOOL_FORWARD_AXIS,
                 tcp_heading_axis=TCP_DIRECTION_AXIS_T,
                 initial_tcp_heading_rad=planar_heading_from_quaternion(
@@ -1081,6 +1120,15 @@ def main() -> int:
                 ),
             )
             active_desired_axis_b = np.asarray(sequence.desired_axis_b, dtype=np.float64)
+            if sequence.source2_routing is not None:
+                active_target_position_b = np.asarray(sequence.preposition_b, dtype=np.float64)
+                _, active_target_quaternion_b = flange_down_tcp_target_pose(
+                    active_target_position_b,
+                    root_quaternion_wxyz=_numpy(robot.data.root_quat_w[0]).astype(np.float64),
+                    downward_yaw_offset_rad=math.radians(args_cli.downward_yaw_offset_deg),
+                )
+            lift_position_b = np.asarray(sequence.lift_position_b, dtype=np.float64)
+            place_high_position_b = np.asarray(sequence.place_high_position_b, dtype=np.float64)
             active_advance_target_position_b = np.asarray(sequence.advance_target_b, dtype=np.float64)
             episode_goal_position_b = np.asarray(place_position_b, dtype=np.float64)
             active_semantic_stage_id = int(SequenceStage.HIGH_XY_APPROACH)
@@ -1187,6 +1235,15 @@ def main() -> int:
                 "lift_clearance_m": args_cli.lift_clearance_m,
                 "grasp_height_m": args_cli.grasp_height_m,
                 "lift_position_b": tuple(float(value) for value in lift_position_b),
+                "state4_routing_enabled": bool(args_cli.state4_routing),
+                "state2_pre_pick_side_m": args_cli.state2_pre_pick_side_m,
+                "state4_pick_lift_m": args_cli.state4_pick_lift_m,
+                "state4_pick_exit_m": args_cli.state4_pick_exit_m,
+                "state4_place_standoff_m": args_cli.state4_place_standoff_m,
+                "state4_place_entry_lift_m": args_cli.state4_place_entry_lift_m,
+                "state4_place_measured_grasp": args_cli.state4_place_measured_grasp,
+                "lift_contact_waypoints_b": sequence.lift_waypoints,
+                "place_descent_position_b": sequence.place_descent_position_b,
                 "place_high_position_b": tuple(float(value) for value in place_high_position_b),
                 "place_position_b": tuple(float(value) for value in place_position_b),
                 "sequence_mode": args_cli.sequence_mode,
@@ -1260,6 +1317,11 @@ def main() -> int:
                 waypoint_error_m = float(np.linalg.norm(desired_position_b - current_position_b))
                 max_waypoint_error_m = max(max_waypoint_error_m, waypoint_error_m)
                 gripper_position, _ = gripper_controller.state()
+                observed_object = unwrapped.scene[SCENE_ENTITY_TARGET]
+                observed_object_pose_b = measured_pose_w_to_b(
+                    _measured_base_pose_w(unwrapped.scene[SCENE_ENTITY_AUBO]),
+                    [*_numpy(observed_object.data.root_pos_w[0]), *_numpy(observed_object.data.root_quat_w[0])],
+                )
                 sequence_command = sequence.command(
                     SequenceObservation(
                         tuple(float(value) for value in current_position_b),
@@ -1271,6 +1333,7 @@ def main() -> int:
                                 np.float64
                             )
                         ),
+                        tuple(float(value) for value in observed_object_pose_b),
                     ),
                     active_waypoint_b=desired_position_b,
                     active_waypoint_label=path_waypoint_label,
@@ -1290,7 +1353,8 @@ def main() -> int:
                     )
                 active_dataset_action = np.asarray(sequence_command.dataset_action, dtype=np.float32)
                 # Flange-down uses only heading; remove ignored legacy rotation channels before submission.
-                active_dataset_action[3:6] = 0.0
+                if sequence_command.flange_downward_enabled:
+                    active_dataset_action[3:6] = 0.0
                 # 新增的 TCP 平面朝向量只影响 Flange-down 目标姿态；现有六维
                 # TCP action 仍按原接口送入 IK，不改变 IK 数学求解器。
                 commanded_position_b = (
@@ -1305,7 +1369,7 @@ def main() -> int:
                     tcp_heading_axis_local=TCP_DIRECTION_AXIS_T,
                     initial_offset_rad=active_controller.downward_yaw_offset_rad,
                 )
-                active_controller.flange_downward_enabled = True
+                active_controller.flange_downward_enabled = sequence_command.flange_downward_enabled
                 gripper_controller.apply(sequence_command.gripper_command)
                 raw_action = active_dataset_action[:6]
                 # ``action`` 添加单环境 batch 维 (1, 6)，并放到正式环境所在 device 上。
