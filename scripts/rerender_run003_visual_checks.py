@@ -54,7 +54,7 @@ def main():
             raise FileExistsError("Preserve prior supplemental evidence; select a new output directory")
         status["stage"] = name
         save()
-        command = [sys.executable, str(scripts / "replay_curobo_pick_place_v2_isaac.py"),
+        command = [sys.executable, str(scripts / "replay_isaacsim.py"),
                    "--run", str(run), "--no-realtime", "--device", "cuda:0", "--headless",
                    "--report-name", report_name, "--visualization-dir", str(destination)]
         print(f"VISUAL_REPLAY {name}", flush=True)

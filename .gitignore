@@ -97,6 +97,7 @@ tests/.tmp/
 !/tests/test_replay_metrics.py
 !/tests/test_alignment_audit.py
 !/tests/test_collection_output.py
+!/tests/test_native_migration.py
 
 # Keep CuRobo contract regression sources; generated caches stay ignored.
 !/tests/curobo_bootstrap/

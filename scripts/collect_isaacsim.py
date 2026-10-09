@@ -41,6 +41,65 @@ def _stage_command(executable, script, arguments, *, gui: bool):
     ]
 
 
+def _run_stage(command, *, evidence, stage, route, records, save_status):
+    """Retry runtime startup failures while preserving each failed output."""
+    runtime_markers = (
+        "Ninja is required",
+        "DLL load failed",
+        "Failed to load the shared library",
+        "WinError 32",
+        "WinError 126",
+        "Native camera warmup did not complete",
+        "Native render did not become usable",
+    )
+    for attempt in range(1, 4):
+        log = evidence / (f"{stage}.log" if attempt == 1 else f"{stage}_runtime_retry_{attempt}.log")
+        print(f"CUROBO_ROUTE_STAGE route={route} stage={stage} runtime_attempt={attempt}", flush=True)
+        with log.open("w", encoding="utf-8", errors="replace") as stream:
+            result = subprocess.run(
+                command, cwd=Path(__file__).resolve().parents[1],
+                stdout=stream, stderr=subprocess.STDOUT, check=False,
+            )
+        record = {
+            "stage": stage, "runtime_attempt": attempt, "returncode": result.returncode,
+            "log": str(log), "command": command,
+        }
+        records.append(record)
+        output_path = Path(command[command.index("--output") + 1]).resolve()
+        result_paths = (
+            [output_path] if output_path.suffix == ".json"
+            else [output_path / "report.json", output_path / "plan_report.json"]
+        )
+        result_reports = [_read(path) for path in result_paths if path.exists()]
+        succeeded = any(value.get("passed") for value in result_reports)
+        failure_text = (
+            "\n".join(str(value.get("failure_reason") or value.get("error") or "") for value in result_reports)
+            if result_reports else log.read_text(encoding="utf-8", errors="replace")
+        )
+        record["passed"] = succeeded
+        if not succeeded:
+            record["failure_reason"] = failure_text or "stage did not produce a passing report; see log"
+            print(
+                f"CUROBO_STAGE_FAILURE route={route} stage={stage} reason={record['failure_reason']}",
+                flush=True,
+            )
+        runtime_failure = not succeeded and any(marker in failure_text for marker in runtime_markers)
+        record["retryable_runtime_failure"] = runtime_failure
+        save_status()
+        if not runtime_failure or attempt == 3:
+            return result.returncode
+        archive = evidence / "runtime_retries" / f"{stage}_{attempt}"
+        if not output_path.is_relative_to(evidence.resolve()) or not archive.resolve().is_relative_to(evidence.resolve()):
+            raise ValueError("runtime retry output must remain inside this route's evidence directory")
+        archive.mkdir(parents=True)
+        if output_path.exists():
+            output_path.rename(archive / output_path.name)
+        record["archived_output"] = str(archive)
+        save_status()
+        time.sleep(3)
+    raise AssertionError("unreachable runtime retry state")
+
+
 def main() -> int:
     runtime = Path(sys.executable).parent
     os.environ["PATH"] = os.pathsep.join(
@@ -55,7 +114,11 @@ def main() -> int:
     parser.add_argument("--destination-index", type=int, required=True)
     parser.add_argument("--lift-clearance-m", type=float, default=LIFT_CLEARANCE_M)
     parser.add_argument("--device", default="cuda:0")
-    parser.add_argument("--gui", action="store_true", help="Run Isaac target/world/contact stages with visible windows")
+    parser.add_argument("--backend", choices=("isaaclab", "isaacsim"), default="isaaclab")
+    parser.add_argument(
+        "--gui", action=argparse.BooleanOptionalAction,
+        help="Show Isaac windows; --no-gui overrides GUI route presets and retains image capture",
+    )
     parser.add_argument("--physics-hz", type=int, default=120)
     parser.add_argument("--contact-velocity-iterations", type=int, default=0)
     parser.add_argument("--contact-flange-velocity-limit-rad-s", type=float)
@@ -73,8 +136,7 @@ def main() -> int:
     preset = configure_route_preset(parser)
     args = parser.parse_args()
     validate_preset_route(parser, args, preset)
-    if args.gui:
-        os.environ["HEADLESS"] = "0"
+    os.environ["HEADLESS"] = "0" if args.gui else "1"
     try:
         config = PickPlaceV2Config(
             source_index=args.source_index,
@@ -121,6 +183,7 @@ def main() -> int:
         "output": str(output),
         "evidence": str(evidence),
         "device": args.device,
+        "backend": args.backend,
         "mode": "gui" if args.gui else "headless",
         "lift_clearance_m": config.lift_clearance_m,
         "physics_hz": args.physics_hz,
@@ -152,6 +215,13 @@ def main() -> int:
         report["stage"] = stage
         save_status()
         command = _stage_command(sys.executable, root / "scripts" / script, arguments, gui=args.gui)
+        if script in (
+            "dry_run_curobo_pick_place_v2_targets_isaac.py",
+            "audit_curobo_v2_production_world_isaac.py",
+            "probe_curobo_v2_legacy_contact_isaac.py",
+            "replay_isaacsim.py",
+        ):
+            command.extend(["--backend", args.backend])
         if script == "probe_curobo_v2_legacy_contact_isaac.py":
             command.extend(["--physics-hz", str(args.physics_hz)])
             if args.contact_velocity_iterations:
@@ -162,59 +232,11 @@ def main() -> int:
                 command.extend(["--contact-wrist-velocity-limit-rad-s", str(args.contact_wrist_velocity_limit_rad_s)])
             if args.capture_execution:
                 command.append("--capture-execution")
-        runtime_markers = (
-            "Ninja is required",
-            "DLL load failed",
-            "Failed to load the shared library",
-            "WinError 32",
-            "WinError 126",
+        return _run_stage(
+            command, evidence=evidence, stage=stage,
+            route=f"{config.source_index}_to_{config.destination_index}",
+            records=report["stages"], save_status=save_status,
         )
-        for attempt in range(1, 4):
-            log = evidence / (f"{stage}.log" if attempt == 1 else f"{stage}_runtime_retry_{attempt}.log")
-            print(
-                f"CUROBO_ROUTE_STAGE route={config.source_index}_to_{config.destination_index} "
-                f"stage={stage} runtime_attempt={attempt}",
-                flush=True,
-            )
-            with log.open("w", encoding="utf-8", errors="replace") as stream:
-                result = subprocess.run(command, cwd=root, stdout=stream, stderr=subprocess.STDOUT, check=False)
-            record = {
-                "stage": stage,
-                "runtime_attempt": attempt,
-                "returncode": result.returncode,
-                "log": str(log),
-                "command": command,
-            }
-            report["stages"].append(record)
-            save_status()
-            output_path = Path(command[command.index("--output") + 1]).resolve()
-            result_paths = (
-                [output_path]
-                if output_path.suffix == ".json"
-                else [output_path / "report.json", output_path / "plan_report.json"]
-            )
-            result_reports = [_read(path) for path in result_paths if path.exists()]
-            succeeded = any(value.get("passed") for value in result_reports)
-            failure_text = (
-                "\n".join(str(value.get("failure_reason") or value.get("error") or "") for value in result_reports)
-                if result_reports
-                else log.read_text(encoding="utf-8", errors="replace")
-            )
-            runtime_failure = not succeeded and any(marker in failure_text for marker in runtime_markers)
-            if not runtime_failure or attempt == 3:
-                return result.returncode
-            archive = evidence / "runtime_retries" / f"{stage}_{attempt}"
-            if not output_path.is_relative_to(evidence.resolve()) or not archive.resolve().is_relative_to(
-                evidence.resolve()
-            ):
-                raise ValueError("runtime retry output must remain inside this route's evidence directory")
-            archive.mkdir(parents=True)
-            if output_path.exists():
-                output_path.rename(archive / output_path.name)
-            record["archived_output"] = str(archive)
-            save_status()
-            time.sleep(3)
-        raise AssertionError("unreachable runtime retry state")
 
     def expect_passed(path: Path, stage: str, task: dict, world_hash: str | None = None) -> dict:
         value = _read(path)
@@ -496,9 +518,14 @@ def main() -> int:
             if integrated is not None:
                 break
         if integrated is None:
+            latest_stages = {record["stage"]: record for record in report["stages"]}
+            report["stage_failures"] = [
+                {"stage": record["stage"], "reason": record["failure_reason"], "log": record["log"]}
+                for record in latest_stages.values() if not record["passed"]
+            ]
             raise RuntimeError(
                 "no candidate combination passed CuRobo planning, Isaac integration, and hybrid trajectory acceptance; "
-                + str(report["artifact_failures"])
+                + str(report["stage_failures"] or report["artifact_failures"])
             )
         report["integrated_run"] = str(integrated_dir)
         save_status()

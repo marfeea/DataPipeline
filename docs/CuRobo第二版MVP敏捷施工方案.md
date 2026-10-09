@@ -153,8 +153,8 @@ replay 只能读取该快照恢复或校验场景，不能在回放时重新猜�
 - `DataPipe/pipelines/curobo_bootstrap/hybrid_route.py`：冻结两段 CuRobo、三段 Legacy IK 与两次夹爪事件的所有权；
 - `DataPipe/pipelines/curobo_bootstrap/pick_place_v2.py`：四阶段执行、逐步 Legacy IK 控制、两段 MotionGen 调用、实测记录拼接和事件生成；
 - `DataPipe/pipelines/curobo_bootstrap/pick_place_artifact.py`：NPZ/快照/报告的保存与读回验收；
-- `scripts/plan_curobo_pick_place_v2.py`：固定 index0->index1 的唯一规划入口；
-- `scripts/replay_curobo_pick_place_v2_isaac.py`：生产场景全帧 replay 入口；
+- `scripts/collect_isaacsim.py`：固定 index0->index1 的唯一规划入口；
+- `scripts/replay_isaacsim.py`：生产场景全帧 replay 入口；
 - `tests/curobo_bootstrap/test_pick_place_v2.py`：纯逻辑与误报防护测试。
 
 可复用的 V1 `CuroboMvpPlanner` 应提取为“单段关节规划”能力或以组合方式调用；不得复制一套
@@ -252,11 +252,11 @@ index1 放置关节目标，目标物逻辑终态等于 `TARGET_STATES[1]`，报
 
 ```powershell
 # 工作目录：D:/Project/S2R/DataPipeline/DataPipe
-& D:/Anaconda/envs/isaaclab/python.exe scripts/plan_curobo_pick_place_v2.py `
+& D:/Anaconda/envs/isaaclab/python.exe scripts/collect_isaacsim.py `
   --source-index 0 --destination-index 1 --device cuda:0 `
   --output data/curobo_pick_place_v2/0_to_1/run_001
 
-& D:/Anaconda/envs/isaaclab/python.exe scripts/replay_curobo_pick_place_v2_isaac.py `
+& D:/Anaconda/envs/isaaclab/python.exe scripts/replay_isaacsim.py `
   --run data/curobo_pick_place_v2/0_to_1/run_001 --device cuda:0
 ```
 

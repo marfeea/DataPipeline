@@ -25,11 +25,11 @@ MVP 交付物：
 | LegacyIK 入口 | `scripts/collect_aubo_ik_dataset_isaac.py` 使用 `--target-state-index` 选抓取源、`--place-state-index` 选放置目标 | 与其索引语义对齐 |
 | 目标事实源 | `configs/task.py::TARGET_STATES` 定义五个状态；`DataPipe/pipelines/curobo_bootstrap/task_targets.py::PickPlaceV2Config` 已验证索引范围和源/目标不同 | 复用已有定义、坐标变换和五点生成 |
 | 目标提取 | `scripts/dry_run_curobo_pick_place_v2_targets_isaac.py` 当前构造默认 `PickPlaceV2Config()`，即 `0→1` | 加入所选索引并写入报告 |
-| 正式规划 | `scripts/plan_curobo_pick_place_v2.py` 虽要求 `--source-index`、`--destination-index`，却显式拒绝非 `0→1`；默认探针路径位于 `0_to_1`，转运 goal 还读取固定探针文件 | 去除固定目标对及固定证据路径的耦合 |
+| 正式规划 | `scripts/collect_isaacsim.py` 虽要求 `--source-index`、`--destination-index`，却显式拒绝非 `0→1`；默认探针路径位于 `0_to_1`，转运 goal 还读取固定探针文件 | 去除固定目标对及固定证据路径的耦合 |
 | 集成执行 | `scripts/probe_curobo_v2_legacy_contact_isaac.py` 从目标、首段和世界报告继续执行 | 校验三份输入对应同一任务和场景 |
 | 产物构建 | `scripts/build_curobo_pick_place_v2_artifact.py` 校验 `0→1`，报告也写死索引 | 从任务快照填写并交叉校验 |
 | 读回校验 | `DataPipe/pipelines/curobo_bootstrap/pick_place_artifact.py::verify_hybrid_artifact` 拒绝非 `0→1` | 校验合法索引、任务 hash 和产物内部一致性 |
-| 重播 | `scripts/replay_curobo_pick_place_v2_isaac.py` 从产物快照读取源和目标 | 确认重播场景及报告与所选目标一致 |
+| 重播 | `scripts/replay_isaacsim.py` 从产物快照读取源和目标 | 确认重播场景及报告与所选目标一致 |
 
 现有 `0→1` 报告属于该目标对的历史证据；改变目标对后，至少目标 IK 和两段规划探针需要重新取得对应证据。世界证据若可复用，也必须核对世界 hash、机器人资产和场景身份，不能仅凭文件路径推定兼容。
 

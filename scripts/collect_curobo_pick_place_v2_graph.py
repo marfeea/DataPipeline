@@ -147,7 +147,7 @@ def main() -> int:
             if not output.exists() and not evidence.exists():
                 command = [
                     sys.executable,
-                    str(root / "scripts" / "plan_curobo_pick_place_v2.py"),
+                    str(root / "scripts" / "collect_isaacsim.py"),
                     "--source-index",
                     str(source),
                     "--destination-index",
@@ -213,7 +213,7 @@ def main() -> int:
                 if not replay_path.exists():
                     command = [
                         sys.executable,
-                        str(root / "scripts" / "replay_curobo_pick_place_v2_isaac.py"),
+                        str(root / "scripts" / "replay_isaacsim.py"),
                         "--run",
                         str(output),
                         "--device",

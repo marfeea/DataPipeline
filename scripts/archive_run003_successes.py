@@ -312,7 +312,7 @@ def main():
         "4→0 成功参数：局部抬升 15 mm，水平退出 180 mm，统一转运净空 300 mm；物理 120 Hz，控制 60 Hz。",
         "项目配置：configs/curobo/route_presets.json；本目录保存同一配置副本。",
         "现场图片：各路线 contact_execution/execution_visualization；回放图片：各路线 replay_visualization。",
-        "有头重跑：python scripts/plan_curobo_pick_place_v2.py --route-preset 4_to_0 --output <新的目录>。"
+        "有头重跑：python scripts/collect_isaacsim.py --route-preset 4_to_0 --output <新的目录>。"
         "其他已验证路线使用同名预设。",
         "",
         "成功口径沿用 run003 混合规划/接触执行和状态回放，接触段托盘碰撞仍为诊断项。",

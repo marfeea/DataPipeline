@@ -11,12 +11,9 @@ import trimesh
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from DataPipe.runtime import ensure_curriculumrl_available
-
-ensure_curriculumrl_available()
-from CurriculumRL.logic.aubo_ik import JOINT_LIMITS_RAD, solve_tcp_ik
 
 from configs.curobo.world import MeshConfig, WorldConfig
+from DataPipe.native.aubo_ik import JOINT_LIMITS_RAD, solve_tcp_ik
 from DataPipe.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
 from DataPipe.pipelines.curobo_bootstrap.curobo_collision import CuroboCollision, self_collision_pairs
 from DataPipe.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
@@ -130,9 +127,7 @@ def main():
         **identity,
         "waypoint": args.waypoint,
         "passed": (
-            start_world_score <= 0
-            and start_self_score <= 0
-            and any(item["collision_free"] for item in records)
+            start_world_score <= 0 and start_self_score <= 0 and any(item["collision_free"] for item in records)
         ),
         "start_world_collision_score": start_world_score,
         "start_world_collision_score_with_target": (
@@ -160,4 +155,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

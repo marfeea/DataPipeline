@@ -9,10 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from DataPipe.runtime import ensure_curriculumrl_available
 
-ensure_curriculumrl_available()
-from isaaclab.app import AppLauncher
+from DataPipe.sim_backend import add_launcher_args, configure_cameras, ik_class, launch, trajectory_classes
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--first-probe", type=Path, required=True)
@@ -37,7 +35,7 @@ parser.add_argument(
 parser.add_argument(
     "--integrated", action="store_true", help="Plan and state-replay both CuRobo segments in this Isaac run"
 )
-AppLauncher.add_app_launcher_args(parser)
+add_launcher_args(parser)
 args = parser.parse_args()
 if args.physics_hz < 60 or args.physics_hz % 60:
     parser.error("physics-hz must be a positive integer multiple of 60")
@@ -51,24 +49,23 @@ if args.capture_execution:
     args.enable_cameras = True
 if args.output.exists():
     raise FileExistsError(args.output)
-launcher = AppLauncher(args)
+launcher = launch(args)
 
 import numpy as np
 import torch
 import trimesh
-from CurriculumRL.configs.assets import SCENE_ENTITY_AUBO, SCENE_ENTITY_TARGET
-from CurriculumRL.logic.aubo_ik import flange_down_yaw_offset_for_tcp_heading
-from CurriculumRL.tasks.tcp_docking.aubo_ik_action import AuboIKAction
-from CurriculumRL.tasks.tcp_docking.trajectory_env_cfg import TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg
+
+from configs.assets import SCENE_ENTITY_AUBO, SCENE_ENTITY_TARGET
+from DataPipe.native.aubo_ik import flange_down_yaw_offset_for_tcp_heading
+
+AuboIKAction = ik_class()
+TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
 
 from configs.coordinate_frames import TCP_DIRECTION_AXIS_T
 from configs.curobo.planner import PlannerConfig
 from configs.curobo.world import WorldConfig
-from DataPipe.camera_config import project_diagnostic_camera_sensor_specs
-from DataPipe.collection_cameras import configure_collection_cameras
 from DataPipe.config import TCP_POSITION_SCALE_M, TCP_ROTATION_SCALE_RAD
 from DataPipe.isaac_gripper import DatasetGripperController
-from DataPipe.isaac_scene import _camera_cfg
 from DataPipe.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
 from DataPipe.pipelines.curobo_bootstrap.contact_timing import (
     configure_contact_timing,
@@ -138,16 +135,22 @@ def main():
         cfg.sim.device = args.device
         cfg.seed = targets["config"]["seed"]
         report["execution_contract"] = configure_contact_timing(
-            cfg, physics_hz=args.physics_hz, control_hz=task["control_hz"],
+            cfg,
+            physics_hz=args.physics_hz,
+            control_hz=task["control_hz"],
             velocity_iterations=args.contact_velocity_iterations,
         )
         flange_drive = configure_flange_velocity_limit(
-            cfg, robot_name=SCENE_ENTITY_AUBO, limit_rad_s=args.contact_flange_velocity_limit_rad_s,
+            cfg,
+            robot_name=SCENE_ENTITY_AUBO,
+            limit_rad_s=args.contact_flange_velocity_limit_rad_s,
         )
         if flange_drive is not None:
             report["execution_contract"]["flange_drive"] = flange_drive
         wrist_drive = configure_wrist_velocity_limit(
-            cfg, robot_name=SCENE_ENTITY_AUBO, limit_rad_s=args.contact_wrist_velocity_limit_rad_s,
+            cfg,
+            robot_name=SCENE_ENTITY_AUBO,
+            limit_rad_s=args.contact_wrist_velocity_limit_rad_s,
         )
         if wrist_drive is not None:
             report["execution_contract"]["wrist_drive"] = wrist_drive
@@ -156,20 +159,21 @@ def main():
         for name in (SCENE_ENTITY_AUBO + "_usd", SCENE_ENTITY_TARGET):
             getattr(cfg.scene, name).spawn.activate_contact_sensors = True
         if args.capture_execution:
-            camera_specs = project_diagnostic_camera_sensor_specs(
-                resolution=(args.camera_width, args.camera_height), data_types=("rgb",)
-            )
-            for spec in camera_specs[1:]:
-                setattr(cfg.scene, spec.name, _camera_cfg(spec))
-            cfg, camera_specs = configure_collection_cameras(cfg, camera_specs)
+            cfg, camera_specs = configure_cameras(cfg, args.camera_width, args.camera_height)
         env = TcpDockingTrajectoryEnv(cfg)
         env.reset()
+        if args.backend == "isaacsim" and env.camera_specs:
+            camera_specs = env.camera_specs
         contact_reports = PhysicsContactReports()
         if args.capture_execution:
             cameras = {spec.name: env.scene[spec.name] for spec in camera_specs}
             recorder = ReplayFrameRecorder(args.output / "execution_visualization", camera_specs)
         report["source_target_pose_w"] = set_source_target_pose(env, task)
         actual_world, _ = extract_production_world(env, args.output / "world_assets")
+        if args.backend == "isaacsim":
+            from DataPipe.native.world_identity import reconcile_world
+
+            actual_world, report["native_world_geometry"] = reconcile_world(actual_world, frozen_world["world"])
         if actual_world.world_hash != frozen_world["world_evidence"]["world_hash"]:
             raise ValueError("production reset world hash changed")
         robot = env.scene[SCENE_ENTITY_AUBO]
@@ -434,7 +438,9 @@ def main():
         if "pick_entry" in contact_points:
             report["contact_waypoint"] = "state2_pick_entry_xy"
             report["state2_pick_entry"] = approach(
-                "legacy_approach_pick", np.asarray(contact_points["pick_entry"]), 1.0,
+                "legacy_approach_pick",
+                np.asarray(contact_points["pick_entry"]),
+                1.0,
             )
             report["contact_waypoint"] = "state2_pick_settle_z"
         report["approach"] = approach("legacy_approach_pick", pick, 1.0)
@@ -695,6 +701,7 @@ def main():
     except Exception as error:
         report["failure_reason"] = f"{type(error).__name__}: {error}"
         report["traceback"] = traceback.format_exc()
+        print(f"ISAAC_EXECUTION_FAILURE {report['failure_reason']}", flush=True)
     finally:
         report["record_count"] = len(records)
         if contact_reports is not None:
@@ -702,17 +709,31 @@ def main():
         trace_path = args.output / "trace.json"
         trace_path.write_text(json.dumps(records, indent=2, allow_nan=False) + "\n", encoding="utf-8")
         if recorder is not None:
-            report["visualization"] = recorder.finish(source_frames=len(records), render_calls=len(records))
-            manifest_path = recorder.output_dir / "frames.json"
-            camera_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            camera_manifest.update(
-                scope="live Isaac execution capture; a failed execution is not an accepted trajectory",
-                source_trace=str(trace_path),
-                source_trace_sha256=hashlib.sha256(trace_path.read_bytes()).hexdigest(),
-                execution_contract=report["execution_contract"],
-                execution_passed=report["passed"],
-            )
-            manifest_path.write_text(json.dumps(camera_manifest, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+            try:
+                report["visualization"] = recorder.finish(source_frames=len(records), render_calls=len(records))
+                manifest_path = recorder.output_dir / "frames.json"
+                camera_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                camera_manifest.update(
+                    scope="live Isaac execution capture; a failed execution is not an accepted trajectory",
+                    source_trace=str(trace_path),
+                    source_trace_sha256=hashlib.sha256(trace_path.read_bytes()).hexdigest(),
+                    execution_contract=report["execution_contract"],
+                    execution_passed=report["passed"],
+                )
+                manifest_path.write_text(
+                    json.dumps(camera_manifest, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+                )
+            except Exception as capture_error:
+                report["passed"] = False
+                report["capture_failure_reason"] = str(capture_error)
+                report.setdefault("failure_reason", f"Capture finalization: {capture_error}")
+        report["backend"] = args.backend
+        report["isaaclab_modules_loaded"] = sorted(
+            n for n in sys.modules if n == "isaaclab" or n.startswith("isaaclab.")
+        )
+        if args.backend == "isaacsim" and report["isaaclab_modules_loaded"]:
+            report["passed"] = False
+            report["failure_reason"] = "native backend imported Isaac Lab"
         if env is not None:
             env.close()
         (args.output / "report.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")

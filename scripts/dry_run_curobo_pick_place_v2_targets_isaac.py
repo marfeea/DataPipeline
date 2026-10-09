@@ -7,13 +7,10 @@ import traceback
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from DataPipe.runtime import ensure_curriculumrl_available
-
-ensure_curriculumrl_available()
-from isaaclab.app import AppLauncher
 
 from configs.task import TARGET_STATES
 from DataPipe.pipelines.curobo_bootstrap.task_targets import LIFT_CLEARANCE_M, PickPlaceV2Config
+from DataPipe.sim_backend import add_launcher_args, launch, trajectory_classes
 from DataPipe.source2_routing import add_source2_routing_args, source2_routing_from_args
 from DataPipe.state4_routing import add_state4_routing_args, routing_from_args, routing_payload
 
@@ -25,7 +22,7 @@ parser.add_argument("--output", type=Path, required=True)
 parser.add_argument("--source-index", type=int, default=0)
 parser.add_argument("--destination-index", type=int, default=1)
 parser.add_argument("--lift-clearance-m", type=float, default=LIFT_CLEARANCE_M)
-AppLauncher.add_app_launcher_args(parser)
+add_launcher_args(parser)
 add_state4_routing_args(parser)
 add_source2_routing_args(parser)
 args = parser.parse_args()
@@ -45,10 +42,11 @@ except ValueError as error:
     parser.error(str(error))
 if args.output.exists():
     raise FileExistsError(f"Refusing to overwrite dry-run report: {args.output}")
-launcher = AppLauncher(args)
+launcher = launch(args)
 
 import numpy as np
-from CurriculumRL.tasks.tcp_docking.trajectory_env_cfg import TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg
+
+TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
 
 from DataPipe.pipelines.curobo_bootstrap.source_target import set_source_target_pose
 from DataPipe.pipelines.curobo_bootstrap.task_targets import (
@@ -130,6 +128,13 @@ def main():
         report["error"] = f"{type(error).__name__}: {error}"
         raise
     finally:
+        report["backend"] = args.backend
+        report["isaaclab_modules_loaded"] = sorted(
+            n for n in sys.modules if n == "isaaclab" or n.startswith("isaaclab.")
+        )
+        if args.backend == "isaacsim" and report["isaaclab_modules_loaded"]:
+            report["passed"] = False
+            report["failure_reason"] = "native backend imported Isaac Lab"
         if env is not None:
             env.close()
         args.output.parent.mkdir(parents=True, exist_ok=True)

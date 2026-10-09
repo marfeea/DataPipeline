@@ -19,7 +19,6 @@ from DataPipe.pipelines.curobo_bootstrap.pick_place_artifact import (
     sha256_file,
     verify_hybrid_artifact,
 )
-from DataPipe.runtime import ensure_curriculumrl_available
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--run", type=Path, required=True)
@@ -30,25 +29,23 @@ parser.add_argument("--camera-width", type=int, default=128)
 parser.add_argument("--camera-height", type=int, default=128)
 args_pre, _ = parser.parse_known_args()
 artifact = verify_hybrid_artifact(args_pre.run)
-ensure_curriculumrl_available()
-from isaaclab.app import AppLauncher
+from DataPipe.sim_backend import add_launcher_args, configure_cameras, ik_class, launch, trajectory_classes
 
-AppLauncher.add_app_launcher_args(parser)
+add_launcher_args(parser)
 args = parser.parse_args()
 if args.camera_width <= 0 or args.camera_height <= 0:
     parser.error("camera dimensions must be positive")
 args.enable_cameras = True
-launcher = AppLauncher(args)
+launcher = launch(args)
 
 import torch
-from CurriculumRL.configs.assets import SCENE_ENTITY_AUBO, SCENE_ENTITY_TARGET
-from CurriculumRL.tasks.tcp_docking.aubo_ik_action import AuboIKAction
-from CurriculumRL.tasks.tcp_docking.trajectory_env_cfg import TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg
 
-from DataPipe.camera_config import project_diagnostic_camera_sensor_specs
-from DataPipe.collection_cameras import configure_collection_cameras
+from configs.assets import SCENE_ENTITY_AUBO, SCENE_ENTITY_TARGET
+
+AuboIKAction = ik_class()
+TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
+
 from DataPipe.isaac_gripper import DatasetGripperController
-from DataPipe.isaac_scene import _camera_cfg
 from DataPipe.pipelines.curobo_bootstrap.production_world import extract_production_world
 from DataPipe.pipelines.curobo_bootstrap.replay import matrix_pose_wxyz
 from DataPipe.pipelines.curobo_bootstrap.replay_visualization import ReplayFrameRecorder
@@ -110,20 +107,25 @@ def main():
         cfg.seed = task["seed"]
         cfg.actions.joint_trajectory.open_position = (0.0115, -0.0115)
         cfg.actions.joint_trajectory.closed_position = (0.0, 0.0)
-        camera_specs = project_diagnostic_camera_sensor_specs(
-            resolution=(args.camera_width, args.camera_height), data_types=("rgb",)
-        )
-        # The trajectory scene has no sensors by default; materialize the two
-        # external Legacy IK views before renaming them for the replay scene.
-        for spec in camera_specs[1:]:
-            setattr(cfg.scene, spec.name, _camera_cfg(spec))
-        cfg, camera_specs = configure_collection_cameras(cfg, camera_specs)
+        cfg, camera_specs = configure_cameras(cfg, args.camera_width, args.camera_height)
         env = TcpDockingTrajectoryEnv(cfg)
         env.reset()
+        if args.backend == "isaacsim" and env.camera_specs:
+            camera_specs = env.camera_specs
         report["source_target_pose_w"] = set_source_target_pose(env, task)
         report["stage"] = "scene_identity"
         with tempfile.TemporaryDirectory(prefix="curobo_v2_replay_world_") as directory:
             world, _ = extract_production_world(env, directory)
+            if args.backend == "isaacsim":
+                from DataPipe.native.world_identity import reconcile_world
+
+                path_map = args.run / "asset_path_map.json"
+                mapped = (
+                    {k: args.run / v for k, v in json.loads(path_map.read_text())["paths"].items()}
+                    if path_map.exists()
+                    else {}
+                )
+                world, report["native_world_geometry"] = reconcile_world(world, snapshot["world"], asset_paths=mapped)
             if world.world_hash != snapshot["world_hash"]:
                 raise ValueError("replay production world differs from plan snapshot")
             report["world_hash"] = world.world_hash
@@ -330,6 +332,13 @@ def main():
         report["failure_reason"] = f"{type(error).__name__}: {error}"
         report["traceback"] = traceback.format_exc()
     finally:
+        report["backend"] = args.backend
+        report["isaaclab_modules_loaded"] = sorted(
+            n for n in sys.modules if n == "isaaclab" or n.startswith("isaaclab.")
+        )
+        if args.backend == "isaacsim" and report["isaaclab_modules_loaded"]:
+            report["passed"] = False
+            report["failure_reason"] = "native backend imported Isaac Lab"
         if env is not None:
             env.close()
         save_json(args.run / args.report_name, report)

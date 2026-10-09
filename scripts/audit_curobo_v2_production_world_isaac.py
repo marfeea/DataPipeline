@@ -8,10 +8,8 @@ from dataclasses import asdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from DataPipe.runtime import ensure_curriculumrl_available
 
-ensure_curriculumrl_available()
-from isaaclab.app import AppLauncher
+from DataPipe.sim_backend import add_launcher_args, launch, trajectory_classes
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--targets-report", type=Path, required=True)
@@ -21,14 +19,15 @@ parser.add_argument(
     type=Path,
     default=Path("configs/curobo/assets/aubo_e5_project/collision_model_v2.json"),
 )
-AppLauncher.add_app_launcher_args(parser)
+add_launcher_args(parser)
 args = parser.parse_args()
 if args.output.exists():
     raise FileExistsError(f"Refusing to overwrite audit directory: {args.output}")
-launcher = AppLauncher(args)
+launcher = launch(args)
 
 import numpy as np
-from CurriculumRL.tasks.tcp_docking.trajectory_env_cfg import TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg
+
+TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
 
 from DataPipe.pipelines.curobo_bootstrap.planner import CuroboMvpPlanner
 from DataPipe.pipelines.curobo_bootstrap.production_world import extract_production_world
@@ -102,6 +101,13 @@ def main():
         report["error"] = f"{type(error).__name__}: {error}"
         raise
     finally:
+        report["backend"] = args.backend
+        report["isaaclab_modules_loaded"] = sorted(
+            n for n in sys.modules if n == "isaaclab" or n.startswith("isaaclab.")
+        )
+        if args.backend == "isaacsim" and report["isaaclab_modules_loaded"]:
+            report["passed"] = False
+            report["failure_reason"] = "native backend imported Isaac Lab"
         if env is not None:
             env.close()
         report_path.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")

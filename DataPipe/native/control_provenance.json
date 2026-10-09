@@ -1,0 +1,22 @@
+{
+  "aubo_ik": {
+    "source": "D:\\Project\\S2R\\CurriculumRL\\source\\CurriculumRL\\CurriculumRL\\logic\\aubo_ik.py",
+    "sha256": "0128d568400c70ad9a7c22cd445d028fb9b9258a6289e2522f52b6571bba7b09",
+    "changes": "only configuration import redirected to DataPipe local configs"
+  },
+  "differential_ik": {
+    "source": "D:\\Project\\S2R\\CurriculumRL\\source\\CurriculumRL\\CurriculumRL\\logic\\differential_ik.py",
+    "sha256": "3044f40b4e72fbe28810f31b4789426d6eb9da7371a973d5afb017d1f3441ef2",
+    "changes": "only configuration import redirected to DataPipe local configs"
+  },
+  "tcp_kinematics": {
+    "source": "D:\\Project\\S2R\\CurriculumRL\\source\\CurriculumRL\\CurriculumRL\\logic\\tcp_kinematics.py",
+    "sha256": "09176b2b3d9745f945846e4e66c148dd246f2c8f83fbcc8bc951a05b77cd9b7a",
+    "changes": "only configuration import redirected to DataPipe local configs"
+  },
+  "ik_controller": {
+    "source": "D:\\Project\\S2R\\CurriculumRL\\source\\CurriculumRL\\CurriculumRL\\tasks\\tcp_docking\\aubo_ik_action.py",
+    "sha256": "d1e7c4d2cdff228ee1916396df80446ed9c7f4b54efe9e13e454b3a64a81b8a9",
+    "changes": "preserve AuboIKAction and diagnostics; remove ManagerBased action term and redirect pure imports"
+  }
+}

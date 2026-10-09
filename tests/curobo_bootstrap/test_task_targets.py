@@ -77,9 +77,7 @@ def test_task_snapshot_is_repeatable_and_detects_supplied_geometry_drift():
 
 
 def test_real_legacy_ik_solves_all_five_targets_in_order():
-    snapshot = task_snapshot(
-        config=PickPlaceV2Config(), environment_origin_w=ORIGIN_W, base_pose_w=BASE_POSE_W
-    )
+    snapshot = task_snapshot(config=PickPlaceV2Config(), environment_origin_w=ORIGIN_W, base_pose_w=BASE_POSE_W)
     result = solve_legacy_joint_targets(
         snapshot,
         (0.0, -0.5235987901687622, 1.2217304706573486, 0.7853981852531433, 1.5707963705062866, 0.0),
@@ -115,7 +113,7 @@ def test_exhausted_seed_search_is_bounded_repeatable_and_stops_at_failed_target(
     from DataPipe.runtime import ensure_curriculumrl_available
 
     ensure_curriculumrl_available()
-    from CurriculumRL.logic import aubo_ik
+    from DataPipe.native import aubo_ik
 
     calls = []
 
@@ -142,10 +140,11 @@ def test_solver_success_never_bypasses_solution_audit(monkeypatch, q):
     from DataPipe.runtime import ensure_curriculumrl_available
 
     ensure_curriculumrl_available()
-    from CurriculumRL.logic import aubo_ik
+    from DataPipe.native import aubo_ik
 
     monkeypatch.setattr(
-        aubo_ik, "solve_tcp_ik",
+        aubo_ik,
+        "solve_tcp_ik",
         lambda *args, **kwargs: aubo_ik.IKResult(True, q, iterations=1, position_error_m=0, orientation_error_rad=0),
     )
     snapshot = task_snapshot(config=PickPlaceV2Config(), environment_origin_w=ORIGIN_W, base_pose_w=BASE_POSE_W)

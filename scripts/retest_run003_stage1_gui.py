@@ -29,7 +29,7 @@ def main():
     assert all(digest(project.parent / name) == expected for name, expected in baseline["source_sha256"].items())
     sources = (
         "DataPipe/pipelines/curobo_bootstrap/task_targets.py",
-        "scripts/plan_curobo_pick_place_v2.py",
+        "scripts/collect_isaacsim.py",
         "scripts/audit_run003_stage1.py",
         "scripts/retest_run003_stage1_gui.py",
         "tests/curobo_bootstrap/test_task_targets.py",
@@ -86,7 +86,7 @@ def main():
                 name + "_planning",
                 [
                     sys.executable,
-                    str(project / "scripts/plan_curobo_pick_place_v2.py"),
+                    str(project / "scripts/collect_isaacsim.py"),
                     "--source-index",
                     "3",
                     "--destination-index",
@@ -108,7 +108,7 @@ def main():
                 name + "_replay",
                 [
                     sys.executable,
-                    str(project / "scripts/replay_curobo_pick_place_v2_isaac.py"),
+                    str(project / "scripts/replay_isaacsim.py"),
                     "--run",
                     str(run),
                     "--device",

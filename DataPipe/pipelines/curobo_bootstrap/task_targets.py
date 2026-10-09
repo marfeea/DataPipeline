@@ -227,15 +227,12 @@ def task_snapshot(
 
 def legacy_tcp_poses_b(snapshot: dict[str, Any]) -> dict[str, tuple[float, ...]]:
     """Add the exact Legacy flange-down heading orientation to five positions."""
-    from DataPipe.runtime import ensure_curriculumrl_available
 
-    ensure_curriculumrl_available()
-    from CurriculumRL.logic.aubo_ik import (  # noqa: PLC0415
+    from configs.coordinate_frames import TCP_DIRECTION_AXIS_T, target_direction_in_world  # noqa: PLC0415
+    from DataPipe.native.aubo_ik import (  # noqa: PLC0415
         flange_down_tcp_target_pose,
         flange_down_yaw_offset_for_tcp_heading,
     )
-
-    from configs.coordinate_frames import TCP_DIRECTION_AXIS_T, target_direction_in_world  # noqa: PLC0415
 
     transform_wb = np.asarray(snapshot["frames"]["T_WB"], dtype=np.float64)
     base_pose = _finite_pose(
@@ -275,10 +272,8 @@ def legacy_tcp_poses_b(snapshot: dict[str, Any]) -> dict[str, tuple[float, ...]]
 
 def solve_legacy_joint_targets(snapshot: dict[str, Any], q_start, *, random_seed_count: int = 16) -> dict[str, Any]:
     """Audit waypoint feasibility with bounded retries, not executable connections."""
-    from DataPipe.runtime import ensure_curriculumrl_available
 
-    ensure_curriculumrl_available()
-    from CurriculumRL.logic.aubo_ik import (  # noqa: PLC0415
+    from DataPipe.native.aubo_ik import (  # noqa: PLC0415
         JOINT_LIMITS_RAD,
         forward_pose,
         solve_tcp_ik,

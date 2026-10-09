@@ -26,12 +26,10 @@ from DataPipe.pipelines.curobo_bootstrap.planner import load_trajectory
 from DataPipe.pipelines.curobo_bootstrap.robot_adapter import pose_error, pose_matrix
 from DataPipe.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
 from DataPipe.pipelines.curobo_bootstrap.world_adapter import AttachedSphere, WorldSnapshot
-from DataPipe.runtime import ensure_curriculumrl_available
 
 
 def _executed_fk_residual(waypoints, targets):
-    ensure_curriculumrl_available()
-    from CurriculumRL.logic.aubo_ik import forward_pose
+    from DataPipe.native.aubo_ik import forward_pose
 
     residuals = {}
     for name in ("pre_pick", "pick", "lift", "place_high", "place"):

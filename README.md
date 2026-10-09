@@ -1,5 +1,46 @@
 # R2Dreamer IK 数据产线
 
+## Isaac Sim 独立采集后端
+
+run003 混合轨迹入口支持 `--backend isaacsim`，使用 Isaac Sim Core 创建场景、读取实测状态和相机，
+运行过程不导入 Isaac Lab。原后端仍是默认值。资产、驱动、TCP 定义、IK 数学算法、CuRobo 和产物格式复用当前项目。
+纯 IK 核心的来源与移植边界记录在 `DataPipe/native/control_provenance.json`。
+
+生成单条 run003 轨迹（例：4→1）：
+
+```powershell
+& D:/Anaconda/envs/isaaclab/python.exe scripts/collect_isaacsim.py `
+  --route-preset 4_to_1 --backend isaacsim --output data/test_rename_4-1/4_to_1
+```
+
+`4_to_1` 预设默认开启 GUI；添加 `--no-gui` 可关闭窗口，仍保留三路 RGB 采集。
+相机预热超时或渲染不可用时，同一候选最多运行三次；旧尝试保存在证据目录的 `runtime_retries`。
+控制台和 `run_report.json` 会记录具体失败原因。重新运行时使用新的输出目录。
+
+从 run003 成功归档按轨迹差异选取并重新执行至少六个方向：
+
+```powershell
+& D:/Anaconda/envs/isaaclab/python.exe scripts/collect_run003_isaacsim.py `
+  --output-root data/isaacsim_run003_new
+& D:/Anaconda/envs/isaaclab/python.exe scripts/audit_run003_isaacsim.py `
+  --output-root data/isaacsim_run003_new
+```
+
+这里使用现有 Python 环境中已安装的 Isaac Sim 5.1；环境目录名不代表运行依赖 Isaac Lab。
+新增目录必须为空。`--gui` 可开启窗口；默认无窗口但启用三路 640×480 相机。
+每路包含新接触执行 `trace.json/report.json/execution_visualization`、原格式 `trajectory.npz`、
+`scene_snapshot.json/plan_report.json`、原生状态回放和 `replay_visualization`。
+现场执行和回放报告明确记录 backend 与实际加载的 Isaac Lab 模块列表。
+
+新规划可在原入口增加 `--backend isaacsim`。既有产物回放也可使用
+`scripts/replay_isaacsim.py --backend isaacsim --run <产物目录>`。
+验收范围沿用 run003 的自由空间状态写入、接触段物理执行及逻辑携物转运。
+完整验收要求见 [Isaac Sim 移植方案](docs/IsaacSim移植验收方案.md)。
+2026-10-09 已完成六组原生执行与回放，3,862 个轨迹样本、1,920 张 RGB 图像及独立审计通过，
+实测结果和复现命令见 [移植验收结果](data/isaacsim_run003_20261009_r2/RESULTS.md)。
+
+## HDF5 数据产线
+
 当前真实采集入口使用 `r2dreamer-aubo-ik-aligned-v4`。新旧数据使用独立输出目录。
 采集命令指定已有 v3 目录时，会自动选择同级后缀 `_v4` 的目录，并打印 `DATASET_OUTPUT_REDIRECT`；
 例如 `data/pick_place_smoke_4_to_0` 会写到 `data/pick_place_smoke_4_to_0_v4`。
@@ -176,7 +217,7 @@ loss = compute_reward_prediction_loss(
 ```
 # V2 replay visual evidence
 
-`scripts/replay_curobo_pick_place_v2_isaac.py` enables the same three CameraSensor
+`scripts/replay_isaacsim.py` enables the same three CameraSensor
 views used by the Legacy IK collector. After every 12th `env.sim.render()` call
 it writes RGB PNGs for HandCamera, CameraSensor_2 and CameraSensor_3, plus a
 `frames.json` index with the source trajectory index, time, event and camera
@@ -193,8 +234,8 @@ and can be changed with `--camera-width` and `--camera-height`.
 
 ~~~powershell
 $isaac = "D:\Anaconda\envs\isaaclab\python.exe"
-& $isaac scripts/plan_curobo_pick_place_v2.py --source-index 1 --destination-index 0 --device cuda:0 --output data/curobo_pick_place_graph_20260924/1_to_0
-& $isaac scripts/replay_curobo_pick_place_v2_isaac.py --run data/curobo_pick_place_graph_20260924/1_to_0 --device cuda:0 --headless --no-realtime
+& $isaac scripts/collect_isaacsim.py --source-index 1 --destination-index 0 --device cuda:0 --output data/curobo_pick_place_graph_20260924/1_to_0
+& $isaac scripts/replay_isaacsim.py --run data/curobo_pick_place_graph_20260924/1_to_0 --device cuda:0 --headless --no-realtime
 ~~~
 
 规划入口依次生成本路线的目标、生产世界、CuRobo 非接触段和 Isaac 实测抓取/放置证据。证据位于 `<输出目录>_evidence`，阶段结果汇总在 `run_report.json`；成功时输出目录包含混合轨迹及 `plan_report.json`。失败时检查 `run_report.json` 的阶段、原因和对应日志，不会生成标为通过的轨迹。重播结果写入 `replay_report.json`，三相机稀疏帧写入 `replay_visualization`。重跑时更换输出目录，避免覆盖既有证据。此 CuRobo V2 入口生成单条混合轨迹；HDF5 批量采集仍使用上面的 LegacyIK 入口。

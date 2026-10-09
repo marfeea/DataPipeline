@@ -10,7 +10,7 @@ from pathlib import Path
 
 import numpy as np
 import trimesh
-from CurriculumRL.configs.assets import SCENE_ENTITY_TARGET, TEST_SUPPORT_TRAY_INDICES
+from configs.assets import SCENE_ENTITY_TARGET, TEST_SUPPORT_TRAY_INDICES
 
 from pxr import Usd, UsdGeom
 

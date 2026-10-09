@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 import torch
-from CurriculumRL.configs.assets import SCENE_ENTITY_TARGET
+from configs.assets import SCENE_ENTITY_TARGET
 
 from .replay import matrix_pose_wxyz
 from .robot_adapter import pose_matrix

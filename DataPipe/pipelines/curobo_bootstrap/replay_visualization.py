@@ -48,18 +48,22 @@ class ReplayFrameRecorder:
             path = self.output_dir / CAMERA_DIRS[spec.name] / name
             Image.fromarray(rgb).save(path)
             data = camera.data
-            self.frames.append({
-                "camera": spec.name,
-                "render_frame": render_frame,
-                "trajectory_index": trajectory_index,
-                "time_s": time_s,
-                "event": event,
-                "rgb": path.relative_to(self.output_dir).as_posix(),
-                "camera_position_w": _numpy(data.pos_w[0]).tolist(),
-                "camera_quaternion_w_ros_wxyz": _numpy(data.quat_w_ros[0]).tolist(),
-                "camera_quaternion_w_opengl_wxyz": _numpy(data.quat_w_opengl[0]).tolist(),
-                "intrinsic_matrix": _numpy(data.intrinsic_matrices[0]).tolist(),
-            })
+            self.frames.append(
+                {
+                    "camera": spec.name,
+                    "render_frame": render_frame,
+                    "trajectory_index": trajectory_index,
+                    "time_s": time_s,
+                    "event": event,
+                    "rgb": path.relative_to(self.output_dir).as_posix(),
+                    "camera_position_w": _numpy(data.pos_w[0]).tolist(),
+                    "camera_quaternion_w_ros_wxyz": _numpy(data.quat_w_ros[0]).tolist(),
+                    "camera_quaternion_w_opengl_wxyz": _numpy(data.quat_w_opengl[0]).tolist(),
+                    "intrinsic_matrix": _numpy(data.intrinsic_matrices[0]).tolist(),
+                }
+            )
+            if hasattr(camera, "render_reference"):
+                self.frames[-1]["sensor_render_reference"] = camera.render_reference()
         return len(self.camera_specs)
 
     def finish(self, *, source_frames: int, render_calls: int) -> dict:

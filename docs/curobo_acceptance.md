@@ -166,11 +166,11 @@ whitespace 检查通过。headless/GUI 最终报告 SHA256 分别为
 正式复现命令（工作目录 `D:/Project/S2R/DataPipeline/DataPipe`）：
 
 ```powershell
-& D:/Anaconda/envs/isaaclab/python.exe scripts/plan_curobo_pick_place_v2.py `
+& D:/Anaconda/envs/isaaclab/python.exe scripts/collect_isaacsim.py `
   --source-index 0 --destination-index 1 --device cuda:0 `
   --output data/curobo_pick_place_v2/0_to_1/run_003
 
-& D:/Anaconda/envs/isaaclab/python.exe scripts/replay_curobo_pick_place_v2_isaac.py `
+& D:/Anaconda/envs/isaaclab/python.exe scripts/replay_isaacsim.py `
   --run data/curobo_pick_place_v2/0_to_1/run_003 --device cuda:0 --no-realtime
 ```
 

@@ -58,7 +58,7 @@ def main():
                     else:
                         arguments += ["--" + key.replace("_", "-"), str(value)]
                 arguments += ["--output", str(run)]
-                run_script("plan_curobo_pick_place_v2.py", arguments, batch / (route + "_collection.log"))
+                run_script("collect_isaacsim.py", arguments, batch / (route + "_collection.log"))
             report = read(route_report)
             if not report["passed"]:
                 raise ValueError(f"collection failed at {report['stage']}: {report.get('failure_reason')}")
@@ -66,7 +66,7 @@ def main():
             save()
             if not (run / "replay_report.json").exists():
                 run_script(
-                    "replay_curobo_pick_place_v2_isaac.py",
+                    "replay_isaacsim.py",
                     ["--run", run, "--device", "cuda:0", "--camera-width", "640", "--camera-height", "480"],
                     run / "replay_gui.log",
                 )
