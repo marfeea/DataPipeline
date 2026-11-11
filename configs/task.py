@@ -27,8 +27,16 @@ class TargetState:
     rotation_wxyz: tuple[float, float, float, float]
     # TCP 停靠/接近位置，坐标系为环境局部 E，单位 m。
     preposition_e: tuple[float, float, float]
-    # 夹爪闭合并抓取目标物时的 TCP 位置，坐标系为环境局部 E，单位 m。
+    # 历史抓取 TCP，保留供旧轨迹身份核验；新轨迹使用 pre_grasp_tcp_position_e。
     grasp_tcp_position_e: tuple[float, float, float]
+    # 闭爪前到达的 TCP 位置（E，m），直接使用，不添加推进或 TCP 偏移。
+    pre_grasp_tcp_position_e: tuple[float, float, float] | None = None
+    # 松爪前到达的 TCP 位置（E，m），直接使用，不按物体根位置换算。
+    pre_place_tcp_position_e: tuple[float, float, float] | None = None
+    place_tracking_compensation: bool = False
+    # 第 5 位先在层外下降，再水平进入；进入后仅下降此距离。
+    place_entry_lift_m: float = 0.0
+    place_standoff_m: float = 0.0
 
 
 # 兼容旧调用方的名称；唯一几何事实源位于 configs.coordinate_frames。
@@ -51,6 +59,11 @@ TARGET_STATES: Final = (
         (0.0, 0.0, 0.0, 1.0),
         (1.537, 0.083, 0.94 + TCP_DOCKING_Z_OFFSET_E),
         (1.537, 0.158, 0.94 + TCP_DOCKING_Z_OFFSET_E),
+        # 原注释位置：(1.537, 0.203, 0.94)，现作为预抓取 TCP。
+        pre_grasp_tcp_position_e=(1.537, 0.203, 0.94),
+        # 原 place_object_position_e，现作为预放置 TCP。
+        pre_place_tcp_position_e=(1.539, 0.203, 0.9365),
+        place_tracking_compensation=True,
     ),
     TargetState(
         "sample_bottle_state_02",
@@ -58,6 +71,10 @@ TARGET_STATES: Final = (
         (0.70710678, 0.0, 0.0, -0.70710678),
         (1.03167, 0.1753, 0.96789 + TCP_DOCKING_Z_OFFSET_E),
         (0.95667, 0.1753, 0.96789 + TCP_DOCKING_Z_OFFSET_E),
+        # 原注释位置：(0.91167, 0.1753, 0.96789)，现作为预抓取 TCP。
+        pre_grasp_tcp_position_e=(0.91167, 0.1753, 0.96789),
+        # 原 place_object_position_e，现作为预放置 TCP。
+        pre_place_tcp_position_e=(0.91167, 0.1753, 0.97089),
     ),
     TargetState(
         "sample_bottle_state_03",
@@ -65,6 +82,10 @@ TARGET_STATES: Final = (
         (0.70710678, 0.0, 0.0, -0.70710678),
         (1.03167, 0.03036, 0.96676 + TCP_DOCKING_Z_OFFSET_E),
         (0.95667, 0.03036, 0.96676 + TCP_DOCKING_Z_OFFSET_E),
+        # 原注释位置：(0.91167, 0.03036, 0.96676)，现作为预抓取 TCP。
+        pre_grasp_tcp_position_e=(0.91167, 0.03036, 0.96676),
+        # 原 place_object_position_e，现作为预放置 TCP。
+        pre_place_tcp_position_e=(0.91167, 0.03036, 0.96976),
     ),
     TargetState(
         "sample_bottle_state_04",
@@ -72,6 +93,10 @@ TARGET_STATES: Final = (
         (0.70710678, 0.0, 0.0, -0.70710678),
         (1.03235, -0.18557, 0.99091 + TCP_DOCKING_Z_OFFSET_E),
         (0.95735, -0.18557, 0.99091 + TCP_DOCKING_Z_OFFSET_E),
+        # 原注释位置：(0.91235, -0.18557, 0.99091)，现作为预抓取 TCP。
+        pre_grasp_tcp_position_e=(0.91235, -0.18557, 0.99091),
+        # 原 place_object_position_e，现作为预放置 TCP。
+        pre_place_tcp_position_e=(0.91435, -0.18557, 0.99391),
     ),
     TargetState(
         "sample_bottle_state_05",
@@ -79,6 +104,13 @@ TARGET_STATES: Final = (
         (1.0, 0.0, 0.0, 0.0),
         (0.90264, -0.38461, 1.0915 + TCP_DOCKING_Z_OFFSET_E),
         (0.90264, -0.45961, 1.0915 + TCP_DOCKING_Z_OFFSET_E),
+        # 原注释位置：(0.90264, -0.50461, 1.0915)，现作为预抓取 TCP。
+        pre_grasp_tcp_position_e=(0.90264, -0.50461, 1.0915),
+        # 原 place_object_position_e，现作为预放置 TCP。
+        pre_place_tcp_position_e=(0.90264, -0.50461, 1.0945),
+        place_tracking_compensation=True,
+        place_entry_lift_m=0.005,
+        place_standoff_m=0.24,
     ),
 )
 

@@ -11,10 +11,10 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from configs.curobo.world import MeshConfig, WorldConfig
-from DataPipe.pipelines.curobo_bootstrap.collision_model import load_collision_model
-from DataPipe.pipelines.curobo_bootstrap.curobo_collision import CuroboCollision
-from DataPipe.pipelines.curobo_bootstrap.measured_placement import require_measured_calibration
-from DataPipe.pipelines.curobo_bootstrap.pick_place_artifact import (
+from scripts.pipelines.curobo_bootstrap.collision_model import load_collision_model
+from scripts.pipelines.curobo_bootstrap.curobo_collision import CuroboCollision
+from scripts.pipelines.curobo_bootstrap.measured_placement import require_measured_calibration
+from scripts.pipelines.curobo_bootstrap.pick_place_artifact import (
     assemble_hybrid_trajectory,
     save_hybrid_trajectory,
     save_json,
@@ -22,14 +22,14 @@ from DataPipe.pipelines.curobo_bootstrap.pick_place_artifact import (
     validate_hybrid_trajectory,
     verify_hybrid_artifact,
 )
-from DataPipe.pipelines.curobo_bootstrap.planner import load_trajectory
-from DataPipe.pipelines.curobo_bootstrap.robot_adapter import pose_error, pose_matrix
-from DataPipe.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
-from DataPipe.pipelines.curobo_bootstrap.world_adapter import AttachedSphere, WorldSnapshot
+from scripts.pipelines.curobo_bootstrap.planner import load_trajectory
+from scripts.pipelines.curobo_bootstrap.robot_adapter import pose_error, pose_matrix
+from scripts.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
+from scripts.pipelines.curobo_bootstrap.world_adapter import AttachedSphere, WorldSnapshot
 
 
 def _executed_fk_residual(waypoints, targets):
-    from DataPipe.native.aubo_ik import forward_pose
+    from scripts.native.aubo_ik import forward_pose
 
     residuals = {}
     for name in ("pre_pick", "pick", "lift", "place_high", "place"):

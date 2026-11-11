@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-11",
+  "reward_model_version": "pick-place-candidate/1",
+  "regression_tests": 156,
+  "new_adapter_tests": 8,
+  "ruff": "passed",
+  "cases": [
+    {
+      "case_id": "source2_2_to_0_velocity",
+      "transitions": 659,
+      "exact_repeat": true,
+      "terms_stages_total_match": true,
+      "all_finite": true,
+      "all_training_masks_false": true,
+      "frozen_inputs_unchanged": true
+    },
+    {
+      "case_id": "source2_2_to_0_acceleration",
+      "transitions": 721,
+      "exact_repeat": true,
+      "terms_stages_total_match": true,
+      "all_finite": true,
+      "all_training_masks_false": true,
+      "frozen_inputs_unchanged": true
+    },
+    {
+      "case_id": "source2_2_to_3_acceleration",
+      "transitions": 673,
+      "exact_repeat": true,
+      "terms_stages_total_match": true,
+      "all_finite": true,
+      "all_training_masks_false": true,
+      "frozen_inputs_unchanged": true
+    },
+    {
+      "case_id": "source2_2_to_1_endpoint",
+      "transitions": 401,
+      "exact_repeat": true,
+      "terms_stages_total_match": true,
+      "all_finite": true,
+      "all_training_masks_false": true,
+      "frozen_inputs_unchanged": true
+    },
+    {
+      "case_id": "source2_2_to_0_lift_ik",
+      "transitions": 153,
+      "exact_repeat": true,
+      "terms_stages_total_match": true,
+      "all_finite": true,
+      "all_training_masks_false": true,
+      "frozen_inputs_unchanged": true
+    },
+    {
+      "case_id": "state4_0_to_4_insert_timeout",
+      "transitions": 1312,
+      "exact_repeat": true,
+      "terms_stages_total_match": true,
+      "all_finite": true,
+      "all_training_masks_false": true,
+      "frozen_inputs_unchanged": true
+    }
+  ],
+  "previous_two_routes": [
+    {
+      "route": "0_to_2",
+      "exact_repeat": true,
+      "inputs_unchanged": true
+    },
+    {
+      "route": "4_to_1",
+      "exact_repeat": true,
+      "inputs_unchanged": true
+    }
+  ],
+  "protected_files_sha256": {
+    "scripts\\pick_place_reward_candidate.py": "7831fccd82c24390d1d6597a625cc07bf4bbf2e4fa760dcbe2ab2a80f5b74c28",
+    "scripts\\evaluate_pick_place_rewards.py": "b59cfb3042d55e4bf311bb47af1e23084b02b97645578ffff47e9493b95d24d5",
+    "docs\\reward_model_20261011\\results\\0_to_2_rewards.csv": "425f17aedfcee6bc738f326981a545f701f0fdfc52b25c7c63193a5ada0d0329",
+    "docs\\reward_model_20261011\\results\\0_to_2_summary.json": "a3b9c7e7ccfa6c3fb98520302e3da28341113293f4badb2e0f10c900a9b4a1d7",
+    "docs\\reward_model_20261011\\results\\0_to_2_transitions.json": "ad2db4f184ed80919efc369add8698b69916d42e49fdfe600acb588c592602fd",
+    "docs\\reward_model_20261011\\results\\4_to_1_rewards.csv": "a81e47d1a4b12401e3e88ff9eac8c0b92aae242d40ae77a0caa7b4136c867eda",
+    "docs\\reward_model_20261011\\results\\4_to_1_summary.json": "abeca384b2ae91757b7af1a98200312bb6f1dbec07b53b43cae1c6b9b638a5a3",
+    "docs\\reward_model_20261011\\results\\4_to_1_transitions.json": "5ba66c50b9456c6d7bc3a229f54ec621d84cee9ba66d1f9af04c6811f003380e",
+    "docs\\reward_model_20261011\\results\\summary.json": "9d8663bc77723977695d94d874e4fafcf875dbc8d4688fe6ee38a071770262bf"
+  },
+  "protected_files_unchanged_during_verification": true,
+  "unique_frozen_evidence_files": 19,
+  "collector_import_audit": "Only the two standalone offline evaluation scripts import the reward candidate; no collector imports it",
+  "integration_status": "offline diagnostic only; no formula or collection changes; reward_valid=false"
+}

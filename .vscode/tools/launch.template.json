@@ -17,7 +17,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rl_games/train.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -25,7 +25,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rl_games/play.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -33,7 +33,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -41,7 +41,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -49,7 +49,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -57,7 +57,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -65,7 +65,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -73,7 +73,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -81,7 +81,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -89,7 +89,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -97,7 +97,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -105,7 +105,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -113,7 +113,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/sb3/train.py",
+            "program": "${workspaceFolder}/testscripts/sb3/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -121,7 +121,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/sb3/play.py",
+            "program": "${workspaceFolder}/testscripts/sb3/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -129,7 +129,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rl_games/train.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -137,7 +137,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rl_games/play.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -145,7 +145,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -153,7 +153,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -161,7 +161,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -169,7 +169,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -177,7 +177,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -185,7 +185,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -193,7 +193,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -201,7 +201,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -209,7 +209,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -217,7 +217,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -225,7 +225,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/sb3/train.py",
+            "program": "${workspaceFolder}/testscripts/sb3/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -233,7 +233,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/sb3/play.py",
+            "program": "${workspaceFolder}/testscripts/sb3/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -241,7 +241,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rl_games/train.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -249,7 +249,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rl_games/play.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -257,7 +257,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -265,7 +265,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -273,7 +273,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -281,7 +281,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -289,7 +289,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -297,7 +297,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -305,7 +305,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -313,7 +313,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -321,7 +321,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -329,7 +329,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
         },
         {
@@ -337,7 +337,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/sb3/train.py",
+            "program": "${workspaceFolder}/testscripts/sb3/train.py",
             "console": "integratedTerminal",
         },
         {
@@ -345,7 +345,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/sb3/play.py",
+            "program": "${workspaceFolder}/testscripts/sb3/play.py",
             "console": "integratedTerminal",
         },
         // For script execution inside a Docker
@@ -364,7 +364,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rl_games/train.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -375,7 +375,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rl_games/play.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -386,7 +386,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -397,7 +397,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -408,7 +408,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -419,7 +419,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -430,7 +430,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -441,7 +441,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -452,7 +452,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -463,7 +463,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -474,7 +474,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -485,7 +485,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -496,7 +496,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/sb3/train.py",
+            "program": "${workspaceFolder}/testscripts/sb3/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -507,7 +507,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/sb3/play.py",
+            "program": "${workspaceFolder}/testscripts/sb3/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -518,7 +518,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rl_games/train.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -529,7 +529,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rl_games/play.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -540,7 +540,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -551,7 +551,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -562,7 +562,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -573,7 +573,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -584,7 +584,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -595,7 +595,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -606,7 +606,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -617,7 +617,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -628,7 +628,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -639,7 +639,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -650,7 +650,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/sb3/train.py",
+            "program": "${workspaceFolder}/testscripts/sb3/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -661,7 +661,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-Marl-Direct-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/sb3/play.py",
+            "program": "${workspaceFolder}/testscripts/sb3/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -672,7 +672,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rl_games/train.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -683,7 +683,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rl_games/play.py",
+            "program": "${workspaceFolder}/testscripts/rl_games/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -694,7 +694,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -705,7 +705,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+            "program": "${workspaceFolder}/testscripts/rsl_rl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -716,7 +716,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -727,7 +727,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "AMP"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -738,7 +738,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -749,7 +749,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "IPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -760,7 +760,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -771,7 +771,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "MAPPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -782,7 +782,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/train.py",
+            "program": "${workspaceFolder}/testscripts/skrl/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -793,7 +793,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32", "--algorithm", "PPO"],
-            "program": "${workspaceFolder}/scripts/skrl/play.py",
+            "program": "${workspaceFolder}/testscripts/skrl/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -804,7 +804,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "4096", "--headless"],
-            "program": "${workspaceFolder}/scripts/sb3/train.py",
+            "program": "${workspaceFolder}/testscripts/sb3/train.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"
@@ -815,7 +815,7 @@
             "type": "debugpy",
             "request": "launch",
             "args" : ["--task", "Template-Datapipe-v0", "--num_envs", "32"],
-            "program": "${workspaceFolder}/scripts/sb3/play.py",
+            "program": "${workspaceFolder}/testscripts/sb3/play.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}"

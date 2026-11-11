@@ -1,0 +1,90 @@
+[
+  {
+    "name": "HER",
+    "venue_or_version": "NeurIPS 2017",
+    "url": "https://proceedings.neurips.cc/paper/2017/file/453fadbd8a1a3af50a9df4df899537b5-Paper.pdf",
+    "accessed_on": "2026-10-11",
+    "verification": "full text, sections 3, 4.1, 4.4"
+  },
+  {
+    "name": "Meta-World",
+    "venue_or_version": "CoRL 2019 / PMLR 2020",
+    "url": "https://proceedings.mlr.press/v100/yu20a/yu20a.pdf",
+    "accessed_on": "2026-10-11",
+    "verification": "full text section 4.2 / appendix B"
+  },
+  {
+    "name": "Meta-World V2",
+    "venue_or_version": "official code v2.0.0",
+    "url": "https://raw.githubusercontent.com/Farama-Foundation/Metaworld/v2.0.0/metaworld/envs/mujoco/sawyer_xyz/v2/sawyer_pick_place_v2.py",
+    "accessed_on": "2026-10-11",
+    "verification": "official fixed tag, compute_reward/evaluate_state"
+  },
+  {
+    "name": "ManiSkill2",
+    "venue_or_version": "ICLR 2023",
+    "url": "https://openreview.net/pdf/a180ff20bf660bc9f8a2f007193ed71e83ba91f7.pdf",
+    "accessed_on": "2026-10-11",
+    "verification": "indexed paper abstract; direct PDF requested browser verification"
+  },
+  {
+    "name": "ManiSkill2 PickCube",
+    "venue_or_version": "official code v0.5.3",
+    "url": "https://raw.githubusercontent.com/mani-skill/ManiSkill/v0.5.3/mani_skill2/envs/pick_and_place/pick_cube.py",
+    "accessed_on": "2026-10-11",
+    "verification": "official fixed tag, evaluate/compute_dense_reward"
+  },
+  {
+    "name": "Precise Pick-and-Place",
+    "venue_or_version": "IEEE RA-L 2020",
+    "url": "https://arxiv.org/pdf/2006.08373",
+    "accessed_on": "2026-10-11",
+    "verification": "full text section III-C/D",
+    "local_path": "data/reward_research_20261011/sources/precise_pick_place.pdf",
+    "sha256": "7d14bd6c710584a9fd092ff5682c7d91e9a6e812394956570ceb3a87c56b13af"
+  },
+  {
+    "name": "RLBench",
+    "venue_or_version": "IEEE RA-L 2020",
+    "url": "https://arxiv.org/pdf/1909.12271",
+    "accessed_on": "2026-10-11",
+    "verification": "full text sparse reward/API paragraphs",
+    "local_path": "data/reward_research_20261011/sources/rlbench_paper.pdf",
+    "sha256": "fbb04509bea7bf6aa9b97b07c46d95e5c1a900987599693b3fae3fd84377db76"
+  },
+  {
+    "name": "RLBench API",
+    "venue_or_version": "official code master accessed 2026-10-11",
+    "url": "https://raw.githubusercontent.com/stepjam/RLBench/master/rlbench/task_environment.py",
+    "accessed_on": "2026-10-11",
+    "verification": "step function, unpinned master version"
+  },
+  {
+    "name": "HSE3S",
+    "venue_or_version": "CoRL 2018",
+    "url": "https://proceedings.mlr.press/v87/gualtieri18a/gualtieri18a.pdf",
+    "accessed_on": "2026-10-11",
+    "verification": "full text section 5 reward conditions"
+  },
+  {
+    "name": "HSA",
+    "venue_or_version": "IEEE T-RO 2020",
+    "url": "https://arxiv.org/pdf/1904.09191",
+    "accessed_on": "2026-10-11",
+    "verification": "author preprint v3; sections V-C/D"
+  },
+  {
+    "name": "VPG",
+    "venue_or_version": "IROS 2018",
+    "url": "https://arxiv.org/pdf/1803.09956",
+    "accessed_on": "2026-10-11",
+    "verification": "full text section IV-D, V-C/D"
+  },
+  {
+    "name": "robosuite PickPlace",
+    "venue_or_version": "official code v1.4.1; framework technical report",
+    "url": "https://raw.githubusercontent.com/ARISE-Initiative/robosuite/v1.4.1/robosuite/environments/manipulation/pick_place.py",
+    "accessed_on": "2026-10-11",
+    "verification": "reward/staged_rewards"
+  }
+]

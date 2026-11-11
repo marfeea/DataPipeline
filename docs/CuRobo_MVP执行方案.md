@@ -29,7 +29,7 @@
 
 ### 第一步：完成一次真实规划
 
-新增 `DataPipe/pipelines/curobo_bootstrap/planner.py`，只负责 MotionGen 初始化、固定关节目标规划和结果提取。
+新增 `scripts/pipelines/curobo_bootstrap/planner.py`，只负责 MotionGen 初始化、固定关节目标规划和结果提取。
 
 1. 复用 `curobo_robot_dict()`，在规划侧补齐已锁定版本需要的 cspace、retract、加速度和 jerk 参数；不改变既有碰撞适配器语义。
 2. 起点使用现有碰撞报告的 `safe_q`；终点首选 Joint1 增加 `0.1 rad`，其余关节不变。先检查两端限位与碰撞；若无效，只调整固定样例并记录原因，不增加随机采样器。

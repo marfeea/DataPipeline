@@ -1,0 +1,118 @@
+{
+  "schema": "pick-place-candidate/2",
+  "case_id": "state2_2_to_4_approach_timeout",
+  "route": "2_to_4",
+  "candidate": "contact_probe_01",
+  "failure_kind": "timeout",
+  "failure_reason": "RuntimeError: legacy_approach_pick did not reach TCP tolerance within 600 steps",
+  "original_execution_passed": false,
+  "original_failure_stage": "legacy_approach",
+  "diagnostic": {
+    "failure_reason": "RuntimeError: legacy_approach_pick did not reach TCP tolerance within 600 steps",
+    "stage": "legacy_approach"
+  },
+  "reward_config": {
+    "reach_weight": 2.0,
+    "lift_weight": 2.0,
+    "position_weight": 4.0,
+    "orientation_weight": 2.0,
+    "grasp_bonus": 2.0,
+    "success_bonus": 10.0,
+    "time_cost_per_s": 0.1,
+    "speed_cost": 0.01,
+    "geometry_overlap_cost": 5.0,
+    "collision_cost": 25.0,
+    "limit_cost": 10.0,
+    "drop_cost": 10.0,
+    "timeout_cost": 15.0,
+    "orientation_gate_m": 0.1,
+    "position_tolerance_m": 0.02,
+    "rotation_tolerance_rad": 0.17453292519943295,
+    "settle_s": 0.25,
+    "max_object_speed_m_s": 0.03,
+    "max_object_angular_speed_rad_s": 0.17453292519943295,
+    "closed_finger_m": 0.005,
+    "open_finger_m": 0.00805,
+    "ik_failure_cost": 15.0
+  },
+  "reward_task": {
+    "grasp_position_w": [
+      0.95667,
+      0.03036,
+      0.98376
+    ],
+    "source_position_w": [
+      0.9116700291633606,
+      0.03036000207066536,
+      0.966759979724884
+    ],
+    "goal_pose_w": [
+      0.90264,
+      -0.50461,
+      1.0915,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "lift_target_m": 0.015
+  },
+  "input_sha256": {
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/2_to_4_evidence/contact_probe_01/report.json": "5b6e1e25e300501328e654bc1f37ce1d02f83a7e49497e92dfab5198b9a19933",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/2_to_4_evidence/contact_probe_01/trace.json": "72c23e2d7d759371936b1d1f2c597e07db88f751f2f389468e53bb0bea70f5bc",
+    "docs/run003_failure_analysis_20261004/state4放置预位姿与四路收集方案.md": "26062e8b0f3240372de4650aeff80d70b9913ae2727be6b4265d04bc1909e521",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/2_to_4_evidence/targets.json": "3d3fd55503ead8531da90f517f3f42277ee46eb8e9beb2ad72a866d52a2697e0"
+  },
+  "source_trace": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/2_to_4_evidence/contact_probe_01/trace.json",
+  "analysis_document": "docs/run003_failure_analysis_20261004/state4放置预位姿与四路收集方案.md",
+  "inputs_unchanged": true,
+  "observations": 600,
+  "transitions": 599,
+  "observed_duration_s": 9.983333333333333,
+  "recorded_prefix_only": true,
+  "starts_after_unrecorded_pre_pick": true,
+  "time_basis": "frozen capture convention i/control_hz; first captured observation at zero",
+  "diagnostic_return_undiscounted": -14.282885164279236,
+  "component_returns": {
+    "reach": 1.722992077637077,
+    "lift": 0.0,
+    "position": 0.0,
+    "orientation": 0.0,
+    "grasp": 0.0,
+    "success": 0.0,
+    "time": -0.9983333333333365,
+    "speed": -0.007543908582980057,
+    "overlap": 0.0,
+    "failure": -15.0,
+    "ik_failure": 0
+  },
+  "stage_returns": {
+    "legacy_approach_pick": {
+      "transitions": 599,
+      "return": -14.282885164279236
+    }
+  },
+  "final_position_error_m": 0.5485866415342413,
+  "final_rotation_error_deg": 89.34745203008585,
+  "final_vertical_lift_m": -0.000746309757232666,
+  "last_waypoint": null,
+  "geometry_diagnostic_available": false,
+  "recognized_failure_event": "timeout",
+  "valid_training_rewards": 0,
+  "confirmed_success_bonus": 0.0,
+  "event_mapping": "explicit timeout -> last observed transition, -15; no additional transition",
+  "invalid_reasons": [
+    "offline provisional score; incomplete physical grasp/support/contact evidence",
+    "logical transfer/free-space state writing where present",
+    "segment overlap charges are retrospectively attributed; missing diagnostics remain unknown"
+  ],
+  "observed_transition_return": -14.282885164279236,
+  "controller_event_return": 0,
+  "controller_events": 0,
+  "last_observed_transition_reward": -15.001666923860745,
+  "mean_observed_transition_reward": -0.023844549523003737,
+  "return_contract": "sum(N-1 observed transition rewards) + sum(separate controller-event rewards)",
+  "overspeed_event_cost": 0.0,
+  "overacceleration_event_cost": 0.0,
+  "noncarry_gate_is_confirmed_drop": false
+}

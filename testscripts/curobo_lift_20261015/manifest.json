@@ -1,0 +1,73 @@
+{
+  "upstream": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\scripts\\probe_curobo_v2_legacy_contact_isaac.py",
+  "upstream_sha256": "13a2df10f89354a0c8d9639e3ee261991b09061bf6f8d8c97333f68125b2b1c9",
+  "generated_sha256": "6b183c7a84ac360f70cb4a3ebfcaaf58c90e0021daab8fea1425fcd66e49a39c",
+  "replacements": [
+    {
+      "old": "str(Path(__file__).resolve().parents[1])",
+      "new": "str(Path(__file__).resolve().parents[2])",
+      "count": 1
+    },
+    {
+      "old": "from configs.aubo_ik_control import CONTACT_PROBE_COMMAND_HZ, CONTACT_PROBE_POSITION_STEP_M",
+      "new": "from configs.aubo_ik_control import CONTACT_PROBE_COMMAND_HZ, CONTACT_PROBE_POSITION_STEP_M\nfrom policy import bounded_lift_delta",
+      "count": 1
+    },
+    {
+      "old": "parser.add_argument(\"--max-steps-per-stage\", type=int, default=600)",
+      "new": "parser.add_argument(\"--max-steps-per-stage\", type=int, default=600)\nparser.add_argument(\"--experiment-lift-joint-delta-rad\", type=float, default=0.08)\nparser.add_argument(\"--experiment-lift-step-m\", type=float, default=0.05)\nparser.add_argument(\"--experiment-lift-command-hz\", type=float, default=4.0)\nparser.add_argument(\"--experiment-interpolation-fraction\", type=float, default=1.0)\nparser.add_argument(\"--experiment-grasp-settle-s\", type=float, default=0.0)",
+      "count": 1
+    },
+    {
+      "old": "        report[\"lift_clearance_m\"] = task[\"lift_clearance_m\"]",
+      "new": "        report[\"lift_clearance_m\"] = task[\"lift_clearance_m\"]\n        report[\"lift_experiment\"] = dict(command_hz=args.experiment_lift_command_hz, tcp_step_cap_m=args.experiment_lift_step_m,\n            joint_delta_cap_rad=args.experiment_lift_joint_delta_rad, hold_s=0.5,\n            interpolation_fraction=args.experiment_interpolation_fraction,\n            interpolation_physics_steps=max(1, round(args.physics_hz / args.experiment_lift_command_hz * args.experiment_interpolation_fraction)),\n            grasp_settle_s=args.experiment_grasp_settle_s,\n            stage_speed_caps_disabled=True, tracking_lead_cap_disabled=True,\n            source_probe_sha256=\"13a2df10f89354a0c8d9639e3ee261991b09061bf6f8d8c97333f68125b2b1c9\")",
+      "count": 1
+    },
+    {
+      "old": "            command_hz = args.pick_lift_command_hz if pick_lift else task[\"control_hz\"]",
+      "new": "            is_lift = args.backend == \"isaacsim\" and stage in (\"legacy_lift\", \"legacy_lift_hold\")\n            command_hz = args.experiment_lift_command_hz if is_lift else (args.pick_lift_command_hz if pick_lift else task[\"control_hz\"])",
+      "count": 1
+    },
+    {
+      "old": "            if pick_lift and task.get(\"tcp_geometry\"):",
+      "new": "            if pick_lift and not is_lift and task.get(\"tcp_geometry\"):",
+      "count": 2
+    },
+    {
+      "old": "            translation = np.clip((target_b - current) / position_step_m, -1.0, 1.0)",
+      "new": "            if is_lift:\n                position_step_m = args.experiment_lift_step_m\n            translation = np.clip((target_b - current) / position_step_m, -1.0, 1.0)\n            if is_lift:\n                translation = bounded_lift_delta(current, target_b, position_step_m) / position_step_m",
+      "count": 1
+    },
+    {
+      "old": "                    ik.policy_decimation = round(args.physics_hz / command_hz)",
+      "new": "                    ik.policy_decimation = max(1, round(args.physics_hz / command_hz *\n                        (args.experiment_interpolation_fraction if is_lift else 1.0)))\n                    ik.max_policy_joint_delta_rad.fill_(\n                        args.experiment_lift_joint_delta_rad if is_lift else 0.08)",
+      "count": 1
+    },
+    {
+      "old": "                \"ik_command_hz\": command_hz,",
+      "new": "                \"ik_command_hz\": command_hz,\n                \"experiment_joint_delta_cap_rad\": args.experiment_lift_joint_delta_rad if is_lift else 0.08,\n                \"interpolation_physics_steps\": ik.policy_decimation,\n                \"requested_joint_delta_rad\": _array(ik._requested_joint_delta[0]).tolist(),\n                \"applied_joint_delta_rad\": _array(ik._applied_joint_delta[0]).tolist(),",
+      "count": 1
+    },
+    {
+      "old": "                stage_budget *= round(task[\"control_hz\"] / args.pick_lift_command_hz)",
+      "new": "                stage_budget *= round(task[\"control_hz\"] / (args.experiment_lift_command_hz if label == \"legacy_lift\" else args.pick_lift_command_hz))",
+      "count": 1
+    },
+    {
+      "old": "        report[\"lift\"] = approach(\"legacy_lift\", lift, -1.0, target_quaternion_b=pick_quaternion)",
+      "new": "        report[\"lift\"] = approach(\"legacy_lift\", lift, -1.0, target_quaternion_b=pick_quaternion)\n        for _ in range(round(task[\"control_hz\"] * 0.5)):\n            step_ik(lift, \"legacy_lift_hold\", -1.0, target_quaternion_b=pick_quaternion)",
+      "count": 1
+    },
+    {
+      "old": "        report[\"target_pose_w_at_pick\"] = [",
+      "new": "        settle_pose = ik.current_tcp_pose_b()\n        settle_position = _array(settle_pose[0][0]).copy()\n        settle_quaternion = _array(settle_pose[1][0]).copy()\n        for _ in range(round(task[\"control_hz\"] * args.experiment_grasp_settle_s)):\n            step_ik(settle_position, \"grasp_settle\", -1.0, target_quaternion_b=settle_quaternion)\n        report[\"grasp_settle_gripper_position\"] = list(gripper.state()[0])\n        report[\"target_pose_w_at_pick\"] = [",
+      "count": 1
+    },
+    {
+      "old": "finally:\n    launcher.app.close()",
+      "new": "finally:\n    pass  # The experimental sweep owns the shared GUI application.",
+      "count": 1
+    }
+  ],
+  "lift_probe_sha256": "78dbe3e59ff666a5fb8d09324f0f31f7c1f51c31ba4deaec2b2facff7d61ec0e"
+}

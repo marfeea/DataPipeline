@@ -1,0 +1,19 @@
+[
+  {
+    "event_type": "controller_ik_abort",
+    "failure": "ik_failed",
+    "execution_stage": "legacy_place_approach",
+    "reward": -15.0,
+    "terms": {
+      "ik_failure": -15.0
+    },
+    "terminated": true,
+    "reward_valid": false,
+    "last_observed_time_s": 13.283333333333333,
+    "event_time_s": null,
+    "physical_transition_created": false,
+    "after_observation": 797,
+    "attribution": "reported after last captured state; before rejected attempt physics",
+    "source_report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040/2_to_4_evidence/integrated_01_01/report.json"
+  }
+]

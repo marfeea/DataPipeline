@@ -69,7 +69,12 @@ TARGET_DOCKING_AXIS_G: Final[Vector3] = (0.0, -1.0, 0.0)
 # -----------------------------------------------------------------------------
 
 # TCP 原点相对 Flange 原点的位置，在 F 系中表达，单位 m：p_FT^F。
-FLANGE_TO_TCP_TRANSLATION_F: Final[Vector3] = (-0.17086, 0.0, 0.11305)
+# 旧原点对应盘子抓持中心之前 45 mm、上方 17 mm 的控制点。
+LEGACY_FLANGE_TO_TCP_TRANSLATION_F: Final[Vector3] = (-0.17086, 0.0, 0.11305)
+LEGACY_TCP_TO_GRASP_CENTER_TRANSLATION_T: Final[Vector3] = (-0.045, 0.0, -0.017)
+# p_FG = p_FT + R_FT * (-0.045, 0, -0.017)。姿态约定保持相同。
+FLANGE_TO_TCP_TRANSLATION_F: Final[Vector3] = (-0.18786, 0.0, 0.15805)
+TCP_CALIBRATION_VERSION: Final = "grasp_center_tcp/1"
 
 # TCP 坐标系 T 在 Flange 坐标系 F 中的姿态 q_FT；把 T 系方向旋转到 F 系。
 FLANGE_TO_TCP_ROTATION_F_WXYZ: Final[QuaternionWxyz] = (sqrt(0.5), 0.0, sqrt(0.5), 0.0)

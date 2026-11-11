@@ -1,0 +1,861 @@
+{
+  "scope": "data/curobo*/**/report.json with original trace.json and passed=false; excludes pytest and generated fixtures",
+  "failure_reports_with_trace": 105,
+  "adapter_candidates": 32,
+  "reason_counts": {
+    "RuntimeError: Legacy IK failed in legacy_lift": 57,
+    "RuntimeError: Ninja is required to load C++ extensions": 1,
+    "ValueError: invalid fixed planning endpoints: {'within_position_limits': True, 'world_collision_free': False, 'self_collision_free': True, 'max_world_collision_score': 0.08451597392559052, 'max_self_collision_score': 0.0}": 1,
+    "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps": 19,
+    "RuntimeError: target was not observed moving with the gripper": 4,
+    "RuntimeError: legacy_lift did not reach TCP tolerance within 600 steps": 4,
+    "RuntimeError: Legacy IK failed in legacy_place_approach": 5,
+    "RuntimeError: legacy_approach_pick did not reach TCP tolerance within 600 steps": 2,
+    "AttributeError: 'NoneType' object has no attribute 'activate_contact_sensors'": 2,
+    "RuntimeError: measured pick/lift collided with support trays: ['support_tray_11']": 2,
+    "RuntimeError: measured pick/lift collided with support trays: ['support_tray_03']": 6,
+    "RuntimeError: measured pick/lift collided with support trays: ['support_tray_02']": 2
+  },
+  "records": [
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_1_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_1_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_2_retry_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_2_retry_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_3_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/0_to_3_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/1_to_0_retry_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/1_to_0_retry_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/1_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/1_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/1_to_3_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/1_to_3_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/3_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 98,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260924/3_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 78,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260927/0_to_1_tray_strict_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_20260927/0_to_1_tray_strict_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/0_to_1_evidence/contact_probe_04/report.json",
+      "failure_reason": "RuntimeError: Ninja is required to load C++ extensions",
+      "stage": "tray_contact_gate",
+      "observations": 293,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/0_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/0_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 111,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/1_to_0_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/1_to_0_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/1_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/1_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/1_to_3_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_20261003/1_to_3_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 154,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 154,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/integrated_01_01/report.json",
+      "failure_reason": "ValueError: invalid fixed planning endpoints: {'within_position_limits': True, 'world_collision_free': False, 'self_collision_free': True, 'max_world_collision_score': 0.08451597392559052, 'max_self_collision_score': 0.0}",
+      "stage": "curobo_transfer",
+      "observations": 402,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_3_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 154,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/0_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/0_to_4_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 111,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/0_to_4_evidence/integrated_01_02/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1155,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/0_to_4_evidence/integrated_01_04/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1151,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/0_to_4_evidence/integrated_04_02/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1172,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/0_to_4_evidence/integrated_04_04/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1185,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/1_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/1_to_4_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/1_to_4_evidence/integrated_01_02/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1062,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/1_to_4_evidence/integrated_01_03/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1100,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/1_to_4_evidence/integrated_01_04/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1100,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/1_to_4_evidence/integrated_04_02/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1162,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/4_to_0_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+      "stage": "tray_contact_gate",
+      "observations": 383,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2/4_to_0_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: legacy_lift did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_lift",
+      "observations": 638,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2_contact_pilots/0_to_4_240hz_branch03/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1216,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/stage2_contact_pilots/4_to_0_240hz_pick01/report.json",
+      "failure_reason": "RuntimeError: legacy_lift did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_lift",
+      "observations": 649,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/entry004_standoff240/0_to_4_evidence/integrated_01_01/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1315,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/entry004_standoff240/0_to_4_evidence/integrated_01_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_place_approach",
+      "stage": "legacy_place_approach",
+      "observations": 795,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/entry008_standoff240/0_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/entry008_standoff240/0_to_4_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 111,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/entry008_standoff240/0_to_4_evidence/integrated_01_01/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1303,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/entry008_standoff240/0_to_4_evidence/integrated_01_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_place_approach",
+      "stage": "legacy_place_approach",
+      "observations": 786,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/2_to_4_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: legacy_approach_pick did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_approach",
+      "observations": 600,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_entry012_standoff240/2_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: legacy_approach_pick did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_approach",
+      "observations": 600,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040/2_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 154,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040/2_to_4_evidence/integrated_01_01/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_place_approach",
+      "stage": "legacy_place_approach",
+      "observations": 798,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040_physics240/physics_preflight/report.json",
+      "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+      "stage": "tray_contact_gate",
+      "observations": 476,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040_veliter2_wrist040/physics_preflight/report.json",
+      "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+      "stage": "tray_contact_gate",
+      "observations": 355,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040_wrist070/2_to_4_evidence/integrated_01_01/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_place_approach",
+      "stage": "legacy_place_approach",
+      "observations": 859,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry004_standoff240/0_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry004_standoff240/0_to_4_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 111,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry004_standoff240/0_to_4_evidence/integrated_01_01/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1323,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry004_standoff240/0_to_4_evidence/integrated_01_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_place_approach",
+      "stage": "legacy_place_approach",
+      "observations": 804,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry004_standoff240/0_to_4_evidence/integrated_04_01/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1207,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry004_standoff240/0_to_4_evidence/integrated_04_02/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1375,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry012_standoff240_contacts/0_to_4_evidence/contact_probe_01/report.json",
+      "failure_reason": "AttributeError: 'NoneType' object has no attribute 'activate_contact_sensors'",
+      "stage": "startup",
+      "observations": 0,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/measured_entry012_standoff240_contacts/0_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "AttributeError: 'NoneType' object has no attribute 'activate_contact_sensors'",
+      "stage": "startup",
+      "observations": 0,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick005_exit180/4_to_0_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: legacy_lift did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_lift",
+      "observations": 638,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick005_exit180_gate10mm/4_to_0_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+      "stage": "tray_contact_gate",
+      "observations": 121,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick005_exit180_gate10mm/4_to_0_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 101,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick015_exit180/4_to_0_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: legacy_lift did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_lift",
+      "observations": 638,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place180/0_to_4_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place180/0_to_4_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 111,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place180/0_to_4_evidence/integrated_01_01/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1314,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place180/0_to_4_evidence/integrated_01_02/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1156,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place180/0_to_4_evidence/integrated_04_01/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1351,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place180/0_to_4_evidence/integrated_04_02/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1184,
+      "full_pose_adapter_candidate": true,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/report.json",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "stage": "legacy_place_approach",
+      "observations": 1313,
+      "full_pose_adapter_candidate": true,
+      "selected": true
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_1_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_1_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_3_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 116,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_3_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 109,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_3_evidence/contact_probe_04/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_11']",
+      "stage": "tray_contact_gate",
+      "observations": 313,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/0_to_3_evidence/integrated_01_02/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_11']",
+      "stage": "tray_contact_gate",
+      "observations": 427,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_0_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_03']",
+      "stage": "tray_contact_gate",
+      "observations": 280,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_0_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_0_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_0_evidence/contact_probe_04/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_03']",
+      "stage": "tray_contact_gate",
+      "observations": 285,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_2_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_03']",
+      "stage": "tray_contact_gate",
+      "observations": 280,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_2_evidence/contact_probe_04/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_03']",
+      "stage": "tray_contact_gate",
+      "observations": 285,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_3_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_03']",
+      "stage": "tray_contact_gate",
+      "observations": 301,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_3_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 91,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_3_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 102,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/1_to_3_evidence/contact_probe_04/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_03']",
+      "stage": "tray_contact_gate",
+      "observations": 306,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/3_to_1_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_02']",
+      "stage": "tray_contact_gate",
+      "observations": 302,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/3_to_1_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 98,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/3_to_1_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 78,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/3_to_2_evidence/contact_probe_01/report.json",
+      "failure_reason": "RuntimeError: measured pick/lift collided with support trays: ['support_tray_02']",
+      "stage": "tray_contact_gate",
+      "observations": 302,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/3_to_2_evidence/contact_probe_02/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 98,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    },
+    {
+      "report": "data/curobo_pick_place_graph_tray_strict_20260927/3_to_2_evidence/contact_probe_03/report.json",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "stage": "legacy_lift",
+      "observations": 78,
+      "full_pose_adapter_candidate": false,
+      "selected": false
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "pick-place-candidate/1",
+  "route": "0_to_2",
+  "reward_config": {
+    "reach_weight": 2.0,
+    "lift_weight": 2.0,
+    "position_weight": 4.0,
+    "orientation_weight": 2.0,
+    "grasp_bonus": 2.0,
+    "success_bonus": 10.0,
+    "time_cost_per_s": 0.1,
+    "speed_cost": 0.01,
+    "geometry_overlap_cost": 5.0,
+    "collision_cost": 25.0,
+    "limit_cost": 10.0,
+    "drop_cost": 10.0,
+    "timeout_cost": 15.0,
+    "orientation_gate_m": 0.1,
+    "position_tolerance_m": 0.02,
+    "rotation_tolerance_rad": 0.17453292519943295,
+    "settle_s": 0.25,
+    "max_object_speed_m_s": 0.03,
+    "max_object_angular_speed_rad_s": 0.17453292519943295,
+    "closed_finger_m": 0.005,
+    "open_finger_m": 0.00805
+  },
+  "reward_task": {
+    "grasp_position_w": [
+      1.537,
+      0.158,
+      0.957
+    ],
+    "source_position_w": [
+      1.5369999408721924,
+      0.2029999941587448,
+      0.9399999976158142
+    ],
+    "goal_pose_w": [
+      0.91167,
+      0.03036,
+      0.96676,
+      0.70710678,
+      0.0,
+      0.0,
+      -0.70710678
+    ],
+    "lift_target_m": 0.05
+  },
+  "input_sha256": {
+    "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\five_state_bidirectional_gui_20261009\\0_to_2\\trajectory.npz": "f19fb953203a54e7f7d07e917eb8c5c93ae2a28eb30ccb56bb847e27c11c66f8",
+    "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\five_state_bidirectional_gui_20261009\\0_to_2\\scene_snapshot.json": "c35cd956bb77c2553bd56452799aa3ef120bf07cbd22701875929f04237acf9f",
+    "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\five_state_bidirectional_gui_20261009\\0_to_2\\plan_report.json": "006cd08966c7b436b56d020ee1f20274b97e5db24df5afa8c67bc0638100ac1a",
+    "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\five_state_bidirectional_gui_20261009\\0_to_2_evidence\\integrated_01_01\\trace.json": "ad1507eaa956f99cd3551edc4ad6d4d2a1e2c5ae8a33c8ce8818c48b30bfa728",
+    "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\five_state_bidirectional_gui_20261009\\0_to_2_evidence\\integrated_01_01\\report.json": "dba37821883c60db185b945a6e0b654522ef5a942b4341e8fd7192bd4372ca82"
+  },
+  "inputs_unchanged": true,
+  "observations": 721,
+  "transitions": 720,
+  "duration_s": 12.0,
+  "diagnostic_return_undiscounted": 3.3220618617929674,
+  "mean_reward": 0.004613974808045791,
+  "last_reward": -0.00707321487964842,
+  "component_returns": {
+    "reach": 1.9842546061811053,
+    "lift": 2.0,
+    "position": 3.9319172199587653,
+    "orientation": 1.7631542857703575,
+    "grasp": 0.0,
+    "success": 0.0,
+    "time": -1.1999999999999955,
+    "speed": -0.1572642501172608,
+    "overlap": -5.0,
+    "failure": 0.0
+  },
+  "stage_returns": {
+    "free_space_to_pre_pick": {
+      "transitions": 116,
+      "return": 1.5592189082017855
+    },
+    "legacy_approach_pick": {
+      "transitions": 43,
+      "return": -4.92395344691014
+    },
+    "close_gripper": {
+      "transitions": 4,
+      "return": -0.0005112839371482885
+    },
+    "legacy_lift": {
+      "transitions": 239,
+      "return": 1.5879791788238329
+    },
+    "free_space_transfer": {
+      "transitions": 116,
+      "return": 1.2932985295169184
+    },
+    "legacy_place_approach": {
+      "transitions": 198,
+      "return": 3.8627176874509153
+    },
+    "open_gripper": {
+      "transitions": 4,
+      "return": -0.05668771135319586
+    }
+  },
+  "final_position_error_m": 0.011051114041865142,
+  "final_rotation_error_deg": 1.601041980425525,
+  "physical_lift_vertical_m": 0.4174467921257019,
+  "reported_3d_lift_displacement_m": 0.4174714656259586,
+  "valid_training_rewards": 0,
+  "confirmed_success": false,
+  "success_evidence_status": "unknown",
+  "confirmed_success_bonus": 0.0,
+  "invalid_reasons": [
+    "logical object transfer / free-space state writing",
+    "no observed grasp/contact/support evidence",
+    "release only lasts a few frames; no 0.25 s settled post-release evidence",
+    "geometric tray overlap; first frame unknown (risk charge at segment end)"
+  ],
+  "semantics": "N measured states -> N-1 transitions; not the existing NPZ command-row contract"
+}

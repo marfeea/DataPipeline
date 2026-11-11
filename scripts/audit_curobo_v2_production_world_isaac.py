@@ -9,7 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from DataPipe.sim_backend import add_launcher_args, launch, trajectory_classes
+from configs.curobo.robot import DEFAULT_COLLISION_MODEL
+from scripts.sim_backend import add_launcher_args, launch, trajectory_classes
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--targets-report", type=Path, required=True)
@@ -17,7 +18,7 @@ parser.add_argument("--output", type=Path, required=True)
 parser.add_argument(
     "--collision-model",
     type=Path,
-    default=Path("configs/curobo/assets/aubo_e5_project/collision_model_v2.json"),
+    default=DEFAULT_COLLISION_MODEL,
 )
 add_launcher_args(parser)
 args = parser.parse_args()
@@ -29,9 +30,9 @@ import numpy as np
 
 TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
 
-from DataPipe.pipelines.curobo_bootstrap.planner import CuroboMvpPlanner
-from DataPipe.pipelines.curobo_bootstrap.production_world import extract_production_world
-from DataPipe.pipelines.curobo_bootstrap.source_target import set_source_target_pose
+from scripts.pipelines.curobo_bootstrap.planner import CuroboMvpPlanner
+from scripts.pipelines.curobo_bootstrap.production_world import extract_production_world
+from scripts.pipelines.curobo_bootstrap.source_target import set_source_target_pose
 
 
 def main():

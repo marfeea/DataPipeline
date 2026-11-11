@@ -9,10 +9,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from configs.task import TARGET_STATES
-from DataPipe.pipelines.curobo_bootstrap.task_targets import LIFT_CLEARANCE_M, PickPlaceV2Config
-from DataPipe.sim_backend import add_launcher_args, launch, trajectory_classes
-from DataPipe.source2_routing import add_source2_routing_args, source2_routing_from_args
-from DataPipe.state4_routing import add_state4_routing_args, routing_from_args, routing_payload
+from scripts.pipelines.curobo_bootstrap.task_targets import LIFT_CLEARANCE_M, PickPlaceV2Config
+from scripts.sim_backend import add_launcher_args, launch, trajectory_classes
+from scripts.source2_routing import add_source2_routing_args, source2_routing_from_args
+from scripts.state4_routing import add_state4_routing_args, routing_from_args, routing_payload
 
 parser = argparse.ArgumentParser(
     description=__doc__,
@@ -48,8 +48,8 @@ import numpy as np
 
 TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
 
-from DataPipe.pipelines.curobo_bootstrap.source_target import set_source_target_pose
-from DataPipe.pipelines.curobo_bootstrap.task_targets import (
+from scripts.pipelines.curobo_bootstrap.source_target import set_source_target_pose
+from scripts.pipelines.curobo_bootstrap.task_targets import (
     PickPlaceV2Config,
     solve_legacy_joint_targets,
     task_snapshot,

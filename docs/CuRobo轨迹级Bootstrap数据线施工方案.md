@@ -58,7 +58,11 @@ DataPipe/
 │     ├─ bootstrap.py
 │     └─ acceptance.py
 │
-├─ DataPipe/
+├─ scripts/
+│  ├─ collect_curobo_bootstrap.py
+│  ├─ replay_curobo_execution.py
+│  ├─ replay_curobo_planning.py
+│  ├─ audit_curobo_bootstrap.py
 │  └─ pipelines/
 │     └─ curobo_bootstrap/
 │        ├─ __init__.py
@@ -73,12 +77,6 @@ DataPipe/
 │        ├─ evaluator.py
 │        ├─ record_adapter.py
 │        └─ pipeline.py
-│
-├─ scripts/
-│  ├─ collect_curobo_bootstrap.py
-│  ├─ replay_curobo_execution.py
-│  ├─ replay_curobo_planning.py
-│  └─ audit_curobo_bootstrap.py
 │
 ├─ tests/
 │  ├─ curobo_bootstrap/

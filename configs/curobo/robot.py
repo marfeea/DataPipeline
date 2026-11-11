@@ -2,6 +2,12 @@
 
 from dataclasses import dataclass
 from math import isfinite
+from pathlib import Path
+
+# Regenerated from current meshes. Keep collision_model_v2.json for historical evidence.
+DEFAULT_COLLISION_MODEL = (
+    Path(__file__).resolve().parent / "assets/aubo_e5_project/collision_model_grasp_tcp_20261015.json"
+)
 
 
 @dataclass(frozen=True)

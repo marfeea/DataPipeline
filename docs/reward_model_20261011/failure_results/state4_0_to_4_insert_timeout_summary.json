@@ -1,0 +1,129 @@
+{
+  "schema": "pick-place-candidate/1",
+  "case_id": "state4_0_to_4_insert_timeout",
+  "route": "0_to_4",
+  "candidate": "integrated_01_01",
+  "failure_kind": "timeout",
+  "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+  "original_execution_passed": false,
+  "original_failure_stage": "legacy_place_approach",
+  "diagnostic": {
+    "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+    "stage": "legacy_place_approach"
+  },
+  "reward_config": {
+    "reach_weight": 2.0,
+    "lift_weight": 2.0,
+    "position_weight": 4.0,
+    "orientation_weight": 2.0,
+    "grasp_bonus": 2.0,
+    "success_bonus": 10.0,
+    "time_cost_per_s": 0.1,
+    "speed_cost": 0.01,
+    "geometry_overlap_cost": 5.0,
+    "collision_cost": 25.0,
+    "limit_cost": 10.0,
+    "drop_cost": 10.0,
+    "timeout_cost": 15.0,
+    "orientation_gate_m": 0.1,
+    "position_tolerance_m": 0.02,
+    "rotation_tolerance_rad": 0.17453292519943295,
+    "settle_s": 0.25,
+    "max_object_speed_m_s": 0.03,
+    "max_object_angular_speed_rad_s": 0.17453292519943295,
+    "closed_finger_m": 0.005,
+    "open_finger_m": 0.00805
+  },
+  "reward_task": {
+    "grasp_position_w": [
+      1.537,
+      0.158,
+      0.957
+    ],
+    "source_position_w": [
+      1.5369999408721924,
+      0.2029999941587448,
+      0.9399999976158142
+    ],
+    "goal_pose_w": [
+      0.90264,
+      -0.50461,
+      1.0915,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "lift_target_m": 0.015
+  },
+  "input_sha256": {
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/trace.json": "d57e038b2ab847794da4f1249595147386936062e0a3ea4adee5a9b70f33e341",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/report.json": "d02a5d7d594a393f85a265893a88164aebe616cf210eff9498daaf025863853e",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/targets.json": "47f0e970cb6c7856b7fbc9b8b87f3b3730f0e0f1f750c6ad71aa9fe208d470fe",
+    "docs/run003_failure_analysis_20261004/状态4遮挡避让修复结果.md": "fc326a6a3e02d9b3e027d6d969a518c62d4a26c4bea7f50c2515eeaae6f777b9"
+  },
+  "source_trace": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/trace.json",
+  "analysis_document": "docs/run003_failure_analysis_20261004/状态4遮挡避让修复结果.md",
+  "inputs_unchanged": true,
+  "observations": 1313,
+  "transitions": 1312,
+  "observed_duration_s": 21.866666666666667,
+  "recorded_prefix_only": true,
+  "starts_after_unrecorded_pre_pick": false,
+  "time_basis": "frozen capture convention i/control_hz; first captured observation at zero",
+  "diagnostic_return_undiscounted": -14.704344025915129,
+  "mean_reward": -0.011207579288045067,
+  "last_reward": -15.001697016224183,
+  "component_returns": {
+    "reach": 1.9840196945145,
+    "lift": 2.0,
+    "position": 3.6130200435696582,
+    "orientation": 0.08691808652111797,
+    "grasp": 0.0,
+    "success": 0.0,
+    "time": -2.186666666666624,
+    "speed": -0.2016351838537368,
+    "overlap": -5.0,
+    "failure": -15.0
+  },
+  "stage_returns": {
+    "free_space_to_pre_pick": {
+      "transitions": 114,
+      "return": 1.5576341751587626
+    },
+    "legacy_approach_pick": {
+      "transitions": 43,
+      "return": -4.9205506425557
+    },
+    "close_gripper": {
+      "transitions": 4,
+      "return": -0.0005520850049068647
+    },
+    "legacy_lift": {
+      "transitions": 267,
+      "return": 1.540308838897893
+    },
+    "free_space_transfer": {
+      "transitions": 118,
+      "return": 2.1727818690533423
+    },
+    "legacy_place_approach": {
+      "transitions": 766,
+      "return": -15.053966181464519
+    }
+  },
+  "final_position_error_m": 0.09310048775737205,
+  "final_rotation_error_deg": 66.62056806611226,
+  "final_vertical_lift_m": 0.19319969415664673,
+  "last_waypoint": "place_insert_xy",
+  "geometry_diagnostic_available": true,
+  "recognized_failure_event": "timeout",
+  "valid_training_rewards": 0,
+  "confirmed_success_bonus": 0.0,
+  "event_mapping": "explicit timeout -> last observed transition, -15; no additional transition",
+  "invalid_reasons": [
+    "offline provisional score; incomplete physical grasp/support/contact evidence",
+    "logical transfer/free-space state writing where present",
+    "segment overlap charges are retrospectively attributed; missing diagnostics remain unknown"
+  ]
+}

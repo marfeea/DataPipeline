@@ -14,8 +14,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from configs.curobo.planner import PlannerConfig
 from configs.curobo.world import MeshConfig, WorldConfig
-from DataPipe.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
-from DataPipe.pipelines.curobo_bootstrap.planner import (
+from scripts.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
+from scripts.pipelines.curobo_bootstrap.planner import (
     EXPERIMENTAL_ACCELERATION_LIMIT,
     CuroboMvpPlanner,
     TrajectoryData,
@@ -23,9 +23,9 @@ from DataPipe.pipelines.curobo_bootstrap.planner import (
     save_trajectory,
     validate_trajectory,
 )
-from DataPipe.pipelines.curobo_bootstrap.robot_adapter import pose_matrix
-from DataPipe.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
-from DataPipe.pipelines.curobo_bootstrap.world_adapter import WorldSnapshot, attached_sphere_from_local_aabb
+from scripts.pipelines.curobo_bootstrap.robot_adapter import pose_matrix
+from scripts.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
+from scripts.pipelines.curobo_bootstrap.world_adapter import WorldSnapshot, attached_sphere_from_local_aabb
 
 
 def main():

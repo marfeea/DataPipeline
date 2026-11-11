@@ -1,0 +1,207 @@
+{
+  "schema": "pick-place-failure-data-plan/1",
+  "status": "proposed_not_executed",
+  "simulation_only": true,
+  "collector_integration": false,
+  "experiment_entrypoint": "not implemented; independent physical probe required",
+  "primary_source_index": 0,
+  "reference_destination_index": 2,
+  "scope": "approach, close, physically lift and hold; no full-route success claim",
+  "physics_hz": 120,
+  "control_hz": 60,
+  "source_lift_m": 0.05,
+  "verified_grasp_hold_s": 0.25,
+  "observation_tail_s": 0.75,
+  "preconditions": [
+    "physical target with gravity and collisions enabled",
+    "no target pose/velocity write after reset",
+    "arm commands use actual physics stepping",
+    "both finger-target contacts validated by positive and negative controls",
+    "support contact and relative grasp transform observable",
+    "each injection branch replays and verifies physical baseline prefix"
+  ],
+  "label_policy": "expected labels are test intentions; actual labels require measured evidence; absent evidence -> unknown",
+  "action_contract": [
+    "requested gripper command",
+    "executed gripper command",
+    "measured gripper position and velocity",
+    "injection type and trigger observation",
+    "original and effective actuator/material parameters"
+  ],
+  "proposed_label_thresholds": {
+    "relative_translation_tolerance_m": 0.005,
+    "relative_rotation_tolerance_deg": 5,
+    "grasp_hold_s": 0.25,
+    "loss_hold_s": 0.05,
+    "drop_height_loss_m": 0.01,
+    "empty_grasp_probe_tcp_motion_m": 0.02,
+    "empty_grasp_max_object_motion_m": 0.005,
+    "minimum_source_support_clearance_m": 0.02
+  },
+  "threshold_status": "engineering starting points; calibrate sensor noise and bottle geometry using controls before freezing",
+  "trials": [
+    {
+      "trial_id": "physical_grasp_hold_control_00",
+      "seed": 0,
+      "scenario": "physical_grasp_hold_control",
+      "trigger": null,
+      "executed_gripper_override": null,
+      "expected_evidence_label": "verified_grasp_hold",
+      "generated": false,
+      "completion": "return to source support, verify support, then open; local control only"
+    },
+    {
+      "trial_id": "suppress_gripper_closure_00",
+      "seed": 0,
+      "scenario": "suppress_gripper_closure",
+      "trigger": "close_phase",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "grasp_failed",
+      "generated": false
+    },
+    {
+      "trial_id": "open_after_verified_grasp_00",
+      "seed": 0,
+      "scenario": "open_after_verified_grasp",
+      "trigger": "verified_grasp_hold",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "dropped",
+      "generated": false
+    },
+    {
+      "trial_id": "physical_grasp_hold_control_01",
+      "seed": 1,
+      "scenario": "physical_grasp_hold_control",
+      "trigger": null,
+      "executed_gripper_override": null,
+      "expected_evidence_label": "verified_grasp_hold",
+      "generated": false,
+      "completion": "return to source support, verify support, then open; local control only"
+    },
+    {
+      "trial_id": "suppress_gripper_closure_01",
+      "seed": 1,
+      "scenario": "suppress_gripper_closure",
+      "trigger": "close_phase",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "grasp_failed",
+      "generated": false
+    },
+    {
+      "trial_id": "open_after_verified_grasp_01",
+      "seed": 1,
+      "scenario": "open_after_verified_grasp",
+      "trigger": "verified_grasp_hold",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "dropped",
+      "generated": false
+    },
+    {
+      "trial_id": "physical_grasp_hold_control_02",
+      "seed": 2,
+      "scenario": "physical_grasp_hold_control",
+      "trigger": null,
+      "executed_gripper_override": null,
+      "expected_evidence_label": "verified_grasp_hold",
+      "generated": false,
+      "completion": "return to source support, verify support, then open; local control only"
+    },
+    {
+      "trial_id": "suppress_gripper_closure_02",
+      "seed": 2,
+      "scenario": "suppress_gripper_closure",
+      "trigger": "close_phase",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "grasp_failed",
+      "generated": false
+    },
+    {
+      "trial_id": "open_after_verified_grasp_02",
+      "seed": 2,
+      "scenario": "open_after_verified_grasp",
+      "trigger": "verified_grasp_hold",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "dropped",
+      "generated": false
+    },
+    {
+      "trial_id": "physical_grasp_hold_control_03",
+      "seed": 3,
+      "scenario": "physical_grasp_hold_control",
+      "trigger": null,
+      "executed_gripper_override": null,
+      "expected_evidence_label": "verified_grasp_hold",
+      "generated": false,
+      "completion": "return to source support, verify support, then open; local control only"
+    },
+    {
+      "trial_id": "suppress_gripper_closure_03",
+      "seed": 3,
+      "scenario": "suppress_gripper_closure",
+      "trigger": "close_phase",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "grasp_failed",
+      "generated": false
+    },
+    {
+      "trial_id": "open_after_verified_grasp_03",
+      "seed": 3,
+      "scenario": "open_after_verified_grasp",
+      "trigger": "verified_grasp_hold",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "dropped",
+      "generated": false
+    },
+    {
+      "trial_id": "physical_grasp_hold_control_04",
+      "seed": 4,
+      "scenario": "physical_grasp_hold_control",
+      "trigger": null,
+      "executed_gripper_override": null,
+      "expected_evidence_label": "verified_grasp_hold",
+      "generated": false,
+      "completion": "return to source support, verify support, then open; local control only"
+    },
+    {
+      "trial_id": "suppress_gripper_closure_04",
+      "seed": 4,
+      "scenario": "suppress_gripper_closure",
+      "trigger": "close_phase",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "grasp_failed",
+      "generated": false
+    },
+    {
+      "trial_id": "open_after_verified_grasp_04",
+      "seed": 4,
+      "scenario": "open_after_verified_grasp",
+      "trigger": "verified_grasp_hold",
+      "executed_gripper_override": 1.0,
+      "expected_evidence_label": "dropped",
+      "generated": false
+    }
+  ],
+  "MVP1_acceptance": [
+    "5 physical grasp/hold positive controls pass",
+    "at least 3 independently verified empty-grasp cases and 3 post-grasp drop cases within planned attempts, otherwise diagnose before expansion",
+    "zero confirmed-drop labels for never-grasped or goal-supported release controls",
+    "no changes to old collector commands/outputs/source hashes",
+    "no placeholders or unknown sensors marked reward_valid=true"
+  ],
+  "MVP2_natural_slip": {
+    "status": "after MVP1 only",
+    "single_factor_sweeps": [
+      "gripper max effort factors 0.5 and 0.25 of measured baseline",
+      "finger-target effective friction factors 0.5 and 0.25 of verified baseline"
+    ],
+    "note": "keep executed close command unchanged; apply effort change after verified grasp; friction variants set before run unless mid-run material updates independently validated; failure never guaranteed"
+  },
+  "reward_notes": {
+    "ik_failure_cost": 15,
+    "drop_cost_existing": 10,
+    "grasp_failure_cost_proposed": 10,
+    "grasp_failure_cost_implemented": false,
+    "overspeed_event_cost": 0,
+    "overacceleration_event_cost": 0
+  }
+}

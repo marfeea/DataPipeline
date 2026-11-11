@@ -134,7 +134,7 @@ Kit 启动前完成字段、shape、finite、时间轴、起终点、文件 hash
 
 ## 5. 计划新增内容
 
-### 5.1 `DataPipe/pipelines/curobo_bootstrap/replay.py`
+### 5.1 `scripts/pipelines/curobo_bootstrap/replay.py`
 
 纯逻辑模块，负责：
 
@@ -147,7 +147,7 @@ Kit 启动前完成字段、shape、finite、时间轴、起终点、文件 hash
 
 不得导入 Isaac Lab、Torch 或 CuRobo。
 
-### 5.2 `DataPipe/curobo_replay_scene.py`
+### 5.2 `scripts/curobo_replay_scene.py`
 
 Isaac 专用模块，负责：
 

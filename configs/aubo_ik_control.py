@@ -12,6 +12,12 @@ ACTION_CLIP: Final = 1.0
 ACTION_SPACE_LOW: Final = -1.0
 ACTION_SPACE_HIGH: Final = 1.0
 POSITION_INCREMENT_SCALE_M: Final = 0.02
+# Maximum TCP target displacement per native pick/lift command.
+PICK_LIFT_POSITION_STEP_M: Final = 0.05
+PICK_LIFT_COMMAND_HZ: Final = 4.0
+# GUI contact probes use continuous small TCP steps; training policy timing is separate.
+CONTACT_PROBE_POSITION_STEP_M: Final = 0.001
+CONTACT_PROBE_COMMAND_HZ: Final = 60.0
 ROTATION_INCREMENT_SCALE_RAD: Final = 5.0 * pi / 180.0
 
 MAX_IK_ITERATIONS: Final = 80

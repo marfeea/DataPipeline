@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-11",
+  "model_version": "pick-place-candidate/2",
+  "regression_tests": 169,
+  "new_tests_this_revision": 13,
+  "ruff": "passed",
+  "cases": [
+    {
+      "case_id": "source2_2_to_0_velocity",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "source2_2_to_0_acceleration",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "source2_2_to_3_acceleration",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "source2_2_to_1_endpoint",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "source2_2_to_0_lift_ik",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 1,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "state4_0_to_4_insert_timeout",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "state4_0_to_4_place_ik",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 1,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "state2_2_to_4_place_ik",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 1,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "state4_4_to_0_lift_timeout",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "state2_2_to_4_approach_timeout",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "state4_0_to_4_descent_timeout",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    },
+    {
+      "case_id": "state4_4_to_0_noncarry",
+      "exact_repeat": true,
+      "frozen_inputs_unchanged": true,
+      "transitions_N_minus_1": true,
+      "separate_controller_events": 0,
+      "all_masks_false": true,
+      "terms_total_match": true
+    }
+  ],
+  "frozen_v1_model_and_results_unchanged": true,
+  "six_v1_failure_cases_reproduce_exactly": true,
+  "protected_v1_files": 28,
+  "code_sha256": {
+    "scripts/pick_place_reward_candidate_v2.py": "9245d7a178340155eb32cca3cbeefddd038adbaf956eaecf061dad48d7a1ec03",
+    "scripts/evaluate_failed_pick_place_rewards.py": "191dc7d6dea23860b4a570302d7b03524cf87c74db049d3b1bbe73a30ad9f714",
+    "scripts/evaluate_failed_pick_place_rewards_v2.py": "b6a6e1d9f8fcfdc3719b9762559f5dc247e55f297ddf7af5744edd9a6a4aa503",
+    "tests/curobo_bootstrap/test_pick_place_reward_v2.py": "f77e1675457ef9682336ad901378d8b81f52ee9b69e96fba737c8df9f5603bf9",
+    "tests/curobo_bootstrap/test_failed_reward_evaluation.py": "09ed3327cd43d639589492461537e7a6a5d60f306006b05817e88774fbbcd823"
+  },
+  "collector_import_audit": "v2 wraps the isolated v1 candidate; only standalone offline evaluators use candidates; no collector imports either model",
+  "planned_physical_experiments": 15,
+  "executed_physical_experiments": 0,
+  "integration_status": "offline only; new physical probe and main collection integration not executed"
+}

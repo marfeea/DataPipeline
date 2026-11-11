@@ -1,0 +1,126 @@
+{
+  "schema": "pick-place-candidate/2",
+  "case_id": "state4_4_to_0_noncarry",
+  "route": "4_to_0",
+  "candidate": "contact_probe_01",
+  "failure_kind": "noncarry_gate",
+  "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+  "original_execution_passed": false,
+  "original_failure_stage": "tray_contact_gate",
+  "diagnostic": {
+    "failure_reason": "RuntimeError: target was not observed moving with the gripper",
+    "stage": "tray_contact_gate"
+  },
+  "reward_config": {
+    "reach_weight": 2.0,
+    "lift_weight": 2.0,
+    "position_weight": 4.0,
+    "orientation_weight": 2.0,
+    "grasp_bonus": 2.0,
+    "success_bonus": 10.0,
+    "time_cost_per_s": 0.1,
+    "speed_cost": 0.01,
+    "geometry_overlap_cost": 5.0,
+    "collision_cost": 25.0,
+    "limit_cost": 10.0,
+    "drop_cost": 10.0,
+    "timeout_cost": 15.0,
+    "orientation_gate_m": 0.1,
+    "position_tolerance_m": 0.02,
+    "rotation_tolerance_rad": 0.17453292519943295,
+    "settle_s": 0.25,
+    "max_object_speed_m_s": 0.03,
+    "max_object_angular_speed_rad_s": 0.17453292519943295,
+    "closed_finger_m": 0.005,
+    "open_finger_m": 0.00805,
+    "ik_failure_cost": 15.0
+  },
+  "reward_task": {
+    "grasp_position_w": [
+      0.90264,
+      -0.45961,
+      1.1084999999999998
+    ],
+    "source_position_w": [
+      0.9026399850845337,
+      -0.504610002040863,
+      1.0915000438690186
+    ],
+    "goal_pose_w": [
+      1.537,
+      0.203,
+      0.94,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "lift_target_m": 0.005
+  },
+  "input_sha256": {
+    "docs/run003_failure_analysis_20261004/状态4遮挡避让修复结果.md": "fc326a6a3e02d9b3e027d6d969a518c62d4a26c4bea7f50c2515eeaae6f777b9",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick005_exit180_gate10mm/4_to_0_evidence/contact_probe_01/report.json": "8e3314cebaa268fd28e71efbd4ccf1ef39111fb551a961ee2282aee4ac9d88fe",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick005_exit180_gate10mm/4_to_0_evidence/targets.json": "40820eb8a1e92ab1d3b454cec3c9295c3a64930fb26218dd494a1fb5e9a1e678",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick005_exit180_gate10mm/4_to_0_evidence/contact_probe_01/trace.json": "ec1e0be1ef22cdc4a82c9c965f0d50f1635df412d8e7cca90d20ded63fa90143"
+  },
+  "source_trace": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/pick005_exit180_gate10mm/4_to_0_evidence/contact_probe_01/trace.json",
+  "analysis_document": "docs/run003_failure_analysis_20261004/状态4遮挡避让修复结果.md",
+  "inputs_unchanged": true,
+  "observations": 121,
+  "transitions": 120,
+  "observed_duration_s": 2.0,
+  "recorded_prefix_only": true,
+  "starts_after_unrecorded_pre_pick": true,
+  "time_basis": "frozen capture convention i/control_hz; first captured observation at zero",
+  "diagnostic_return_undiscounted": -1.3807231359082273,
+  "component_returns": {
+    "reach": 1.8264385802595322,
+    "lift": 2.0,
+    "position": 0.0,
+    "orientation": 0.0,
+    "grasp": 0.0,
+    "success": 0.0,
+    "time": -0.19999999999999965,
+    "speed": -0.007161716167759571,
+    "overlap": -5.0,
+    "failure": 0.0,
+    "ik_failure": 0
+  },
+  "stage_returns": {
+    "legacy_approach_pick": {
+      "transitions": 33,
+      "return": -3.28166838446034
+    },
+    "close_gripper": {
+      "transitions": 4,
+      "return": 0.04528211009506108
+    },
+    "legacy_lift": {
+      "transitions": 83,
+      "return": 1.8556631384570517
+    }
+  },
+  "final_position_error_m": 0.9581801443871487,
+  "final_rotation_error_deg": 179.8652786914703,
+  "final_vertical_lift_m": 0.0011998414993286133,
+  "last_waypoint": "pick_exit_xy",
+  "geometry_diagnostic_available": true,
+  "recognized_failure_event": null,
+  "valid_training_rewards": 0,
+  "confirmed_success_bonus": 0.0,
+  "event_mapping": "no v1 event matches this diagnosis; no invented generic failure penalty",
+  "invalid_reasons": [
+    "offline provisional score; incomplete physical grasp/support/contact evidence",
+    "logical transfer/free-space state writing where present",
+    "segment overlap charges are retrospectively attributed; missing diagnostics remain unknown"
+  ],
+  "observed_transition_return": -1.3807231359082273,
+  "controller_event_return": 0,
+  "controller_events": 0,
+  "last_observed_transition_reward": -0.001676409589135764,
+  "mean_observed_transition_reward": -0.01150602613256856,
+  "return_contract": "sum(N-1 observed transition rewards) + sum(separate controller-event rewards)",
+  "overspeed_event_cost": 0.0,
+  "overacceleration_event_cost": 0.0,
+  "noncarry_gate_is_confirmed_drop": false
+}

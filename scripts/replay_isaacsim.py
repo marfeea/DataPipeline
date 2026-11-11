@@ -13,8 +13,8 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from DataPipe.pipelines.curobo_bootstrap.measured_placement import executed_endpoint_poses
-from DataPipe.pipelines.curobo_bootstrap.pick_place_artifact import (
+from scripts.pipelines.curobo_bootstrap.measured_placement import executed_endpoint_poses
+from scripts.pipelines.curobo_bootstrap.pick_place_artifact import (
     save_json,
     sha256_file,
     verify_hybrid_artifact,
@@ -29,7 +29,7 @@ parser.add_argument("--camera-width", type=int, default=128)
 parser.add_argument("--camera-height", type=int, default=128)
 args_pre, _ = parser.parse_known_args()
 artifact = verify_hybrid_artifact(args_pre.run)
-from DataPipe.sim_backend import add_launcher_args, configure_cameras, ik_class, launch, trajectory_classes
+from scripts.sim_backend import add_launcher_args, configure_cameras, ik_class, launch, trajectory_classes
 
 add_launcher_args(parser)
 args = parser.parse_args()
@@ -45,13 +45,13 @@ from configs.assets import SCENE_ENTITY_AUBO, SCENE_ENTITY_TARGET
 AuboIKAction = ik_class()
 TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
 
-from DataPipe.isaac_gripper import DatasetGripperController
-from DataPipe.pipelines.curobo_bootstrap.production_world import extract_production_world
-from DataPipe.pipelines.curobo_bootstrap.replay import matrix_pose_wxyz
-from DataPipe.pipelines.curobo_bootstrap.replay_visualization import ReplayFrameRecorder
-from DataPipe.pipelines.curobo_bootstrap.robot_adapter import pose_matrix
-from DataPipe.pipelines.curobo_bootstrap.route_experiment import require_height
-from DataPipe.pipelines.curobo_bootstrap.source_target import set_source_target_pose
+from scripts.isaac_gripper import DatasetGripperController
+from scripts.pipelines.curobo_bootstrap.production_world import extract_production_world
+from scripts.pipelines.curobo_bootstrap.replay import matrix_pose_wxyz
+from scripts.pipelines.curobo_bootstrap.replay_visualization import ReplayFrameRecorder
+from scripts.pipelines.curobo_bootstrap.robot_adapter import pose_matrix
+from scripts.pipelines.curobo_bootstrap.route_experiment import require_height
+from scripts.pipelines.curobo_bootstrap.source_target import set_source_target_pose
 
 
 def _array(tensor):
@@ -117,7 +117,7 @@ def main():
         with tempfile.TemporaryDirectory(prefix="curobo_v2_replay_world_") as directory:
             world, _ = extract_production_world(env, directory)
             if args.backend == "isaacsim":
-                from DataPipe.native.world_identity import reconcile_world
+                from scripts.native.world_identity import reconcile_world
 
                 path_map = args.run / "asset_path_map.json"
                 mapped = (

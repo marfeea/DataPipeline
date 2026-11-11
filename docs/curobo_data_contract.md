@@ -1,6 +1,6 @@
 # CuRobo 数据契约 v1（P1）
 
-实现：`DataPipe/pipelines/curobo_bootstrap/contracts.py`。该模块仅依赖标准库；配置位于 `configs/curobo/`。Legacy collector、writer、schema 和状态机未修改。
+实现：`scripts/pipelines/curobo_bootstrap/contracts.py`。该模块仅依赖标准库；配置位于 `configs/curobo/`。Legacy collector、writer、schema 和状态机未修改。
 
 ## 请求、程序与轨迹
 
@@ -34,4 +34,4 @@ hash 是精确内容标识，不做浮点容差比较或四元数符号等价归
 - AcceptanceConfig 阈值必须显式给出；当前尚无评估器。
 - BootstrapConfig 限制 run ID 为单个安全路径组件，输出根末级目录必须为 curobo_bootstrap。目录创建、manifest/shard 隔离及已有数据族检查属于 P9/P10；目前尚无 collector。
 
-包级限制：现有 `DataPipe/__init__.py` 会提前导入 Legacy 模块。当前仅保证 contracts.py 自身标准库依赖，不保证经 `import DataPipe...` 的整个包初始化完全脱离 h5py/numpy。为避免改变 Legacy API，本批未重构包初始化。
+包级限制：现有 `scripts/__init__.py` 会提前导入 Legacy 模块。当前仅保证 contracts.py 自身标准库依赖，不保证经 `import scripts...` 的整个包初始化完全脱离 h5py/numpy。为避免改变 Legacy API，本批未重构包初始化。

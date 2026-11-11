@@ -6,7 +6,7 @@
 - RobotConfig 保存实际 base/flange/TCP 链接名；其 flange_to_tcp 是 TCP 在 Flange 中的位姿。
 - 不通过重排关节、切换 xyzw、裁剪限位或修正 TCP offset 自动掩盖配置不一致。
 
-现有参考值位于 `configs/coordinate_frames.py`：F→T 平移 `(-0.17086, 0, 0.11305)`，旋转 `(sqrt(0.5), 0, sqrt(0.5), 0)`；现有六轴名称位于 `DataPipe/config.py`，为 Joint1…Joint5、Flange。这些是待验证参考，尚未写成新的可执行机器人 preset。
+现有参考值位于 `configs/coordinate_frames.py`：F→T 平移 `(-0.17086, 0, 0.11305)`，旋转 `(sqrt(0.5), 0, sqrt(0.5), 0)`；现有六轴名称位于 `scripts/config.py`，为 Joint1…Joint5、Flange。这些是待验证参考，尚未写成新的可执行机器人 preset。
 
 P3 必须分别测量当前 FK、Isaac FK、CuRobo FK，在相同关节姿态和 frame 下比较位置与旋转；还需核对关节序、限位、Base→World、Flange→TCP 和碰撞球。测试夹具中的零 offset 和虚构 joint0…joint5 仅供纯逻辑单测，绝不能用于采集。
 

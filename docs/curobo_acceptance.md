@@ -67,7 +67,7 @@ P0 仍缺 CuRobo 可运行版本锁定及新的 Legacy smoke/replay 基线。P3 
 
 ## 2026-09-22：P4 世界状态与 attached object 基础链通过，生产几何待验收
 
-新增 `DataPipe/pipelines/curobo_bootstrap/world_adapter.py`，提供不可变世界快照、稳定静态世界 hash、显式 WORLD/ATTACHED 状态机、TCP 局部附着球到 Base 坐标的变换，以及面向 CuRobo 0.7.8 的 primitive world 输入。attach 会在同一次状态转换中移除世界中的目标碰撞体并加入非空附着球；detach 会原子恢复目标碰撞体并清空附着球。非法的空附着、重复 attach/detach、部分状态和非有限球参数都会被拒绝。
+新增 `scripts/pipelines/curobo_bootstrap/world_adapter.py`，提供不可变世界快照、稳定静态世界 hash、显式 WORLD/ATTACHED 状态机、TCP 局部附着球到 Base 坐标的变换，以及面向 CuRobo 0.7.8 的 primitive world 输入。attach 会在同一次状态转换中移除世界中的目标碰撞体并加入非空附着球；detach 会原子恢复目标碰撞体并清空附着球。非法的空附着、重复 attach/detach、部分状态和非有限球参数都会被拒绝。
 
 真实 CuRobo CUDA primitive collision 冒烟在 RTX 4060 上通过。目标中心查询的有符号碰撞值按 `0.03 -> 0 -> 0.03 m` 变化，分别对应世界中存在、附着时移除、释放后恢复；静态世界 hash 在三种运行状态间保持不变。报告为 `data/curobo_p4_world_20260922/report.json`，其 `passed` 为 true。世界适配器测试 11 passed。
 
@@ -77,7 +77,7 @@ P0 仍缺 CuRobo 可运行版本锁定及新的 Legacy smoke/replay 基线。P3 
 
 ## 2026-09-22：固定关节目标 MotionGen MVP 通过
 
-按 [CuRobo MVP 执行方案](CuRobo_MVP执行方案.md) 新增窄接口 `DataPipe/pipelines/curobo_bootstrap/planner.py` 和唯一命令 `scripts/plan_curobo_mvp.py`。它只规划 P4 `safe_q` 到 Joint1 `+0.1 rad` 的固定样例，使用两个远离机器人的静态 cuboid、primitive world collision、自碰撞、60 Hz 插值、最多 4 次尝试与 10 s 求解预算。位置和速度限制来自派生 URDF；加速度 `5 rad/s²`、jerk `50 rad/s³` 是本次显式实验配置，不是硬件认证值。
+按 [CuRobo MVP 执行方案](CuRobo_MVP执行方案.md) 新增窄接口 `scripts/pipelines/curobo_bootstrap/planner.py` 和唯一命令 `scripts/plan_curobo_mvp.py`。它只规划 P4 `safe_q` 到 Joint1 `+0.1 rad` 的固定样例，使用两个远离机器人的静态 cuboid、primitive world collision、自碰撞、60 Hz 插值、最多 4 次尝试与 10 s 求解预算。位置和速度限制来自派生 URDF；加速度 `5 rad/s²`、jerk `50 rad/s³` 是本次显式实验配置，不是硬件认证值。
 
 最终复核命令：
 
@@ -94,7 +94,7 @@ P0 仍缺 CuRobo 可运行版本锁定及新的 Legacy smoke/replay 基线。P3 
 ## 2026-09-22：NPZ 同规划场景可视化重播 MVP 通过
 
 按 [场景一致可视化重播方案](CuRobo_NPZ场景一致可视化重播MVP施工方案.md) 新增纯逻辑
-`DataPipe/pipelines/curobo_bootstrap/replay.py`、专用 Isaac 场景 `DataPipe/curobo_replay_scene.py`
+`scripts/pipelines/curobo_bootstrap/replay.py`、专用 Isaac 场景 `scripts/curobo_replay_scene.py`
 和唯一命令 `scripts/replay_curobo_trajectory_isaac.py`。旧 HDF5 replay 未修改。
 
 启动 Kit 前把 run_006 的 NPZ、规划报告、派生 URDF、碰撞模型四个 SHA256、报告状态、60 Hz

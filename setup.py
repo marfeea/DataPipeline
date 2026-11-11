@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-"""Installation script for the 'DataPipe' python package."""
+"""Install the DataPipe distribution containing the scripts and configs packages."""
 
 import os
 
@@ -25,8 +25,13 @@ INSTALL_REQUIRES = [
 # Installation operation
 setup(
     name="DataPipe",
-    packages=find_packages(include=["DataPipe", "DataPipe.*", "configs", "configs.*"]),
-    package_data={"configs": ["extension.toml"], "DataPipe": ["tasks/**/*.yaml"]},
+    packages=find_packages(include=["scripts", "scripts.*", "configs", "configs.*", "testscripts", "testscripts.*"]),
+    package_data={
+        "configs": ["extension.toml"],
+        "configs.curobo": ["*.json", "assets/**/*"],
+        "testscripts": ["tasks/**/*.yaml"],
+        "scripts.native": ["control_provenance.json"],
+    },
     author=EXTENSION_TOML_DATA["package"]["author"],
     maintainer=EXTENSION_TOML_DATA["package"]["maintainer"],
     url=EXTENSION_TOML_DATA["package"]["repository"],

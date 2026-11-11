@@ -1,0 +1,135 @@
+--- production/probe_curobo_v2_legacy_contact_isaac.py
++++ experiment/generated_timed_probe.py
+@@ -7,9 +7,11 @@
+ import traceback
+ from pathlib import Path
+ 
+-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+ 
+ from configs.aubo_ik_control import CONTACT_PROBE_COMMAND_HZ, CONTACT_PROBE_POSITION_STEP_M
++from policy import bounded_lift_delta
++from timed_executor import run_lift
+ from scripts.sim_backend import add_launcher_args, configure_cameras, ik_class, launch, trajectory_classes
+ 
+ parser = argparse.ArgumentParser(description=__doc__)
+@@ -18,6 +20,13 @@
+ parser.add_argument("--world-report", type=Path, required=True)
+ parser.add_argument("--output", type=Path, required=True)
+ parser.add_argument("--max-steps-per-stage", type=int, default=600)
++parser.add_argument("--experiment-lift-joint-delta-rad", type=float, default=0.08)
++parser.add_argument("--experiment-lift-step-m", type=float, default=0.05)
++parser.add_argument("--experiment-lift-command-hz", type=float, default=4.0)
++parser.add_argument("--experiment-interpolation-fraction", type=float, default=1.0)
++parser.add_argument("--experiment-grasp-settle-s", type=float, default=0.0)
++parser.add_argument("--timed-lift-speed", type=float, default=0.25)
++parser.add_argument("--timed-lift-ramp", type=float, default=0.25)
+ parser.add_argument("--pick-lift-step-m", type=float, default=CONTACT_PROBE_POSITION_STEP_M,
+                     help="TCP target displacement cap for native pick approach and lift")
+ parser.add_argument("--pick-lift-command-hz", type=float, default=CONTACT_PROBE_COMMAND_HZ,
+@@ -262,7 +271,7 @@
+                     f"waypoint={record['contact_waypoint']}",
+                     flush=True,
+                 )
+-            if record["stage"] not in ("free_space_to_pre_pick", "free_space_transfer"):
++            if record["stage"] not in ("free_space_to_pre_pick", "free_space_transfer") and not record.get("timed_lift"):
+                 record["commanded_joint_target"] = _array(ik.commanded_joint_target[0]).tolist()
+                 record["ik_solution_joint_position"] = _array(ik.ik_solution_joint_position[0]).tolist()
+             if recorder is None:
+@@ -381,7 +390,8 @@
+             current_pose = ik.current_tcp_pose_b()
+             current = _array(current_pose[0][0])
+             pick_lift = args.backend == "isaacsim" and stage in ("legacy_approach_pick", "legacy_lift")
+-            command_hz = args.pick_lift_command_hz if pick_lift else task["control_hz"]
++            is_lift = args.backend == "isaacsim" and stage in ("legacy_lift", "legacy_lift_hold")
++            command_hz = args.experiment_lift_command_hz if is_lift else (args.pick_lift_command_hz if pick_lift else task["control_hz"])
+             command_key = (stage, tuple(target_b),
+                            tuple(target_quaternion_b) if target_quaternion_b is not None else None)
+             update_command = command_key != last_command_key or len(records) >= next_command_frame
+@@ -390,18 +400,22 @@
+                 if pick_lift
+                 else TCP_POSITION_SCALE_M
+             )
+-            if pick_lift and task.get("tcp_geometry"):
++            if pick_lift and not is_lift and task.get("tcp_geometry"):
+                 speed = 0.03 if stage == "legacy_approach_pick" else (
+                     0.02 if current[2] < poses["pick"]["tcp_pose_b"][2] + 0.05 else 0.05
+                 )
+                 position_step_m = min(position_step_m, speed / command_hz)
++            if is_lift:
++                position_step_m = args.experiment_lift_step_m
+             translation = np.clip((target_b - current) / position_step_m, -1.0, 1.0)
++            if is_lift:
++                translation = bounded_lift_delta(current, target_b, position_step_m) / position_step_m
+             if contact_speed is not None and stage in ("legacy_approach_pick", "legacy_lift"):
+                 delta = tcp_step_toward(current, target_b, speed_m_s=contact_speed["median_m_s"],
+                                        control_hz=command_hz, step_limit_m=position_step_m)
+                 translation = delta / position_step_m
+             action_position_scale_m = position_step_m
+-            if pick_lift and task.get("tcp_geometry"):
++            if pick_lift and not is_lift and task.get("tcp_geometry"):
+                 if update_command:
+                     origin = planned_pick_tcp if command_key == last_command_key else current
+                     planned_pick_tcp = tracked_tcp_target(
+@@ -431,7 +445,10 @@
+                     )
+                 scale_override = {"position_scale_m": action_position_scale_m} if args.backend == "isaacsim" else {}
+                 if args.backend == "isaacsim":
+-                    ik.policy_decimation = round(args.physics_hz / command_hz)
++                    ik.policy_decimation = max(1, round(args.physics_hz / command_hz *
++                        (args.experiment_interpolation_fraction if is_lift else 1.0)))
++                    ik.max_policy_joint_delta_rad.fill_(
++                        args.experiment_lift_joint_delta_rad if is_lift else 0.08)
+                 ik.process_actions(raw, action_mask=torch.ones_like(raw), ik_modes=("full_pose_6d",), **scale_override)
+                 last_command_key = command_key
+                 next_command_frame = len(records) + round(task["control_hz"] / command_hz)
+@@ -465,6 +482,10 @@
+                 "current_tcp_position_b": current.tolist(),
+                 "ik_command_updated": update_command,
+                 "ik_command_hz": command_hz,
++                "experiment_joint_delta_cap_rad": args.experiment_lift_joint_delta_rad if is_lift else 0.08,
++                "interpolation_physics_steps": ik.policy_decimation,
++                "requested_joint_delta_rad": _array(ik._requested_joint_delta[0]).tolist(),
++                "applied_joint_delta_rad": _array(ik._applied_joint_delta[0]).tolist(),
+                 "tcp_position_step_limit_m": position_step_m,
+                 "commanded_tcp_position_b": commanded.tolist(),
+                 "ik_target_tcp_position_b": _array(ik.target_tcp_position_b[0]).tolist(),
+@@ -489,7 +510,7 @@
+             dwell = 0
+             stage_budget = args.max_steps_per_stage
+             if args.backend == "isaacsim" and label in ("legacy_approach_pick", "legacy_lift"):
+-                stage_budget *= round(task["control_hz"] / args.pick_lift_command_hz)
++                stage_budget *= round(task["control_hz"] / (args.experiment_lift_command_hz if label == "legacy_lift" else args.pick_lift_command_hz))
+                 stage_budget = max(stage_budget, 1200)
+             for _ in range(stage_budget):
+                 tcp = step_ik(target_b, label, command, target_quaternion_b)
+@@ -581,6 +602,12 @@
+             "position": list(gripper.state()[0]),
+             "position_error": close_error,
+         }
++        settle_pose = ik.current_tcp_pose_b()
++        settle_position = _array(settle_pose[0][0]).copy()
++        settle_quaternion = _array(settle_pose[1][0]).copy()
++        for _ in range(round(task["control_hz"] * args.experiment_grasp_settle_s)):
++            step_ik(settle_position, "grasp_settle", -1.0, target_quaternion_b=settle_quaternion)
++        report["grasp_settle_gripper_position"] = list(gripper.state()[0])
+         report["target_pose_w_at_pick"] = [
+             *_array(target.data.root_pos_w[0]),
+             *_array(target.data.root_quat_w[0]),
+@@ -596,7 +623,9 @@
+                 target_quaternion_b=pick_quaternion,
+             )
+             report["contact_waypoint"] = "pick_exit_xy"
+-        report["lift"] = approach("legacy_lift", lift, -1.0, target_quaternion_b=pick_quaternion)
++        report["lift"] = run_lift(env=env,robot=robot,target=target,ik=ik,gripper=gripper,
++            arm_ids=arm_ids,cfg=cfg,task=task,args=args,records=records,report=report,
++            lift=lift,pick_quaternion=pick_quaternion,capture_sample=capture_sample,contacts=contact_reports)
+         report["contact_waypoint"] = None
+         report["lift_q"] = _array(robot.data.joint_pos[0, arm_ids]).tolist()
+         lift_tcp_position, lift_tcp_quaternion, _ = ik.current_tcp_pose_b()
+@@ -871,4 +900,4 @@
+ try:
+     raise SystemExit(main())
+ finally:
+-    launcher.app.close()
++    pass  # The experimental sweep owns the shared GUI application.

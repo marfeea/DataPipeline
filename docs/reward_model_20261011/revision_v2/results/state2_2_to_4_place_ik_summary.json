@@ -1,0 +1,138 @@
+{
+  "schema": "pick-place-candidate/2",
+  "case_id": "state2_2_to_4_place_ik",
+  "route": "2_to_4",
+  "candidate": "integrated_01_01",
+  "failure_kind": "ik_failure",
+  "failure_reason": "RuntimeError: Legacy IK failed in legacy_place_approach",
+  "original_execution_passed": false,
+  "original_failure_stage": "legacy_place_approach",
+  "diagnostic": {
+    "failure_reason": "RuntimeError: Legacy IK failed in legacy_place_approach",
+    "stage": "legacy_place_approach"
+  },
+  "reward_config": {
+    "reach_weight": 2.0,
+    "lift_weight": 2.0,
+    "position_weight": 4.0,
+    "orientation_weight": 2.0,
+    "grasp_bonus": 2.0,
+    "success_bonus": 10.0,
+    "time_cost_per_s": 0.1,
+    "speed_cost": 0.01,
+    "geometry_overlap_cost": 5.0,
+    "collision_cost": 25.0,
+    "limit_cost": 10.0,
+    "drop_cost": 10.0,
+    "timeout_cost": 15.0,
+    "orientation_gate_m": 0.1,
+    "position_tolerance_m": 0.02,
+    "rotation_tolerance_rad": 0.17453292519943295,
+    "settle_s": 0.25,
+    "max_object_speed_m_s": 0.03,
+    "max_object_angular_speed_rad_s": 0.17453292519943295,
+    "closed_finger_m": 0.005,
+    "open_finger_m": 0.00805,
+    "ik_failure_cost": 15.0
+  },
+  "reward_task": {
+    "grasp_position_w": [
+      0.95667,
+      0.03036,
+      0.98376
+    ],
+    "source_position_w": [
+      0.9116700291633606,
+      0.03036000207066536,
+      0.966759979724884
+    ],
+    "goal_pose_w": [
+      0.9026400000000001,
+      -0.50461,
+      1.0915,
+      1.0,
+      0.0,
+      0.0,
+      5.473822126268817e-48
+    ],
+    "lift_target_m": 0.015
+  },
+  "input_sha256": {
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040/2_to_4_evidence/integrated_01_01/report.json": "3629a3dc65c2d7c4658e44608ea6c6a466f55208f025a6fed23194b5b364189f",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040/2_to_4_evidence/integrated_01_01/trace.json": "6979897ce3e92e07fa77a96877b59d7414933f0265c2bbb2b3d6258a1c5e7612",
+    "docs/run003_failure_analysis_20261004/state4放置预位姿与四路收集方案.md": "26062e8b0f3240372de4650aeff80d70b9913ae2727be6b4265d04bc1909e521",
+    "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040/2_to_4_evidence/targets.json": "377c4417e42387d74769c31be8f28856abf000aa8b985ed635c1167121cd1bd4"
+  },
+  "source_trace": "data/curobo_pick_place_graph_run003_fix_20261004/state4_placement_20261005/incoming_state2_side060_lift040/2_to_4_evidence/integrated_01_01/trace.json",
+  "analysis_document": "docs/run003_failure_analysis_20261004/state4放置预位姿与四路收集方案.md",
+  "inputs_unchanged": true,
+  "observations": 798,
+  "transitions": 797,
+  "observed_duration_s": 13.283333333333333,
+  "recorded_prefix_only": true,
+  "starts_after_unrecorded_pre_pick": false,
+  "time_basis": "frozen capture convention i/control_hz; first captured observation at zero",
+  "diagnostic_return_undiscounted": -15.160969246348646,
+  "component_returns": {
+    "reach": 1.984450416690563,
+    "lift": 2.0,
+    "position": 2.429951227383939,
+    "orientation": 0.0,
+    "grasp": 0.0,
+    "success": 0.0,
+    "time": -1.3283333333333238,
+    "speed": -0.2470375570898155,
+    "overlap": -5.0,
+    "failure": 0.0,
+    "ik_failure": -15.0
+  },
+  "stage_returns": {
+    "free_space_to_pre_pick": {
+      "transitions": 133,
+      "return": 1.1020489639039588
+    },
+    "legacy_approach_pick": {
+      "transitions": 109,
+      "return": -4.746853544462905
+    },
+    "close_gripper": {
+      "transitions": 7,
+      "return": 0.011321038137039996
+    },
+    "legacy_lift": {
+      "transitions": 252,
+      "return": 1.558476429054993
+    },
+    "free_space_transfer": {
+      "transitions": 118,
+      "return": 1.048027247628862
+    },
+    "legacy_place_approach": {
+      "transitions": 178,
+      "return": 0.8660106193894054
+    }
+  },
+  "final_position_error_m": 0.21564411174992476,
+  "final_rotation_error_deg": 0.4849344692806675,
+  "final_vertical_lift_m": 0.13581210374832153,
+  "last_waypoint": "place_insert_xy",
+  "geometry_diagnostic_available": true,
+  "recognized_failure_event": "ik_failed",
+  "valid_training_rewards": 0,
+  "confirmed_success_bonus": 0.0,
+  "event_mapping": "explicit IK abort -> separate -15 controller event; no fabricated frame or transition",
+  "invalid_reasons": [
+    "offline provisional score; incomplete physical grasp/support/contact evidence",
+    "logical transfer/free-space state writing where present",
+    "segment overlap charges are retrospectively attributed; missing diagnostics remain unknown"
+  ],
+  "observed_transition_return": -0.16096924634864684,
+  "controller_event_return": -15.0,
+  "controller_events": 1,
+  "last_observed_transition_reward": 0.014893994373210788,
+  "mean_observed_transition_reward": -0.00020196894146630651,
+  "return_contract": "sum(N-1 observed transition rewards) + sum(separate controller-event rewards)",
+  "overspeed_event_cost": 0.0,
+  "overacceleration_event_cost": 0.0,
+  "noncarry_gate_is_confirmed_drop": false
+}

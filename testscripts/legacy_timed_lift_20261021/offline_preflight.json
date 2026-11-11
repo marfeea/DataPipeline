@@ -1,0 +1,718 @@
+{
+  "scope": "numerical path preflight only; not new simulation evidence",
+  "source": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\data\\test\\trajdata\\curobo_lift_20261015_line_scaled\\0_to_1\\line_time_1p25\\report.json",
+  "results": [
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.9846285318242856,
+      "time_scale": 1.3277503490148075,
+      "duration_s": 2.63509122579444,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 121,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 2.441520946890689e-07,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.25,
+        "ramp_s": 0.25,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.0064915696903181126,
+        0.32546647795954864,
+        0.8149066442471089,
+        0.6051975465464434,
+        0.0004450010904338137,
+        0.00616235503461742
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.03665763387500623,
+        1.9673594281875488,
+        4.8385952066560565,
+        3.6023983810425957,
+        0.0025215270141920377,
+        0.0348000983268636
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.345066155298298,
+        19.807710182559358,
+        47.49850438659874,
+        35.581740942260566,
+        0.023466717369754572,
+        0.3280927493459715
+      ]
+    },
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.7955237765202379,
+      "time_scale": 1.2123295701798484,
+      "duration_s": 2.176766568236478,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 109,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 1.3110390522406918e-07,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.3,
+        "ramp_s": 0.35,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.008518997027332309,
+        0.39870560353054313,
+        1.017876387250257,
+        0.753390658144858,
+        0.0005809899250722638,
+        0.008086513793327185
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.03766496882102442,
+        1.952944194972629,
+        4.845019815573426,
+        3.6053237473119957,
+        0.002587196331590743,
+        0.03575557447529677
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.2751203328136641,
+        15.883599509559513,
+        37.47631977961062,
+        28.223609469829956,
+        0.019061055645556442,
+        0.2611996501059649
+      ]
+    },
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.6890203798744898,
+      "time_scale": 1.1351905661926753,
+      "duration_s": 1.9173600013406897,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 103,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 6.747043585476878e-08,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.35,
+        "ramp_s": 0.45,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.010596130976185045,
+        0.46019336035192576,
+        1.2024119320580273,
+        0.8862592731131758,
+        0.000718369211537683,
+        0.010057457894377819
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.038979669999957285,
+        1.9445338303330637,
+        4.8514578141702875,
+        3.6070673660668393,
+        0.0026698735184030003,
+        0.0370025532231971
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.23635014365738088,
+        13.647933482676592,
+        31.99859525727055,
+        23.825899581654593,
+        0.0164174112475139,
+        0.22439221151604222
+      ]
+    },
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.5841428323901785,
+      "time_scale": 1.1382479278381898,
+      "duration_s": 1.8031472963678417,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 97,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 4.4630504248235855e-08,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.4,
+        "ramp_s": 0.5,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.012061304935022232,
+        0.4960279171072807,
+        1.3200721369148518,
+        0.9700575880908378,
+        0.0008137559996733562,
+        0.011447575297870756
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.03992523498135863,
+        1.931509821199118,
+        4.855557558175877,
+        3.6064382527313983,
+        0.0027289319799620056,
+        0.037899446457624275
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.21706650634882618,
+        12.559762890449004,
+        29.108141204090433,
+        21.67722788658009,
+        0.015064216335690868,
+        0.20612274630850536
+      ]
+    },
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.8390203798744897,
+      "time_scale": 1.0,
+      "duration_s": 1.8390203798744897,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 112,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 2.5814717696356032e-08,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.35,
+        "ramp_s": 0.6,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.01200851774155874,
+        0.48790783921191655,
+        1.3039164255876297,
+        0.9576518611985839,
+        0.0008092545270637472,
+        0.011397283524899998
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.037693300536376366,
+        1.8135634090749024,
+        4.568846626843681,
+        3.393972799510076,
+        0.002574461704515625,
+        0.035780438016699986
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.1954598407281895,
+        11.263727139159723,
+        26.12907085006977,
+        19.459564859989012,
+        0.013505632092220665,
+        0.1861430638259424
+      ]
+    },
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.7341428323901784,
+      "time_scale": 1.0,
+      "duration_s": 1.7341428323901784,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 106,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 2.0056428444557118e-08,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.4,
+        "ramp_s": 0.65,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.013702185985741027,
+        0.5255393540030497,
+        1.4339667057741636,
+        1.050565492000904,
+        0.0009182623118739073,
+        0.013004000301342017
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.039698836286897785,
+        1.856256432277421,
+        4.704357092903104,
+        3.4917906115810293,
+        0.0027062570612991625,
+        0.037683162361741636
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.19026781189260614,
+        11.066506075419412,
+        25.3197680660847,
+        18.856029251307927,
+        0.013171789339219867,
+        0.18127359645741356
+      ]
+    },
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.8841428323901785,
+      "time_scale": 1.0,
+      "duration_s": 1.8841428323901785,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 115,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 1.5451153156870882e-08,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.4,
+        "ramp_s": 0.8,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.01367659521588914,
+        0.49232885206704263,
+        1.3762119266190622,
+        1.0068123644425373,
+        0.0009104086743388243,
+        0.012978659254284809
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.03224898991993419,
+        1.4612536810407126,
+        3.7230693536377886,
+        2.758334327503694,
+        0.0021901052502905933,
+        0.030610519707810716
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.12485254407313044,
+        7.930051410136745,
+        16.630191029732305,
+        12.383981978869894,
+        0.008716298954181995,
+        0.11853962900078518
+      ]
+    },
+    {
+      "generator": "Legacy IK solve_ik + smooth Cartesian time law; no CuRobo planning",
+      "nominal_duration_s": 1.7636825176801587,
+      "time_scale": 1.0,
+      "duration_s": 1.7636825176801587,
+      "urdf": "D:\\Project\\S2R\\DataPipeline\\DataPipe\\configs\\curobo\\assets\\aubo_e5_project\\aubo_e5_grasp_tcp_20261015.urdf",
+      "urdf_sha256": "21fda065130355cc63238c950c98b1113e03911bb72aa255e5e317cb5200bb2d",
+      "solver_position_tolerance_m": 1e-08,
+      "solver_orientation_tolerance_rad": 1e-07,
+      "solver_max_iterations": 200,
+      "samples": 107,
+      "maximum_solver_iterations": 5,
+      "interpolation_position_error_m": 1.9780230878049338e-08,
+      "settings": {
+        "command_hz": 60.0,
+        "physics_hz": 120.0,
+        "speed_m_s": 0.45,
+        "ramp_s": 0.8,
+        "step_cap_m": 0.01,
+        "soft_lead_m": 0.04,
+        "hard_lead_m": 0.06,
+        "hold_s": 0.5,
+        "stuck_timeout_s": 1.0
+      },
+      "velocity_limit_rad_s": [
+        2.617994,
+        2.617994,
+        2.617994,
+        3.140000104904175,
+        3.140000104904175,
+        3.140000104904175
+      ],
+      "acceleration_limit_rad_s2": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "jerk_limit_rad_s3": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "position_lower_rad": [
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262,
+        -3.0543262
+      ],
+      "position_upper_rad": [
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262,
+        3.0543262
+      ],
+      "planned_max_velocity_rad_s": [
+        0.015366863262784265,
+        0.5319476343665279,
+        1.5102508411169555,
+        1.104841952930309,
+        0.0010184274720512285,
+        0.014582020642780975
+      ],
+      "planned_max_acceleration_rad_s2": [
+        0.0362716174672617,
+        1.6099790013114401,
+        4.118023669659785,
+        3.0522655478641068,
+        0.002457728625578321,
+        0.03442793596623539
+      ],
+      "planned_max_jerk_rad_s3": [
+        0.14058356251450388,
+        9.326876358540053,
+        18.634199241409448,
+        13.876292070467455,
+        0.00982469309901032,
+        0.13348332475877905
+      ]
+    }
+  ]
+}

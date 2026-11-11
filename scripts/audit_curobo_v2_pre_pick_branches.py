@@ -13,11 +13,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 
 from configs.curobo.world import MeshConfig, WorldConfig
-from DataPipe.native.aubo_ik import JOINT_LIMITS_RAD, solve_tcp_ik
-from DataPipe.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
-from DataPipe.pipelines.curobo_bootstrap.curobo_collision import CuroboCollision, self_collision_pairs
-from DataPipe.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
-from DataPipe.pipelines.curobo_bootstrap.world_adapter import WorldSnapshot
+from scripts.native.aubo_ik import JOINT_LIMITS_RAD, solve_tcp_ik
+from scripts.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
+from scripts.pipelines.curobo_bootstrap.curobo_collision import CuroboCollision, self_collision_pairs
+from scripts.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
+from scripts.pipelines.curobo_bootstrap.world_adapter import WorldSnapshot
 
 
 def main():

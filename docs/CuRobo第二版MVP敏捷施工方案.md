@@ -149,10 +149,10 @@ replay 只能读取该快照恢复或校验场景，不能在回放时重新猜�
 
 优先扩展窄接口，不改动 V1 golden sample 的语义：
 
-- `DataPipe/pipelines/curobo_bootstrap/task_targets.py`：从生产 Isaac 状态和 Legacy 几何生成、校验任务 TCP/关节目标；
-- `DataPipe/pipelines/curobo_bootstrap/hybrid_route.py`：冻结两段 CuRobo、三段 Legacy IK 与两次夹爪事件的所有权；
-- `DataPipe/pipelines/curobo_bootstrap/pick_place_v2.py`：四阶段执行、逐步 Legacy IK 控制、两段 MotionGen 调用、实测记录拼接和事件生成；
-- `DataPipe/pipelines/curobo_bootstrap/pick_place_artifact.py`：NPZ/快照/报告的保存与读回验收；
+- `scripts/pipelines/curobo_bootstrap/task_targets.py`：从生产 Isaac 状态和 Legacy 几何生成、校验任务 TCP/关节目标；
+- `scripts/pipelines/curobo_bootstrap/hybrid_route.py`：冻结两段 CuRobo、三段 Legacy IK 与两次夹爪事件的所有权；
+- `scripts/pipelines/curobo_bootstrap/pick_place_v2.py`：四阶段执行、逐步 Legacy IK 控制、两段 MotionGen 调用、实测记录拼接和事件生成；
+- `scripts/pipelines/curobo_bootstrap/pick_place_artifact.py`：NPZ/快照/报告的保存与读回验收；
 - `scripts/collect_isaacsim.py`：固定 index0->index1 的唯一规划入口；
 - `scripts/replay_isaacsim.py`：生产场景全帧 replay 入口；
 - `tests/curobo_bootstrap/test_pick_place_v2.py`：纯逻辑与误报防护测试。

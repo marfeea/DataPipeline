@@ -22,8 +22,8 @@ keywords = ["datapipe", "r2dreamer", "aubo", "isaaclab"]
 "isaaclab_tasks" = {}
 # NOTE: Add additional dependencies here
 
-[[python.module]]
-name = "DataPipe.ui_extension_example"
+# The optional UI example lives at testscripts.ui_extension_example.
+# Data collection does not auto-load the example extension.
 
 [isaac_lab_settings]
 # TODO: Uncomment and list any apt dependencies here.

@@ -9,8 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-
-from DataPipe.sim_backend import add_launcher_args, configure_cameras, ik_class, launch, trajectory_classes
+from configs.aubo_ik_control import CONTACT_PROBE_COMMAND_HZ, CONTACT_PROBE_POSITION_STEP_M
+from scripts.sim_backend import add_launcher_args, configure_cameras, ik_class, launch, trajectory_classes
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--first-probe", type=Path, required=True)
@@ -18,6 +18,14 @@ parser.add_argument("--targets-report", type=Path, required=True)
 parser.add_argument("--world-report", type=Path, required=True)
 parser.add_argument("--output", type=Path, required=True)
 parser.add_argument("--max-steps-per-stage", type=int, default=600)
+parser.add_argument("--pick-lift-step-m", type=float, default=CONTACT_PROBE_POSITION_STEP_M,
+                    help="TCP target displacement cap for native pick approach and lift")
+parser.add_argument("--pick-lift-command-hz", type=float, default=CONTACT_PROBE_COMMAND_HZ,
+                    help="Native pick/lift IK target update rate; physics and recording clocks are unchanged")
+parser.add_argument("--pick-lift-speed-mode", choices=("curobo-median", "step"), default="step")
+parser.add_argument("--pick-lift-speed-reference", type=Path,
+                    help="CuRobo or hybrid NPZ speed reference; defaults to the first probe trajectory")
+parser.add_argument("--trajectory-output", type=Path, help="Separate directory for measured trace and scene snapshot")
 parser.add_argument("--physics-hz", type=int, default=120)
 parser.add_argument("--contact-velocity-iterations", type=int, default=0)
 parser.add_argument("--contact-flange-velocity-limit-rad-s", type=float)
@@ -25,8 +33,8 @@ parser.add_argument("--contact-wrist-velocity-limit-rad-s", type=float)
 parser.add_argument(
     "--capture-execution", action="store_true", help="Record live three-camera RGB during execution, including failures"
 )
-parser.add_argument("--camera-width", type=int, default=640)
-parser.add_argument("--camera-height", type=int, default=480)
+parser.add_argument("--camera-width", type=int, default=256)
+parser.add_argument("--camera-height", type=int, default=256)
 parser.add_argument("--contact-policy", choices=("strict", "run003"), default="strict")
 parser.add_argument("--place-high-q", type=float, nargs=6)
 parser.add_argument(
@@ -37,6 +45,10 @@ parser.add_argument(
 )
 add_launcher_args(parser)
 args = parser.parse_args()
+if not 0 < args.pick_lift_step_m < float("inf"):
+    parser.error("pick-lift-step-m must be finite and positive")
+if not 0 < args.pick_lift_command_hz < float("inf"):
+    parser.error("pick-lift-command-hz must be finite and positive")
 if args.physics_hz < 60 or args.physics_hz % 60:
     parser.error("physics-hz must be a positive integer multiple of 60")
 if not 0 <= args.contact_velocity_iterations <= 255:
@@ -56,7 +68,7 @@ import torch
 import trimesh
 
 from configs.assets import SCENE_ENTITY_AUBO, SCENE_ENTITY_TARGET
-from DataPipe.native.aubo_ik import flange_down_yaw_offset_for_tcp_heading
+from scripts.native.aubo_ik import flange_down_yaw_offset_for_tcp_heading
 
 AuboIKAction = ik_class()
 TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
@@ -64,33 +76,38 @@ TcpDockingTrajectoryEnv, TcpDockingTrajectoryEnvCfg = trajectory_classes()
 from configs.coordinate_frames import TCP_DIRECTION_AXIS_T
 from configs.curobo.planner import PlannerConfig
 from configs.curobo.world import WorldConfig
-from DataPipe.config import TCP_POSITION_SCALE_M, TCP_ROTATION_SCALE_RAD
-from DataPipe.isaac_gripper import DatasetGripperController
-from DataPipe.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
-from DataPipe.pipelines.curobo_bootstrap.contact_timing import (
+from configs.dataset import TCP_POSITION_SCALE_M, TCP_ROTATION_SCALE_RAD
+from scripts.isaac_gripper import DatasetGripperController
+from scripts.pipelines.curobo_bootstrap.attachment_geometry import attached_sphere_from_measured_target
+from scripts.pipelines.curobo_bootstrap.contact_speed import (
+    curobo_tcp_speed_reference,
+    tcp_step_toward,
+    tracked_tcp_target,
+)
+from scripts.pipelines.curobo_bootstrap.contact_timing import (
     configure_contact_timing,
     configure_flange_velocity_limit,
     configure_wrist_velocity_limit,
 )
-from DataPipe.pipelines.curobo_bootstrap.curobo_collision import CuroboCollision
-from DataPipe.pipelines.curobo_bootstrap.measured_placement import measured_state4_placement
-from DataPipe.pipelines.curobo_bootstrap.physics_contact_reports import PhysicsContactReports
-from DataPipe.pipelines.curobo_bootstrap.planner import (
+from scripts.pipelines.curobo_bootstrap.curobo_collision import CuroboCollision
+from scripts.pipelines.curobo_bootstrap.measured_placement import measured_state4_placement
+from scripts.pipelines.curobo_bootstrap.physics_contact_reports import PhysicsContactReports
+from scripts.pipelines.curobo_bootstrap.planner import (
     EXPERIMENTAL_ACCELERATION_LIMIT,
     CuroboMvpPlanner,
     load_trajectory,
     save_trajectory,
     validate_trajectory,
 )
-from DataPipe.pipelines.curobo_bootstrap.production_world import extract_production_world
-from DataPipe.pipelines.curobo_bootstrap.replay import matrix_pose_wxyz
-from DataPipe.pipelines.curobo_bootstrap.replay_visualization import ReplayFrameRecorder
-from DataPipe.pipelines.curobo_bootstrap.robot_adapter import pose_matrix
-from DataPipe.pipelines.curobo_bootstrap.route_experiment import require_height
-from DataPipe.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
-from DataPipe.pipelines.curobo_bootstrap.source_target import set_source_target_pose
-from DataPipe.pipelines.curobo_bootstrap.world_adapter import WorldSnapshot
-from DataPipe.sequence import planar_heading_from_quaternion, quaternion_rotation_error_vector
+from scripts.pipelines.curobo_bootstrap.production_world import extract_production_world
+from scripts.pipelines.curobo_bootstrap.replay import matrix_pose_wxyz
+from scripts.pipelines.curobo_bootstrap.replay_visualization import ReplayFrameRecorder
+from scripts.pipelines.curobo_bootstrap.robot_adapter import pose_matrix
+from scripts.pipelines.curobo_bootstrap.route_experiment import require_height
+from scripts.pipelines.curobo_bootstrap.route_identity import require_report_identity, task_identity
+from scripts.pipelines.curobo_bootstrap.source_target import set_source_target_pose
+from scripts.pipelines.curobo_bootstrap.world_adapter import WorldSnapshot
+from scripts.sequence import planar_heading_from_quaternion, quaternion_rotation_error_vector
 
 
 def _array(value):
@@ -117,6 +134,20 @@ def main():
         task = targets["task_snapshot"]
         require_height(task, task["lift_clearance_m"])
         report["lift_clearance_m"] = task["lift_clearance_m"]
+        report["pick_lift_position_step_m"] = (
+            args.pick_lift_step_m if args.backend == "isaacsim" else TCP_POSITION_SCALE_M
+        )
+        report["pick_lift_speed_mode"] = args.pick_lift_speed_mode if args.backend == "isaacsim" else "step"
+        command_ratio = task["control_hz"] / args.pick_lift_command_hz
+        if args.backend == "isaacsim" and (command_ratio < 1 or not command_ratio.is_integer()):
+            raise ValueError("pick/lift command rate must divide the trajectory recording rate")
+        report["pick_lift_command_hz"] = args.pick_lift_command_hz if args.backend == "isaacsim" else task["control_hz"]
+        contact_speed = None
+        if args.backend == "isaacsim" and args.pick_lift_speed_mode == "curobo-median":
+            contact_speed = curobo_tcp_speed_reference(
+                args.pick_lift_speed_reference or args.first_probe.with_name("trajectory.npz")
+            )
+            report["pick_lift_tcp_speed_reference"] = contact_speed
         report["state4_routing"] = task.get("state4_routing")
         report.update(task_identity(task))
         require_report_identity(targets, task, label="targets")
@@ -160,9 +191,10 @@ def main():
             getattr(cfg.scene, name).spawn.activate_contact_sensors = True
         if args.capture_execution:
             cfg, camera_specs = configure_cameras(cfg, args.camera_width, args.camera_height)
+            cfg.camera_diagnostics_directory = args.output / "camera_warmup"
         env = TcpDockingTrajectoryEnv(cfg)
         env.reset()
-        if args.backend == "isaacsim" and env.camera_specs:
+        if args.backend == "isaacsim" and getattr(env, "camera_specs", None):
             camera_specs = env.camera_specs
         contact_reports = PhysicsContactReports()
         if args.capture_execution:
@@ -171,7 +203,7 @@ def main():
         report["source_target_pose_w"] = set_source_target_pose(env, task)
         actual_world, _ = extract_production_world(env, args.output / "world_assets")
         if args.backend == "isaacsim":
-            from DataPipe.native.world_identity import reconcile_world
+            from scripts.native.world_identity import reconcile_world
 
             actual_world, report["native_world_geometry"] = reconcile_world(actual_world, frozen_world["world"])
         if actual_world.world_hash != frozen_world["world_evidence"]["world_hash"]:
@@ -241,6 +273,8 @@ def main():
                 trajectory_index=len(records) - 1,
                 time_s=(len(records) - 1) / task["control_hz"],
                 event="NONE",
+                force=(len(records) == 1 or records[-2]["stage"] != record["stage"]
+                       or records[-2].get("contact_waypoint") != record["contact_waypoint"]),
             )
             if count:
                 for frame in recorder.frames[-count:]:
@@ -337,11 +371,45 @@ def main():
         if initial_error > 1e-3 or report["pre_pick_q_error_rad"] > 1e-5:
             raise RuntimeError("teleported pre-pick state does not match Legacy TCP target")
 
+        last_command_key = None
+        next_command_frame = 0
+        planned_pick_tcp = None
+
         def step_ik(target_b, stage, gripper_command, target_quaternion_b=None):
+            nonlocal last_command_key, next_command_frame, planned_pick_tcp
             contact_reports.begin_control_step()
             current_pose = ik.current_tcp_pose_b()
             current = _array(current_pose[0][0])
-            translation = np.clip((target_b - current) / TCP_POSITION_SCALE_M, -1.0, 1.0)
+            pick_lift = args.backend == "isaacsim" and stage in ("legacy_approach_pick", "legacy_lift")
+            command_hz = args.pick_lift_command_hz if pick_lift else task["control_hz"]
+            command_key = (stage, tuple(target_b),
+                           tuple(target_quaternion_b) if target_quaternion_b is not None else None)
+            update_command = command_key != last_command_key or len(records) >= next_command_frame
+            position_step_m = (
+                args.pick_lift_step_m
+                if pick_lift
+                else TCP_POSITION_SCALE_M
+            )
+            if pick_lift and task.get("tcp_geometry"):
+                speed = 0.03 if stage == "legacy_approach_pick" else (
+                    0.02 if current[2] < poses["pick"]["tcp_pose_b"][2] + 0.05 else 0.05
+                )
+                position_step_m = min(position_step_m, speed / command_hz)
+            translation = np.clip((target_b - current) / position_step_m, -1.0, 1.0)
+            if contact_speed is not None and stage in ("legacy_approach_pick", "legacy_lift"):
+                delta = tcp_step_toward(current, target_b, speed_m_s=contact_speed["median_m_s"],
+                                       control_hz=command_hz, step_limit_m=position_step_m)
+                translation = delta / position_step_m
+            action_position_scale_m = position_step_m
+            if pick_lift and task.get("tcp_geometry"):
+                if update_command:
+                    origin = planned_pick_tcp if command_key == last_command_key else current
+                    planned_pick_tcp = tracked_tcp_target(
+                        origin, current, target_b, speed_m_s=speed, control_hz=command_hz,
+                        step_limit_m=position_step_m,
+                    )
+                action_position_scale_m = max(TCP_POSITION_SCALE_M, position_step_m)
+                translation = np.clip((planned_pick_tcp - current) / action_position_scale_m, -1.0, 1.0)
             rotation = np.zeros(3)
             ik.flange_downward_enabled = target_quaternion_b is None
             if target_quaternion_b is not None:
@@ -354,17 +422,32 @@ def main():
             raw = torch.as_tensor(
                 [*translation, *rotation], dtype=robot.data.joint_pos.dtype, device=robot.data.joint_pos.device
             ).view(1, 6)
-            commanded = current + translation * TCP_POSITION_SCALE_M
-            ik.downward_yaw_offset_rad = flange_down_yaw_offset_for_tcp_heading(
-                commanded,
-                heading,
-                root_quaternion_wxyz=root_quaternion,
-                tcp_heading_axis_local=TCP_DIRECTION_AXIS_T,
-                initial_offset_rad=ik.downward_yaw_offset_rad,
-            )
-            ik.process_actions(raw, action_mask=torch.ones_like(raw), ik_modes=("full_pose_6d",))
+            if update_command:
+                commanded = current + translation * action_position_scale_m
+                if target_quaternion_b is None:
+                    ik.downward_yaw_offset_rad = flange_down_yaw_offset_for_tcp_heading(
+                        commanded, heading, root_quaternion_wxyz=root_quaternion,
+                        tcp_heading_axis_local=TCP_DIRECTION_AXIS_T, initial_offset_rad=ik.downward_yaw_offset_rad,
+                    )
+                scale_override = {"position_scale_m": action_position_scale_m} if args.backend == "isaacsim" else {}
+                if args.backend == "isaacsim":
+                    ik.policy_decimation = round(args.physics_hz / command_hz)
+                ik.process_actions(raw, action_mask=torch.ones_like(raw), ik_modes=("full_pose_6d",), **scale_override)
+                last_command_key = command_key
+                next_command_frame = len(records) + round(task["control_hz"] / command_hz)
+            else:
+                commanded = _array(ik.target_tcp_position_b[0])
             if bool(ik.ik_failed[0]):
-                raise RuntimeError(f"Legacy IK failed in {stage}")
+                diagnostics = ik.diagnostics
+                report["ik_failure"] = dict(
+                    stage=stage, reason=diagnostics.ik_reason[0],
+                    iterations=int(diagnostics.ik_iterations[0]),
+                    position_error_m=float(diagnostics.ik_position_error_m[0]),
+                    orientation_error_rad=float(diagnostics.ik_orientation_error_rad[0]),
+                    requested_tcp_position_b=target_b.tolist(), commanded_tcp_position_b=commanded.tolist(),
+                    actual_joint_position=_array(robot.data.joint_pos[0, arm_ids]).tolist(),
+                )
+                raise RuntimeError(f"Legacy IK failed in {stage}: {diagnostics.ik_reason[0]}")
             for _ in range(cfg.decimation):
                 ik.apply_actions()
                 gripper.apply(gripper_command)
@@ -379,6 +462,12 @@ def main():
                 "dq": _array(robot.data.joint_vel[0, arm_ids]).tolist(),
                 "tcp_position_b": tcp.tolist(),
                 "requested_tcp_position_b": target_b.tolist(),
+                "current_tcp_position_b": current.tolist(),
+                "ik_command_updated": update_command,
+                "ik_command_hz": command_hz,
+                "tcp_position_step_limit_m": position_step_m,
+                "commanded_tcp_position_b": commanded.tolist(),
+                "ik_target_tcp_position_b": _array(ik.target_tcp_position_b[0]).tolist(),
                 "tcp_quaternion_b": _array(ik.current_tcp_pose_b()[1][0]).tolist(),
                 "gripper_position": list(gripper.state()[0]),
                 "target_position_w": _array(target.data.root_pos_w[0]).tolist(),
@@ -392,10 +481,17 @@ def main():
             capture_sample()
             return tcp
 
-        def approach(label, target_b, command, tolerance_m=0.01, dwell_steps=3, target_quaternion_b=None):
+        def approach(
+            label, target_b, command, tolerance_m=0.01, dwell_steps=3,
+            target_quaternion_b=None, orientation_tolerance_rad=np.deg2rad(1.0),
+        ):
             initial_count = len(records)
             dwell = 0
-            for _ in range(args.max_steps_per_stage):
+            stage_budget = args.max_steps_per_stage
+            if args.backend == "isaacsim" and label in ("legacy_approach_pick", "legacy_lift"):
+                stage_budget *= round(task["control_hz"] / args.pick_lift_command_hz)
+                stage_budget = max(stage_budget, 1200)
+            for _ in range(stage_budget):
                 tcp = step_ik(target_b, label, command, target_quaternion_b)
                 error = float(np.linalg.norm(tcp - target_b))
                 rotation_error = (
@@ -416,12 +512,13 @@ def main():
                             )
                         )
                     )
-                    if target_quaternion_b is not None
+                    if target_quaternion_b is not None and label == "legacy_place_approach"
+                    and report.get("placement_calibration", {}).get("schema") == "state4_measured_grasp_placement/1"
                     else 0.0
                 )
                 dwell = (
                     dwell + 1
-                    if error <= tolerance_m and max(rotation_error, object_rotation_error) <= np.deg2rad(1.0)
+                    if error <= tolerance_m and max(rotation_error, object_rotation_error) <= orientation_tolerance_rad
                     else 0
                 )
                 if dwell >= dwell_steps:
@@ -430,10 +527,24 @@ def main():
                         result["final_tcp_orientation_error_rad"] = rotation_error
                         result["final_object_orientation_error_rad"] = object_rotation_error
                     return result
-            raise RuntimeError(f"{label} did not reach TCP tolerance within {args.max_steps_per_stage} steps")
+            raise RuntimeError(f"{label} did not reach TCP tolerance within {stage_budget} recorded steps")
 
         pick = np.asarray(poses["pick"]["tcp_pose_b"][:3], dtype=np.float64)
         lift = np.asarray(poses["lift"]["tcp_pose_b"][:3], dtype=np.float64)
+        # The raised/lateral source2 descent can meet its position gate while
+        # wrist orientation is still outside the artifact's FK tolerance.
+        # Use a 2-degree dwell gate for the source2 grasp, below the final
+        # artifact's 0.05-radian limit; retain full-pose control during closure.
+        pick_quaternion = poses["pick"]["tcp_pose_b"][3:] if (
+            task.get("source2_routing") or task.get("tcp_geometry")
+        ) else None
+        pick_orientation_tolerance_rad = float(np.deg2rad(2.0))
+        if pick_quaternion is not None:
+            report["source2_pick_full_pose"] = {
+                "target_tcp_quaternion_b": pick_quaternion,
+                "orientation_tolerance_rad": pick_orientation_tolerance_rad,
+                "dwell_steps": 3,
+            }
         contact_points = task.get("contact_waypoint_position_b", {})
         if "pick_entry" in contact_points:
             report["contact_waypoint"] = "state2_pick_entry_xy"
@@ -443,13 +554,18 @@ def main():
                 1.0,
             )
             report["contact_waypoint"] = "state2_pick_settle_z"
-        report["approach"] = approach("legacy_approach_pick", pick, 1.0)
+        report["approach"] = approach(
+            "legacy_approach_pick", pick, 1.0, target_quaternion_b=pick_quaternion,
+            orientation_tolerance_rad=(
+                pick_orientation_tolerance_rad if pick_quaternion is not None else np.deg2rad(1.0)
+            ),
+        )
         report["contact_waypoint"] = None
         report["stage"] = "close_gripper"
         close_dwell = 0
         close_steps = 0
         for _ in range(args.max_steps_per_stage):
-            step_ik(pick, "close_gripper", -1.0)
+            step_ik(pick, "close_gripper", -1.0, target_quaternion_b=pick_quaternion)
             close_steps += 1
             close_error = max(
                 abs(actual - desired)
@@ -477,9 +593,10 @@ def main():
                 np.asarray(contact_points["pick_low_lift"]),
                 -1.0,
                 tolerance_m=0.01,
+                target_quaternion_b=pick_quaternion,
             )
             report["contact_waypoint"] = "pick_exit_xy"
-        report["lift"] = approach("legacy_lift", lift, -1.0)
+        report["lift"] = approach("legacy_lift", lift, -1.0, target_quaternion_b=pick_quaternion)
         report["contact_waypoint"] = None
         report["lift_q"] = _array(robot.data.joint_pos[0, arm_ids]).tolist()
         lift_tcp_position, lift_tcp_quaternion, _ = ik.current_tcp_pose_b()
@@ -495,6 +612,9 @@ def main():
             np.linalg.norm(
                 np.asarray(report["target_pose_w_after_lift"][:3]) - np.asarray(report["target_pose_w_at_reset"][:3])
             )
+        )
+        report["target_lift_z_m"] = float(
+            report["target_pose_w_after_lift"][2] - report["target_pose_w_at_reset"][2]
         )
         report["stage"] = "tray_contact_gate"
         target_mesh = next(mesh for mesh in actual_world.config.meshes if mesh.name == actual_world.config.target_name)
@@ -561,7 +681,7 @@ def main():
             names = sorted({name for item in tray_diagnostic.values() for name in item["colliding_trays"]})
             raise RuntimeError(f"measured pick/lift collided with support trays: {names}")
         if args.stop_after_lift:
-            if report["target_lift_distance_m"] < 0.1:
+            if report["target_lift_z_m"] < 0.1:
                 raise RuntimeError("target was not observed moving with the gripper")
             report["record_count"] = len(records)
             report["scope"] = "measured Isaac pick/lift for attached-object CuRobo transfer-goal search"
@@ -706,8 +826,15 @@ def main():
         report["record_count"] = len(records)
         if contact_reports is not None:
             report["physics_contact_reporting"] = contact_reports.finish()
-        trace_path = args.output / "trace.json"
+        trajectory_output = (args.trajectory_output or args.output).resolve()
+        trajectory_output.mkdir(parents=True, exist_ok=True)
+        trace_path = trajectory_output / "trace.json"
         trace_path.write_text(json.dumps(records, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        report["trace_path"] = str(trace_path)
+        if "task" in locals():
+            (trajectory_output / "scene_snapshot.json").write_text(
+                json.dumps(task, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+            )
         if recorder is not None:
             try:
                 report["visualization"] = recorder.finish(source_frames=len(records), render_calls=len(records))

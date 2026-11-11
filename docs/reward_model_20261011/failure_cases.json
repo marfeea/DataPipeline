@@ -1,0 +1,117 @@
+{
+  "selection_date": "2026-10-11",
+  "model_version": "pick-place-candidate/1",
+  "cases": [
+    {
+      "case_id": "source2_2_to_0_velocity",
+      "route": "2_to_0",
+      "candidate": "integrated_01_01",
+      "failure_kind": "velocity_gate",
+      "failure_reason": "ValueError: V2 joint velocity limit failure",
+      "trace": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_01/trace.json",
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_01/report.json",
+      "targets": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/targets.json",
+      "diagnostic": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/measured_dynamics.json",
+      "analysis_document": "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md",
+      "input_sha256": {
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_01/trace.json": "eb1b2c0b73550003515761d3e935d4c0103be7aea3a6972b6f1366d8dc0ca888",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_01/report.json": "9a6b0d0a687b8a52542f8eb578a64086452831853b420587296be2008ca20e91",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/targets.json": "b556e1444b554a32a836c212ef2f49083d9dff328200687126148d30d16f02f3",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/measured_dynamics.json": "f693175ecc7935c920cc3b22ed9b8153f1fc6ed21083ac60b8c3009dd41b6a0d",
+        "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md": "f49037d519d8c7e0b5df87c0a0416ba9d321d05a75003d0fc2504a5f2ecbb757"
+      }
+    },
+    {
+      "case_id": "source2_2_to_0_acceleration",
+      "route": "2_to_0",
+      "candidate": "integrated_01_02",
+      "failure_kind": "acceleration_gate",
+      "failure_reason": "ValueError: V2 Legacy measured acceleration envelope failure",
+      "trace": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_02/trace.json",
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_02/report.json",
+      "targets": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/targets.json",
+      "diagnostic": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/measured_dynamics.json",
+      "analysis_document": "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md",
+      "input_sha256": {
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_02/trace.json": "2080927f393262e56886c0e9dd786abfc3f2c1026899eed767450ee9e8ee511e",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/integrated_01_02/report.json": "09f84a60426aac96aea3912ea74658a0ef0058630523b47d34cd1deaec3bc13a",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/targets.json": "b556e1444b554a32a836c212ef2f49083d9dff328200687126148d30d16f02f3",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/measured_dynamics.json": "f693175ecc7935c920cc3b22ed9b8153f1fc6ed21083ac60b8c3009dd41b6a0d",
+        "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md": "f49037d519d8c7e0b5df87c0a0416ba9d321d05a75003d0fc2504a5f2ecbb757"
+      }
+    },
+    {
+      "case_id": "source2_2_to_3_acceleration",
+      "route": "2_to_3",
+      "candidate": "integrated_01_01",
+      "failure_kind": "acceleration_gate",
+      "failure_reason": "ValueError: V2 Legacy measured acceleration envelope failure",
+      "trace": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_3_evidence/integrated_01_01/trace.json",
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_3_evidence/integrated_01_01/report.json",
+      "targets": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_3_evidence/targets.json",
+      "diagnostic": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/measured_dynamics.json",
+      "analysis_document": "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md",
+      "input_sha256": {
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_3_evidence/integrated_01_01/trace.json": "863d10acb6254434cabc944676ddf5b5e952c4ec8e1de01a8881ca810b5991f4",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_3_evidence/integrated_01_01/report.json": "cea61f32852d7194ed19ff81cd2133c29bd3651ff32b71310d992475e722fc67",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_3_evidence/targets.json": "4fc479f477ef5a1ed14c8731524601b19d60fc2814c637c1b77be10f0e20a204",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/measured_dynamics.json": "f693175ecc7935c920cc3b22ed9b8153f1fc6ed21083ac60b8c3009dd41b6a0d",
+        "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md": "f49037d519d8c7e0b5df87c0a0416ba9d321d05a75003d0fc2504a5f2ecbb757"
+      }
+    },
+    {
+      "case_id": "source2_2_to_1_endpoint",
+      "route": "2_to_1",
+      "candidate": "integrated_01_01",
+      "failure_kind": "world_endpoint_gate",
+      "failure_reason": "ValueError: invalid fixed planning endpoints: {'within_position_limits': True, 'world_collision_free': False, 'self_collision_free': True, 'max_world_collision_score': 0.08451597392559052, 'max_self_collision_score': 0.0}",
+      "trace": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/integrated_01_01/trace.json",
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/integrated_01_01/report.json",
+      "targets": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/targets.json",
+      "diagnostic": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/integrated_01_01/report.json",
+      "analysis_document": "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md",
+      "input_sha256": {
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/integrated_01_01/trace.json": "c13a0f91eb96b68ea5862f4a6be28b27d4d072856951b79e8c3902e0175ef879",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/integrated_01_01/report.json": "b6c2a9b7c321e8727fb3c5c087e2b999bc99c62fe099c56e8262033c21b404e1",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_1_evidence/targets.json": "169721c9efe807cb587a55a17127f5fef796d2432e5197e76bc7bcdbc03b28ec",
+        "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md": "f49037d519d8c7e0b5df87c0a0416ba9d321d05a75003d0fc2504a5f2ecbb757"
+      }
+    },
+    {
+      "case_id": "source2_2_to_0_lift_ik",
+      "route": "2_to_0",
+      "candidate": "contact_probe_02",
+      "failure_kind": "ik_failure",
+      "failure_reason": "RuntimeError: Legacy IK failed in legacy_lift",
+      "trace": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/contact_probe_02/trace.json",
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/contact_probe_02/report.json",
+      "targets": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/targets.json",
+      "diagnostic": "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/contact_probe_02/report.json",
+      "analysis_document": "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md",
+      "input_sha256": {
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/contact_probe_02/trace.json": "21cdf2c37deda311d6f68cd49614e14d9678ce0a2ba449e06a0651e19d70b9c0",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/contact_probe_02/report.json": "955f29cc2644a7f9cdf8bcb7ffd11c8fd75a96b7d15a1e768d1be825a4e3cff5",
+        "data/curobo_pick_place_graph_run003_fix_20261004/source2_side060_lift040_retest_20261008_202923_native/2_to_0_evidence/targets.json": "b556e1444b554a32a836c212ef2f49083d9dff328200687126148d30d16f02f3",
+        "docs/run003_failure_analysis_20261004/state2侧偏抬高三路复测_20261008.md": "f49037d519d8c7e0b5df87c0a0416ba9d321d05a75003d0fc2504a5f2ecbb757"
+      }
+    },
+    {
+      "case_id": "state4_0_to_4_insert_timeout",
+      "route": "0_to_4",
+      "candidate": "integrated_01_01",
+      "failure_kind": "timeout",
+      "failure_reason": "RuntimeError: legacy_place_approach did not reach TCP tolerance within 600 steps",
+      "trace": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/trace.json",
+      "report": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/report.json",
+      "targets": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/targets.json",
+      "diagnostic": "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/report.json",
+      "analysis_document": "docs/run003_failure_analysis_20261004/状态4遮挡避让修复结果.md",
+      "input_sha256": {
+        "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/trace.json": "d57e038b2ab847794da4f1249595147386936062e0a3ea4adee5a9b70f33e341",
+        "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/integrated_01_01/report.json": "d02a5d7d594a393f85a265893a88164aebe616cf210eff9498daaf025863853e",
+        "data/curobo_pick_place_graph_run003_fix_20261004/state4_routing/place240/0_to_4_evidence/targets.json": "47f0e970cb6c7856b7fbc9b8b87f3b3730f0e0f1f750c6ad71aa9fe208d470fe",
+        "docs/run003_failure_analysis_20261004/状态4遮挡避让修复结果.md": "fc326a6a3e02d9b3e027d6d969a518c62d4a26c4bea7f50c2515eeaae6f777b9"
+      }
+    }
+  ]
+}

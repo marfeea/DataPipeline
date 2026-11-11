@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-11",
+  "source_batch": "data/five_state_bidirectional_gui_20261009",
+  "reward_model_version": "pick-place-candidate/1",
+  "regression_tests": 148,
+  "new_behavior_tests": 18,
+  "ruff": "passed",
+  "initial_pytest_temp_issue": "resolved with workspace basetemp; no source changes",
+  "routes": [
+    {
+      "route": "0_to_2",
+      "transitions": 720,
+      "input_files_unchanged": true,
+      "exact_repeat": true,
+      "all_training_masks_false": true,
+      "terms_and_return_match": true
+    },
+    {
+      "route": "4_to_1",
+      "transitions": 489,
+      "input_files_unchanged": true,
+      "exact_repeat": true,
+      "all_training_masks_false": true,
+      "terms_and_return_match": true
+    }
+  ],
+  "integration_status": "offline only; collector integration awaits user approval",
+  "legacy_v4_contract": "writer forces reward_valid=false; reader/validator require reward_status=not_defined; a new explicit reward-aware branch/version is required after approval",
+  "collector_import_audit": "Only standalone evaluate_pick_place_rewards.py imports pick_place_reward_candidate; no collector imports it"
+}
